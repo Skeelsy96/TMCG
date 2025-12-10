@@ -70,9 +70,14 @@ export default function VanCard({ van }) {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {van.van_type && (
-            <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium capitalize">
-              {van.van_type}
+          {van.Vehicle_type && (
+            <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+              {van.Vehicle_type}
+            </span>
+          )}
+          {van.Vehicle_Make && van.Vehicle_Model && (
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+              {van.Vehicle_Make} {van.Vehicle_Model}
             </span>
           )}
           {van.condition && (
@@ -84,10 +89,9 @@ export default function VanCard({ van }) {
               {van.condition}
             </span>
           )}
-          {van.coffee_machine && (
-            <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-              <Coffee className="w-3 h-3" />
-              {van.coffee_machine}
+          {van.Kms && (
+            <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
+              {van.Kms.toLocaleString()} km
             </span>
           )}
         </div>

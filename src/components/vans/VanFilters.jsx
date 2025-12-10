@@ -17,13 +17,10 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Slider } from '@/components/ui/slider';
-
-const states = ['NSW', 'VIC', 'QLD', 'SA', 'WA', 'TAS', 'NT', 'ACT'];
-const vanTypes = ['trailer', 'van', 'truck', 'cart', 'pod'];
-const conditions = ['excellent', 'good', 'fair'];
+import { STATES, CONDITIONS, VEHICLE_TYPES } from './vehicleData';
 
 export default function VanFilters({ filters, onFilterChange, onClearFilters }) {
-  const hasFilters = filters.state || filters.van_type || filters.condition || 
+  const hasFilters = filters.state || filters.Vehicle_type || filters.condition || 
     filters.minPrice || filters.maxPrice || filters.search;
 
   const FilterContent = () => (
@@ -54,27 +51,27 @@ export default function VanFilters({ filters, onFilterChange, onClearFilters }) 
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All States</SelectItem>
-            {states.map((state) => (
+            {STATES.map((state) => (
               <SelectItem key={state} value={state}>{state}</SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* Van Type */}
+      {/* Vehicle Type */}
       <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">Van Type</label>
+        <label className="text-sm font-medium text-gray-700 mb-2 block">Vehicle Type</label>
         <Select
-          value={filters.van_type || 'all'}
-          onValueChange={(value) => onFilterChange({ van_type: value === 'all' ? '' : value })}
+          value={filters.Vehicle_type || 'all'}
+          onValueChange={(value) => onFilterChange({ Vehicle_type: value === 'all' ? '' : value })}
         >
           <SelectTrigger>
             <SelectValue placeholder="All Types" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
-            {vanTypes.map((type) => (
-              <SelectItem key={type} value={type} className="capitalize">{type}</SelectItem>
+            {Object.keys(VEHICLE_TYPES).map((type) => (
+              <SelectItem key={type} value={type}>{type}</SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -92,7 +89,7 @@ export default function VanFilters({ filters, onFilterChange, onClearFilters }) 
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Any Condition</SelectItem>
-            {conditions.map((cond) => (
+            {CONDITIONS.map((cond) => (
               <SelectItem key={cond} value={cond} className="capitalize">{cond}</SelectItem>
             ))}
           </SelectContent>

@@ -19,11 +19,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const states = ['NSW', 'VIC', 'QLD', 'SA', 'WA', 'TAS', 'NT', 'ACT'];
-const vanTypes = ['trailer', 'van', 'truck', 'cart', 'pod'];
-const conditions = ['excellent', 'good', 'fair'];
-const powerSources = ['generator', 'battery', 'mains', 'hybrid'];
+import { 
+  STATES, 
+  CONDITIONS, 
+  POWER_SOURCES, 
+  VEHICLE_TYPES,
+  getMakesForVehicleType,
+  getModelsForMake
+} from '../components/vans/vehicleData';
 
 const steps = [
   { id: 1, title: 'Basic Info', icon: FileText },
@@ -39,8 +42,12 @@ export default function ListVan() {
     price: '',
     location: '',
     state: '',
+    Vehicle_type: '',
+    Vehicle_subtype: '',
+    Vehicle_Make: '',
+    Vehicle_Model: '',
     year_built: '',
-    van_type: '',
+    Kms: '',
     condition: '',
     description: '',
     features: [],
@@ -66,8 +73,33 @@ export default function ListVan() {
   });
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+      
+      // Reset dependent fields when Vehicle_type changes
+      if (field === 'Vehicle_type') {
+        newData.Vehicle_subtype = '';
+        newData.Vehicle_Make = '';
+        newData.Vehicle_Model = '';
+      }
+      
+      // Reset model when make changes
+      if (field === 'Vehicle_Make') {
+        newData.Vehicle_Model = '';
+      }
+      
+      return newData;
+    });
   };
+
+  // Get available makes based on vehicle type
+  const availableMakes = getMakesForVehicleType(formData.Vehicle_type);
+  
+  // Get available models based on make and vehicle type
+  const availableModels = getModelsForMake(formData.Vehicle_Make, formData.Vehicle_type);
+  
+  // Get subtypes for selected vehicle type
+  const availableSubtypes = VEHICLE_TYPES[formData.Vehicle_type] || [];
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -124,6 +156,7 @@ export default function ListVan() {
       ...formData,
       price: Number(formData.price),
       year_built: formData.year_built ? Number(formData.year_built) : null,
+      Kms: formData.Kms ? Number(formData.Kms) : null,
       water_capacity: formData.water_capacity ? Number(formData.water_capacity) : null,
     };
     createMutation.mutate(data);
@@ -275,8 +308,82 @@ export default function ListVan() {
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
                       <SelectContent>
-                        {states.map((state) => (
+                        {STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Vehicle Type *</Label>
+                  <Select
+                    value={formData.Vehicle_type}
+                    onValueChange={(value) => handleChange('Vehicle_type', value)}
+                  >
+                    <SelectTrigger className="mt-2">
+                      <SelectValue placeholder="Select vehicle type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(VEHICLE_TYPES).map((type) => (
+                        <SelectItem key={type} value={type}>{type}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {availableSubtypes.length > 0 && (
+                  <div>
+                    <Label>Vehicle Subtype</Label>
+                    <Select
+                      value={formData.Vehicle_subtype}
+                      onValueChange={(value) => handleChange('Vehicle_subtype', value)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select subtype (optional)" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableSubtypes.map((subtype) => (
+                          <SelectItem key={subtype} value={subtype}>{subtype}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <Label>Vehicle Make</Label>
+                    <Select
+                      value={formData.Vehicle_Make}
+                      onValueChange={(value) => handleChange('Vehicle_Make', value)}
+                      disabled={!formData.Vehicle_type}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder={formData.Vehicle_type ? "Select make" : "Select type first"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableMakes.map((make) => (
+                          <SelectItem key={make} value={make}>{make}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label>Vehicle Model</Label>
+                    <Select
+                      value={formData.Vehicle_Model}
+                      onValueChange={(value) => handleChange('Vehicle_Model', value)}
+                      disabled={!formData.Vehicle_Make}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder={formData.Vehicle_Make ? "Select model" : "Select make first"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableModels.map((model) => (
+                          <SelectItem key={model} value={model}>{model}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -285,20 +392,15 @@ export default function ListVan() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <Label>Van Type</Label>
-                    <Select
-                      value={formData.van_type}
-                      onValueChange={(value) => handleChange('van_type', value)}
-                    >
-                      <SelectTrigger className="mt-2">
-                        <SelectValue placeholder="Select type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {vanTypes.map((type) => (
-                          <SelectItem key={type} value={type} className="capitalize">{type}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Label htmlFor="Kms">Odometer (Kms)</Label>
+                    <Input
+                      id="Kms"
+                      type="number"
+                      placeholder="e.g., 120000"
+                      value={formData.Kms}
+                      onChange={(e) => handleChange('Kms', e.target.value)}
+                      className="mt-2"
+                    />
                   </div>
 
                   <div>
@@ -311,7 +413,7 @@ export default function ListVan() {
                         <SelectValue placeholder="Select condition" />
                       </SelectTrigger>
                       <SelectContent>
-                        {conditions.map((cond) => (
+                        {CONDITIONS.map((cond) => (
                           <SelectItem key={cond} value={cond} className="capitalize">{cond}</SelectItem>
                         ))}
                       </SelectContent>
@@ -378,8 +480,8 @@ export default function ListVan() {
                         <SelectValue placeholder="Select power source" />
                       </SelectTrigger>
                       <SelectContent>
-                        {powerSources.map((source) => (
-                          <SelectItem key={source} value={source} className="capitalize">{source}</SelectItem>
+                        {POWER_SOURCES.map((source) => (
+                          <SelectItem key={source} value={source}>{source}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

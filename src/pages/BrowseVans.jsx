@@ -20,7 +20,7 @@ export default function BrowseVans() {
   const [filters, setFilters] = useState({
     search: urlParams.get('search') || '',
     state: urlParams.get('state') || '',
-    van_type: '',
+    Vehicle_type: '',
     condition: '',
     minPrice: '',
     maxPrice: '',
@@ -51,9 +51,9 @@ export default function BrowseVans() {
       result = result.filter(van => van.state === filters.state);
     }
 
-    // Van type filter
-    if (filters.van_type) {
-      result = result.filter(van => van.van_type === filters.van_type);
+    // Vehicle type filter
+    if (filters.Vehicle_type) {
+      result = result.filter(van => van.Vehicle_type === filters.Vehicle_type);
     }
 
     // Condition filter
@@ -93,7 +93,7 @@ export default function BrowseVans() {
     setFilters({
       search: '',
       state: '',
-      van_type: '',
+      Vehicle_type: '',
       condition: '',
       minPrice: '',
       maxPrice: '',
