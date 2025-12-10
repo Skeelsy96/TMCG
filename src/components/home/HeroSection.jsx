@@ -15,18 +15,18 @@ export default function HeroSection() {
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F7B500' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FDD202' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] via-[#1A1A1A]/95 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-transparent" />
 
       {/* Coffee Van Image */}
       <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent z-10" />
         <img
-          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&auto=format&fit=crop"
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/595190562_Embracing.png"
           alt="Coffee Van"
           className="w-full h-full object-cover"
         />
@@ -44,16 +44,16 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-[#F7B500]/10 border border-[#F7B500]/30 rounded-full px-4 py-2 mb-8"
+            className="inline-flex items-center gap-2 bg-[#FDD202]/10 border border-[#FDD202]/30 rounded-full px-4 py-2 mb-8"
           >
-            <Coffee className="w-4 h-4 text-[#F7B500]" />
-            <span className="text-[#F7B500] text-sm font-medium">Australia's #1 Coffee Van Marketplace</span>
+            <Coffee className="w-4 h-4 text-[#FDD202]" />
+            <span className="text-[#FDD202] text-sm font-medium">Australia's #1 Coffee Van Marketplace</span>
           </motion.div>
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
             Find Your Perfect{' '}
-            <span className="text-[#F7B500]">Mobile Coffee</span>{' '}
+            <span className="text-[#FDD202]">Mobile Coffee</span>{' '}
             Business
           </h1>
 
@@ -77,7 +77,7 @@ export default function HeroSection() {
                   placeholder="Search coffee vans..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#F7B500]/50"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FDD202]/50 bg-white border border-[#DBDBDB]"
                 />
               </div>
               <div className="relative sm:w-48">
@@ -85,7 +85,7 @@ export default function HeroSection() {
                 <select
                   value={selectedState}
                   onChange={(e) => setSelectedState(e.target.value)}
-                  className="w-full appearance-none pl-12 pr-10 py-4 rounded-xl bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#F7B500]/50 cursor-pointer"
+                  className="w-full appearance-none pl-12 pr-10 py-4 rounded-xl bg-[#DBDBDB] text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FDD202]/50 cursor-pointer border border-[#969696]"
                 >
                   <option value="">All States</option>
                   {states.map((state) => (
@@ -96,7 +96,7 @@ export default function HeroSection() {
               </div>
               <Link
                 to={createPageUrl('BrowseVans') + `?search=${searchQuery}&state=${selectedState}`}
-                className="bg-[#F7B500] text-[#1A1A1A] px-8 py-4 rounded-xl font-semibold hover:bg-[#e5a800] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="bg-[#FDD202] text-black px-8 py-4 rounded-xl font-semibold hover:bg-[#f5c400] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 <Search className="w-5 h-5" />
                 Search
@@ -112,16 +112,16 @@ export default function HeroSection() {
             className="flex flex-wrap gap-8 mt-12"
           >
             <div>
-              <div className="text-3xl font-bold text-[#F7B500]">900+</div>
-              <div className="text-gray-500 text-sm">Vans Built</div>
+              <div className="text-3xl font-bold text-[#FDD202]">900+</div>
+              <div className="text-[#969696] text-sm">Vans Built</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#F7B500]">19+</div>
-              <div className="text-gray-500 text-sm">Years Experience</div>
+              <div className="text-3xl font-bold text-[#FDD202]">19+</div>
+              <div className="text-[#969696] text-sm">Years Experience</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#F7B500]">Australia</div>
-              <div className="text-gray-500 text-sm">Wide Coverage</div>
+              <div className="text-3xl font-bold text-[#FDD202]">Australia</div>
+              <div className="text-[#969696] text-sm">Wide Coverage</div>
             </div>
           </motion.div>
         </motion.div>

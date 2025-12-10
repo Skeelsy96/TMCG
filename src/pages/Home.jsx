@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import HeroSection from '../components/home/HeroSection';
 import FeaturedVans from '../components/home/FeaturedVans';
+import TrustSection from '../components/home/TrustSection';
 import WhyChooseUs from '../components/home/WhyChooseUs';
 import CTASection from '../components/home/CTASection';
 
@@ -16,6 +17,7 @@ export default function Home() {
     <div>
       <HeroSection />
       <FeaturedVans vans={vans} isLoading={isLoading} />
+      <TrustSection />
       <WhyChooseUs />
       <CTASection />
     </div>

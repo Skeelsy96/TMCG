@@ -45,8 +45,8 @@ export default function FeaturedVans({ vans = [], isLoading }) {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-4">
-              Featured <span className="text-[#F7B500]">Coffee Vans</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Featured <span className="text-[#FDD202]">Coffee Vans</span>
             </h2>
             <p className="text-gray-600 max-w-xl">
               Hand-picked quality vans ready to help you start your mobile coffee business
@@ -54,7 +54,7 @@ export default function FeaturedVans({ vans = [], isLoading }) {
           </div>
           <Link
             to={createPageUrl('BrowseVans')}
-            className="inline-flex items-center gap-2 text-[#1A1A1A] font-semibold mt-4 md:mt-0 hover:text-[#F7B500] transition-colors group"
+            className="inline-flex items-center gap-2 text-black font-semibold mt-4 md:mt-0 hover:text-[#FDD202] transition-colors group"
           >
             View All Listings
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -87,7 +87,7 @@ export default function FeaturedVans({ vans = [], isLoading }) {
                     
                     {/* Featured Badge */}
                     {van.featured && (
-                      <div className="absolute top-4 left-4 bg-[#F7B500] text-[#1A1A1A] px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                      <div className="absolute top-4 left-4 bg-[#FDD202] text-black px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
                         <Star className="w-4 h-4" />
                         Featured
                       </div>
@@ -95,8 +95,8 @@ export default function FeaturedVans({ vans = [], isLoading }) {
 
                     {/* Price Tag */}
                     <div className="absolute bottom-4 left-4">
-                      <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg">
-                        <span className="text-2xl font-bold text-[#1A1A1A]">
+                      <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#969696]">
+                        <span className="text-2xl font-bold text-black">
                           ${van.price?.toLocaleString()}
                         </span>
                       </div>
@@ -111,7 +111,7 @@ export default function FeaturedVans({ vans = [], isLoading }) {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-[#1A1A1A] mb-3 group-hover:text-[#F7B500] transition-colors">
+                    <h3 className="text-xl font-semibold text-black mb-3 group-hover:text-[#FDD202] transition-colors">
                       {van.title}
                     </h3>
                     
@@ -155,7 +155,7 @@ export default function FeaturedVans({ vans = [], isLoading }) {
             <p className="text-gray-500 mb-6">Be the first to list your coffee van for sale</p>
             <Link
               to={createPageUrl('ListVan')}
-              className="inline-flex items-center gap-2 bg-[#F7B500] text-[#1A1A1A] px-6 py-3 rounded-full font-semibold hover:bg-[#e5a800] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-colors"
             >
               List Your Van
             </Link>
