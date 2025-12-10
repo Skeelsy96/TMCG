@@ -244,7 +244,7 @@ export default function ListVan() {
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-[#1A1A1A] mb-6">Basic Information</h2>
+                <h2 className="text-xl font-semibold text-black mb-6">Basic Information</h2>
                 
                 <div>
                   <Label htmlFor="title">Listing Title *</Label>
@@ -432,7 +432,7 @@ export default function ListVan() {
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-[#1A1A1A] mb-6">Van Details</h2>
+                <h2 className="text-xl font-semibold text-black mb-6">Van Details</h2>
 
                 <div>
                   <Label htmlFor="description">Description *</Label>
@@ -546,10 +546,10 @@ export default function ListVan() {
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-[#1A1A1A] mb-6">Photos</h2>
+                <h2 className="text-xl font-semibold text-black mb-6">Photos</h2>
 
                 {/* Upload Area */}
-                <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:border-[#F7B500] transition-colors">
+                <div className="border-2 border-dashed border-[#969696] rounded-2xl p-8 text-center hover:border-[#FDD202] transition-colors">
                   <input
                     type="file"
                     accept="image/*"
@@ -561,9 +561,9 @@ export default function ListVan() {
                   />
                   <label htmlFor="image-upload" className="cursor-pointer">
                     {isUploading ? (
-                      <Loader2 className="w-12 h-12 text-[#F7B500] mx-auto mb-4 animate-spin" />
+                      <Loader2 className="w-12 h-12 text-[#FDD202] mx-auto mb-4 animate-spin" />
                     ) : (
-                      <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <Upload className="w-12 h-12 text-[#969696] mx-auto mb-4" />
                     )}
                     <p className="text-gray-600 mb-2">
                       {isUploading ? 'Uploading...' : 'Click to upload images'}
@@ -590,7 +590,7 @@ export default function ListVan() {
                             onClick={() => setMainImage(url)}
                             className={`p-2 rounded-full ${
                               formData.main_image === url
-                                ? 'bg-[#F7B500] text-[#1A1A1A]'
+                                ? 'bg-[#FDD202] text-black'
                                 : 'bg-white/20 text-white hover:bg-white/30'
                             }`}
                             title="Set as main image"
@@ -607,7 +607,7 @@ export default function ListVan() {
                           </button>
                         </div>
                         {formData.main_image === url && (
-                          <div className="absolute top-2 left-2 bg-[#F7B500] text-[#1A1A1A] px-2 py-1 rounded text-xs font-semibold">
+                          <div className="absolute top-2 left-2 bg-[#FDD202] text-black px-2 py-1 rounded text-xs font-semibold">
                             Main
                           </div>
                         )}
@@ -627,7 +627,7 @@ export default function ListVan() {
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-[#1A1A1A] mb-6">Contact Information</h2>
+                <h2 className="text-xl font-semibold text-black mb-6">Contact Information</h2>
 
                 <div>
                   <Label htmlFor="seller_name">Your Name *</Label>
@@ -689,7 +689,7 @@ export default function ListVan() {
               <Button
                 onClick={() => setCurrentStep(prev => prev + 1)}
                 disabled={!canProceed()}
-                className="bg-[#F7B500] text-[#1A1A1A] hover:bg-[#e5a800]"
+                className="bg-[#FDD202] text-black hover:bg-[#f5c400]"
               >
                 Next
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -698,7 +698,7 @@ export default function ListVan() {
               <Button
                 onClick={handleSubmit}
                 disabled={!canProceed() || createMutation.isPending}
-                className="bg-[#F7B500] text-[#1A1A1A] hover:bg-[#e5a800]"
+                className="bg-[#FDD202] text-black hover:bg-[#f5c400]"
               >
                 {createMutation.isPending ? (
                   <>

@@ -10,7 +10,7 @@ export default function Layout({ children, currentPageName }) {
   const navigation = [
     { name: 'Home', page: 'Home' },
     { name: 'Browse Vans', page: 'BrowseVans' },
-    { name: 'Sell Your Van', page: 'ListVan' },
+    { name: 'My Listings', page: 'MyListings' },
     { name: 'About', page: 'About' },
     { name: 'Contact', page: 'Contact' },
   ];
