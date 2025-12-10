@@ -21,7 +21,7 @@ import { STATES, CONDITIONS, VEHICLE_TYPES } from './vehicleData';
 
 export default function VanFilters({ filters, onFilterChange, onClearFilters }) {
   const hasFilters = filters.state || filters.Vehicle_type || filters.condition || 
-    filters.minPrice || filters.maxPrice || filters.search;
+    filters.minPrice || filters.maxPrice || filters.search || filters.built_by_tmcg;
 
   const FilterContent = () => (
     <div className="space-y-6">
@@ -116,6 +116,19 @@ export default function VanFilters({ filters, onFilterChange, onClearFilters }) 
             className="w-full"
           />
         </div>
+      </div>
+
+      {/* Built by TMCG Filter */}
+      <div>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={filters.built_by_tmcg || false}
+            onChange={(e) => onFilterChange({ built_by_tmcg: e.target.checked })}
+            className="w-4 h-4 text-[#FDD202] focus:ring-[#FDD202] rounded"
+          />
+          <span className="text-sm font-medium text-gray-700">Built by TMCG Only</span>
+        </label>
       </div>
 
       {/* Clear Filters */}

@@ -180,10 +180,10 @@ export default function ListVan() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-[#1A1A1A] py-12">
+      <div className="bg-black py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-white mb-4">
-            List Your <span className="text-[#F7B500]">Coffee Van</span>
+            List Your <span className="text-[#FDD202]">Coffee Van</span>
           </h1>
           <p className="text-gray-400">
             Reach thousands of potential buyers across Australia
@@ -205,7 +205,7 @@ export default function ListVan() {
                 >
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                     currentStep >= step.id
-                      ? 'bg-[#F7B500] text-[#1A1A1A]'
+                      ? 'bg-[#FDD202] text-black'
                       : 'bg-gray-100 text-gray-400'
                   }`}>
                     {currentStep > step.id ? (
@@ -222,7 +222,7 @@ export default function ListVan() {
                 </button>
                 {index < steps.length - 1 && (
                   <div className={`flex-1 h-0.5 mx-4 ${
-                    currentStep > step.id ? 'bg-[#F7B500]' : 'bg-gray-200'
+                    currentStep > step.id ? 'bg-[#FDD202]' : 'bg-[#DBDBDB]'
                   }`} />
                 )}
               </React.Fragment>

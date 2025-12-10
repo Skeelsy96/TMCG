@@ -24,6 +24,7 @@ export default function BrowseVans() {
     condition: '',
     minPrice: '',
     maxPrice: '',
+    built_by_tmcg: false,
   });
   const [sortBy, setSortBy] = useState('-created_date');
   const [viewMode, setViewMode] = useState('grid');
@@ -69,6 +70,11 @@ export default function BrowseVans() {
       result = result.filter(van => van.price <= Number(filters.maxPrice));
     }
 
+    // Built by TMCG filter
+    if (filters.built_by_tmcg) {
+      result = result.filter(van => van.built_by_tmcg === true);
+    }
+
     // Sort
     result.sort((a, b) => {
       switch (sortBy) {
@@ -97,16 +103,17 @@ export default function BrowseVans() {
       condition: '',
       minPrice: '',
       maxPrice: '',
+      built_by_tmcg: false,
     });
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-[#1A1A1A] py-16">
+      <div className="bg-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Browse <span className="text-[#F7B500]">Coffee Vans</span>
+            Browse <span className="text-[#FDD202]">Coffee Vans</span>
           </h1>
           <p className="text-gray-400 text-lg">
             {filteredVans.length} {filteredVans.length === 1 ? 'van' : 'vans'} available across Australia
@@ -152,7 +159,7 @@ export default function BrowseVans() {
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="icon"
                     onClick={() => setViewMode('grid')}
-                    className={viewMode === 'grid' ? 'bg-[#1A1A1A]' : ''}
+                    className={viewMode === 'grid' ? 'bg-black text-white' : ''}
                   >
                     <Grid className="w-4 h-4" />
                   </Button>
@@ -160,7 +167,7 @@ export default function BrowseVans() {
                     variant={viewMode === 'list' ? 'default' : 'ghost'}
                     size="icon"
                     onClick={() => setViewMode('list')}
-                    className={viewMode === 'list' ? 'bg-[#1A1A1A]' : ''}
+                    className={viewMode === 'list' ? 'bg-black text-white' : ''}
                   >
                     <List className="w-4 h-4" />
                   </Button>

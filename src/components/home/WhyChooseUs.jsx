@@ -64,10 +64,10 @@ export default function WhyChooseUs() {
               transition={{ delay: index * 0.1 }}
               className="group p-8 rounded-2xl border border-gray-100 hover:border-[#F7B500]/30 hover:shadow-xl transition-all duration-500 bg-white"
             >
-              <div className="w-14 h-14 bg-[#F7B500]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#F7B500] group-hover:scale-110 transition-all duration-300">
-                <feature.icon className="w-7 h-7 text-[#F7B500] group-hover:text-white transition-colors" />
+              <div className="w-14 h-14 bg-[#FDD202]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#FDD202] group-hover:scale-110 transition-all duration-300">
+                <feature.icon className="w-7 h-7 text-[#FDD202] group-hover:text-black transition-colors" />
               </div>
-              <h3 className="text-xl font-semibold text-[#1A1A1A] mb-3">
+              <h3 className="text-xl font-semibold text-black mb-3">
                 {feature.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">

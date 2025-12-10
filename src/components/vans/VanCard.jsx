@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../../utils';
 import { MapPin, Calendar, Eye, Star, Coffee } from 'lucide-react';
+import TMCGVerifiedBadge from '../common/TMCGVerifiedBadge';
 
 export default function VanCard({ van }) {
   return (
@@ -18,13 +19,18 @@ export default function VanCard({ van }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         
-        {/* Featured Badge */}
-        {van.featured && (
-          <div className="absolute top-4 left-4 bg-[#F7B500] text-[#1A1A1A] px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-            <Star className="w-4 h-4" />
-            Featured
-          </div>
-        )}
+        {/* Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+          {van.featured && (
+            <div className="bg-[#FDD202] text-black px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+              <Star className="w-4 h-4" />
+              Featured
+            </div>
+          )}
+          {van.built_by_tmcg && (
+            <TMCGVerifiedBadge size="sm" />
+          )}
+        </div>
 
         {/* Status Badge */}
         {van.status === 'sold' && (
@@ -35,8 +41,8 @@ export default function VanCard({ van }) {
 
         {/* Price Tag */}
         <div className="absolute bottom-4 left-4">
-          <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg">
-            <span className="text-2xl font-bold text-[#1A1A1A]">
+          <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-[#969696]">
+            <span className="text-2xl font-bold text-black">
               ${van.price?.toLocaleString()}
             </span>
           </div>
@@ -51,7 +57,7 @@ export default function VanCard({ van }) {
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-lg font-semibold text-[#1A1A1A] mb-3 group-hover:text-[#F7B500] transition-colors line-clamp-2">
+        <h3 className="text-lg font-semibold text-black mb-3 group-hover:text-[#FDD202] transition-colors line-clamp-2">
           {van.title}
         </h3>
         
