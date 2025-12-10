@@ -19,26 +19,29 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-white">
       <style>{`
         :root {
-          --tmcg-yellow: #F7B500;
-          --tmcg-black: #1A1A1A;
-          --tmcg-dark: #0D0D0D;
+          --tmcg-yellow: #FDD202;
+          --tmcg-black: #000000;
+          --tmcg-dark: #333333;
+          --tmcg-light-grey: #F5F5F5;
+          --tmcg-textbox-grey: #DBDBDB;
+          --tmcg-border-grey: #969696;
         }
       `}</style>
       
       {/* Top Bar */}
-      <div className="bg-[#1A1A1A] text-white py-2 px-4 text-sm hidden md:block">
+      <div className="bg-black text-white py-2 px-4 text-sm hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="tel:1300746020" className="flex items-center gap-2 hover:text-[#F7B500] transition-colors">
+            <a href="tel:1300746020" className="flex items-center gap-2 hover:text-[#FDD202] transition-colors">
               <Phone className="w-4 h-4" />
               1300 74 60 20
             </a>
-            <a href="mailto:info@themobilecoffeegroup.com.au" className="flex items-center gap-2 hover:text-[#F7B500] transition-colors">
+            <a href="mailto:info@themobilecoffeegroup.com.au" className="flex items-center gap-2 hover:text-[#FDD202] transition-colors">
               <Mail className="w-4 h-4" />
               info@themobilecoffeegroup.com.au
             </a>
           </div>
-          <div className="text-gray-400">
+          <div className="text-[#969696]">
             Australia's #1 Coffee Van Marketplace
           </div>
         </div>
@@ -65,12 +68,12 @@ export default function Layout({ children, currentPageName }) {
                   to={createPageUrl(item.page)}
                   className={`text-sm font-medium transition-colors relative group ${
                     currentPageName === item.page
-                      ? 'text-[#F7B500]'
-                      : 'text-[#1A1A1A] hover:text-[#F7B500]'
+                      ? 'text-[#FDD202]'
+                      : 'text-black hover:text-[#FDD202]'
                   }`}
                 >
                   {item.name}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#F7B500] transition-all duration-300 ${
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#FDD202] transition-all duration-300 ${
                     currentPageName === item.page ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} />
                 </Link>
@@ -81,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="hidden lg:block">
               <Link
                 to={createPageUrl('ListVan')}
-                className="bg-[#F7B500] text-[#1A1A1A] px-6 py-3 rounded-full font-semibold hover:bg-[#e5a800] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                className="bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 Sell Your Van
               </Link>
@@ -118,8 +121,8 @@ export default function Layout({ children, currentPageName }) {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`block py-3 px-4 rounded-lg font-medium transition-colors ${
                       currentPageName === item.page
-                        ? 'bg-[#F7B500] text-[#1A1A1A]'
-                        : 'text-[#1A1A1A] hover:bg-gray-100'
+                        ? 'bg-[#FDD202] text-black'
+                        : 'text-black hover:bg-[#F5F5F5]'
                     }`}
                   >
                     {item.name}
@@ -128,7 +131,7 @@ export default function Layout({ children, currentPageName }) {
                 <Link
                   to={createPageUrl('ListVan')}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center bg-[#1A1A1A] text-white py-4 rounded-lg font-semibold mt-4"
+                  className="block w-full text-center bg-black text-white py-4 rounded-lg font-semibold mt-4"
                 >
                   Sell Your Van
                 </Link>
@@ -152,7 +155,7 @@ export default function Layout({ children, currentPageName }) {
       <main>{children}</main>
 
       {/* Footer */}
-      <footer className="bg-[#1A1A1A] text-white">
+      <footer className="bg-black text-white border-t border-[#969696]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Brand Column */}
@@ -170,7 +173,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-[#F7B500] font-semibold mb-6">Quick Links</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-6">Quick Links</h3>
               <ul className="space-y-3">
                 {navigation.map((item) => (
                   <li key={item.page}>
@@ -187,7 +190,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact Info */}
             <div>
-              <h3 className="text-[#F7B500] font-semibold mb-6">Contact Us</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-6">Contact Us</h3>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="tel:1300746020" className="hover:text-white transition-colors flex items-center gap-2">
@@ -206,7 +209,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Newsletter */}
             <div>
-              <h3 className="text-[#F7B500] font-semibold mb-6">Stay Updated</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-6">Stay Updated</h3>
               <p className="text-gray-400 text-sm mb-4">
                 Get notified about new vans for sale
               </p>
@@ -216,7 +219,7 @@ export default function Layout({ children, currentPageName }) {
                   placeholder="Your email"
                   className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[#F7B500] transition-colors"
                 />
-                <button className="bg-[#F7B500] text-[#1A1A1A] px-4 py-2 rounded-lg font-medium hover:bg-[#e5a800] transition-colors">
+                <button className="bg-[#FDD202] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#f5c400] transition-colors">
                   Subscribe
                 </button>
               </div>
