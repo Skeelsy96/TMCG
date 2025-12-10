@@ -34,7 +34,7 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-[#1A1A1A] py-20">
+      <section className="bg-black py-20 border-b border-[#969696]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -42,7 +42,7 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                About <span className="text-[#F7B500]">Coffee Van Classifieds</span>
+                About <span className="text-[#FDD202]">Coffee Van Classifieds</span>
               </h1>
               <p className="text-xl text-gray-400 leading-relaxed mb-8">
                 Part of The Mobile Coffee Group family, we're dedicated to connecting 
@@ -51,7 +51,7 @@ export default function About() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   to={createPageUrl('BrowseVans')}
-                  className="inline-flex items-center gap-2 bg-[#F7B500] text-[#1A1A1A] px-6 py-3 rounded-full font-semibold hover:bg-[#e5a800] transition-colors"
+                  className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-colors"
                 >
                   Browse Vans
                   <ArrowRight className="w-5 h-5" />
@@ -105,7 +105,7 @@ export default function About() {
       </section>
 
       {/* Story */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#F5F5F5] border-b border-[#969696]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -113,7 +113,7 @@ export default function About() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-[#1A1A1A] mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold text-black mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   Phil, Director and Owner of The Mobile Coffee Group, started his career as a young 
@@ -148,9 +148,9 @@ export default function About() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-[#F7B500] rounded-2xl p-6 shadow-xl">
-                <div className="text-4xl font-bold text-[#1A1A1A]">19+</div>
-                <div className="text-[#1A1A1A]/70">Years Experience</div>
+              <div className="absolute -bottom-6 -left-6 bg-[#FDD202] rounded-2xl p-6 shadow-xl">
+                <div className="text-4xl font-bold text-black">19+</div>
+                <div className="text-black/70">Years Experience</div>
               </div>
             </motion.div>
           </div>
@@ -166,7 +166,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">Our Values</h2>
+            <h2 className="text-3xl font-bold text-black mb-4">Our Values</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               What drives us every day to help Australians achieve their mobile coffee dreams
             </p>
@@ -180,13 +180,13 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex gap-4 p-6 rounded-2xl border border-gray-100 hover:border-[#F7B500]/30 hover:shadow-lg transition-all duration-300"
+                className="flex gap-4 p-6 rounded-2xl border border-[#969696] hover:border-[#FDD202] hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-12 h-12 bg-[#F7B500]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-6 h-6 text-[#F7B500]" />
+                <div className="w-12 h-12 bg-[#FDD202]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <CheckCircle className="w-6 h-6 text-[#FDD202]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#1A1A1A] mb-2">{value.title}</h3>
+                  <h3 className="font-semibold text-black mb-2">{value.title}</h3>
                   <p className="text-gray-600">{value.description}</p>
                 </div>
               </motion.div>
@@ -196,7 +196,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-[#1A1A1A]">
+      <section className="py-20 bg-black border-t border-[#969696]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">
             Ready to Start Your Coffee Journey?
@@ -207,7 +207,7 @@ export default function About() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               to={createPageUrl('BrowseVans')}
-              className="inline-flex items-center gap-2 bg-[#F7B500] text-[#1A1A1A] px-8 py-4 rounded-full font-semibold hover:bg-[#e5a800] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-colors"
             >
               Browse Available Vans
             </Link>

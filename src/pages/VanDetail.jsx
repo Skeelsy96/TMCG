@@ -7,6 +7,7 @@ import {
   MapPin, Calendar, Eye, Phone, Mail, ChevronLeft, ChevronRight, 
   Star, Share2, Heart, Coffee, Zap, Droplets, Check, X
 } from 'lucide-react';
+import TMCGVerifiedBadge, { TMCGVerifiedSeal } from '../components/common/TMCGVerifiedBadge';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -248,17 +249,20 @@ export default function VanDetail() {
 
               {/* Badges */}
               <div className="flex flex-wrap gap-2 mb-6">
+                {van.built_by_tmcg && (
+                  <TMCGVerifiedBadge size="md" />
+                )}
                 {van.featured && (
-                  <Badge className="bg-[#F7B500] text-[#1A1A1A]">
+                  <Badge className="bg-[#FDD202] text-black">
                     <Star className="w-3 h-3 mr-1" />
                     Featured
                   </Badge>
                 )}
                 {van.Vehicle_type && (
-                  <Badge variant="outline">{van.Vehicle_type}</Badge>
+                  <Badge variant="outline" className="border-[#969696]">{van.Vehicle_type}</Badge>
                 )}
                 {van.Vehicle_subtype && (
-                  <Badge variant="outline">{van.Vehicle_subtype}</Badge>
+                  <Badge variant="outline" className="border-[#969696]">{van.Vehicle_subtype}</Badge>
                 )}
                 {van.condition && (
                   <Badge variant="outline" className={`capitalize ${
@@ -271,10 +275,26 @@ export default function VanDetail() {
                 )}
               </div>
 
+              {/* TMCG Seal */}
+              {van.built_by_tmcg && (
+                <div className="bg-[#F5F5F5] border border-[#969696] rounded-2xl p-6 mb-6">
+                  <div className="flex items-center gap-4">
+                    <TMCGVerifiedSeal />
+                    <div>
+                      <div className="font-bold text-black mb-1">TMCG Verified</div>
+                      <div className="text-sm text-[#333333] leading-relaxed">
+                        This van was built by The Mobile Coffee Group with our signature 
+                        quality and craftsmanship.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Price */}
-              <div className="border-t border-b py-6 mb-6">
-                <div className="text-sm text-gray-500 mb-1">Asking Price</div>
-                <div className="text-4xl font-bold text-[#1A1A1A]">
+              <div className="border-t border-b border-[#969696] py-6 mb-6">
+                <div className="text-sm text-[#333333] mb-1">Asking Price</div>
+                <div className="text-4xl font-bold text-black">
                   ${van.price?.toLocaleString()}
                 </div>
               </div>
@@ -291,10 +311,10 @@ export default function VanDetail() {
                   {van.seller_phone && (
                     <a
                       href={`tel:${van.seller_phone}`}
-                      className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-[#F5F5F5] rounded-xl hover:bg-[#DBDBDB] transition-colors border border-[#969696]"
                     >
-                      <div className="w-10 h-10 bg-[#F7B500] rounded-full flex items-center justify-center">
-                        <Phone className="w-5 h-5 text-[#1A1A1A]" />
+                      <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center">
+                        <Phone className="w-5 h-5 text-black" />
                       </div>
                       <div>
                         <div className="text-sm text-gray-500">Phone</div>
@@ -305,9 +325,9 @@ export default function VanDetail() {
                   {van.seller_email && (
                     <a
                       href={`mailto:${van.seller_email}`}
-                      className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-[#F5F5F5] rounded-xl hover:bg-[#DBDBDB] transition-colors border border-[#969696]"
                     >
-                      <div className="w-10 h-10 bg-[#1A1A1A] rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
                         <Mail className="w-5 h-5 text-white" />
                       </div>
                       <div>
@@ -320,7 +340,7 @@ export default function VanDetail() {
               ) : (
                 <Button
                   onClick={() => setShowContactInfo(true)}
-                  className="w-full bg-[#F7B500] text-[#1A1A1A] hover:bg-[#e5a800] h-14 text-lg font-semibold mb-4"
+                  className="w-full bg-[#FDD202] text-black hover:bg-[#f5c400] h-14 text-lg font-semibold mb-4"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Show Contact Info

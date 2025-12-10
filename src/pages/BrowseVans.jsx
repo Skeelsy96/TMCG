@@ -21,9 +21,15 @@ export default function BrowseVans() {
     search: urlParams.get('search') || '',
     state: urlParams.get('state') || '',
     Vehicle_type: '',
+    Vehicle_Make: '',
     condition: '',
     minPrice: '',
     maxPrice: '',
+    minYear: '',
+    maxYear: '',
+    maxKms: '',
+    power_source: '',
+    minWaterCapacity: '',
     built_by_tmcg: false,
   });
   const [sortBy, setSortBy] = useState('-created_date');
@@ -75,6 +81,26 @@ export default function BrowseVans() {
       result = result.filter(van => van.built_by_tmcg === true);
     }
 
+    // Advanced filters
+    if (filters.Vehicle_Make) {
+      result = result.filter(van => van.Vehicle_Make === filters.Vehicle_Make);
+    }
+    if (filters.minYear) {
+      result = result.filter(van => van.year_built >= Number(filters.minYear));
+    }
+    if (filters.maxYear) {
+      result = result.filter(van => van.year_built <= Number(filters.maxYear));
+    }
+    if (filters.maxKms) {
+      result = result.filter(van => (van.Kms || 0) <= Number(filters.maxKms));
+    }
+    if (filters.power_source) {
+      result = result.filter(van => van.power_source === filters.power_source);
+    }
+    if (filters.minWaterCapacity) {
+      result = result.filter(van => (van.water_capacity || 0) >= Number(filters.minWaterCapacity));
+    }
+
     // Sort
     result.sort((a, b) => {
       switch (sortBy) {
@@ -100,9 +126,15 @@ export default function BrowseVans() {
       search: '',
       state: '',
       Vehicle_type: '',
+      Vehicle_Make: '',
       condition: '',
       minPrice: '',
       maxPrice: '',
+      minYear: '',
+      maxYear: '',
+      maxKms: '',
+      power_source: '',
+      minWaterCapacity: '',
       built_by_tmcg: false,
     });
   };

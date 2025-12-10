@@ -18,8 +18,12 @@ import {
 } from '@/components/ui/sheet';
 import { Slider } from '@/components/ui/slider';
 import { STATES, CONDITIONS, VEHICLE_TYPES } from './vehicleData';
+import AdvancedFilters from './AdvancedFilters';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function VanFilters({ filters, onFilterChange, onClearFilters }) {
+  const [showAdvanced, setShowAdvanced] = React.useState(false);
+  
   const hasFilters = filters.state || filters.Vehicle_type || filters.condition || 
     filters.minPrice || filters.maxPrice || filters.search || filters.built_by_tmcg;
 
@@ -119,7 +123,7 @@ export default function VanFilters({ filters, onFilterChange, onClearFilters }) 
       </div>
 
       {/* Built by TMCG Filter */}
-      <div>
+      <div className="p-4 bg-[#FDD202]/10 border border-[#FDD202] rounded-xl">
         <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
@@ -127,8 +131,24 @@ export default function VanFilters({ filters, onFilterChange, onClearFilters }) 
             onChange={(e) => onFilterChange({ built_by_tmcg: e.target.checked })}
             className="w-4 h-4 text-[#FDD202] focus:ring-[#FDD202] rounded"
           />
-          <span className="text-sm font-medium text-gray-700">Built by TMCG Only</span>
+          <span className="text-sm font-bold text-black">Built by TMCG Only</span>
         </label>
+      </div>
+
+      {/* Advanced Filters Toggle */}
+      <div>
+        <button
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          className="w-full flex items-center justify-between text-sm font-medium text-black hover:text-[#FDD202] transition-colors"
+        >
+          Advanced Filters
+          {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+        {showAdvanced && (
+          <div className="mt-4">
+            <AdvancedFilters filters={filters} onFilterChange={onFilterChange} />
+          </div>
+        )}
       </div>
 
       {/* Clear Filters */}

@@ -70,14 +70,14 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <section className="bg-[#1A1A1A] py-16">
+      <section className="bg-black py-16 border-b border-[#969696]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Contact <span className="text-[#F7B500]">Us</span>
+              Contact <span className="text-[#FDD202]">Us</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl">
               Have a question about buying or selling a coffee van? We're here to help.
@@ -101,15 +101,15 @@ export default function Contact() {
                     viewport={{ once: true }}
                     className="flex items-start gap-4"
                   >
-                    <div className="w-12 h-12 bg-[#F7B500]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-6 h-6 text-[#F7B500]" />
+                    <div className="w-12 h-12 bg-[#FDD202]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-6 h-6 text-[#FDD202]" />
                     </div>
                     <div>
-                      <div className="font-medium text-[#1A1A1A]">{item.title}</div>
+                      <div className="font-medium text-black">{item.title}</div>
                       {item.href ? (
                         <a
                           href={item.href}
-                          className="text-gray-600 hover:text-[#F7B500] transition-colors"
+                          className="text-[#333333] hover:text-[#FDD202] transition-colors"
                         >
                           {item.value}
                         </a>
@@ -122,15 +122,15 @@ export default function Contact() {
               </div>
 
               {/* FAQ Preview */}
-              <div className="mt-12 p-6 bg-[#1A1A1A] rounded-2xl">
+              <div className="mt-12 p-6 bg-black rounded-2xl border border-[#969696]">
                 <h3 className="text-lg font-semibold text-white mb-4">Quick Answers</h3>
                 <div className="space-y-4 text-sm">
                   <div>
-                    <div className="text-[#F7B500] mb-1">How long does a listing take?</div>
+                    <div className="text-[#FDD202] mb-1">How long does a listing take?</div>
                     <div className="text-gray-400">Listings are typically reviewed within 24-48 hours.</div>
                   </div>
                   <div>
-                    <div className="text-[#F7B500] mb-1">What does listing cost?</div>
+                    <div className="text-[#FDD202] mb-1">What does listing cost?</div>
                     <div className="text-gray-400">Contact us for current pricing and featured listing options.</div>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function Contact() {
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-[#1A1A1A] mb-4">
+                    <h3 className="text-2xl font-bold text-black mb-4">
                       Message Sent!
                     </h3>
                     <p className="text-gray-600 mb-8">
@@ -173,7 +173,7 @@ export default function Contact() {
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-2xl font-bold text-[#1A1A1A] mb-6">Send a Message</h2>
+                    <h2 className="text-2xl font-bold text-black mb-6">Send a Message</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div>
@@ -248,7 +248,7 @@ export default function Contact() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-[#F7B500] text-[#1A1A1A] hover:bg-[#e5a800] h-12 text-lg font-semibold"
+                        className="w-full bg-[#FDD202] text-black hover:bg-[#f5c400] h-12 text-lg font-semibold"
                       >
                         {isSubmitting ? (
                           <>
