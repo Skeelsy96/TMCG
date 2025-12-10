@@ -40,6 +40,66 @@ export default function VanDetail() {
     if (van && !viewMutation.isSuccess) {
       viewMutation.mutate();
     }
+
+    // Add structured data for SEO
+    if (van) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify({
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": van.title,
+        "image": van.images || [van.main_image],
+        "description": van.description,
+        "brand": {
+          "@type": "Brand",
+          "name": van.Vehicle_Make || "Coffee Van"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": window.location.href,
+          "priceCurrency": "AUD",
+          "price": van.price,
+          "itemCondition": `https://schema.org/${van.condition === 'excellent' ? 'NewCondition' : van.condition === 'good' ? 'UsedCondition' : 'RefurbishedCondition'}`,
+          "availability": van.status === 'active' ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+          "seller": {
+            "@type": "Organization",
+            "name": "Coffee Van Classifieds"
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Year Built",
+            "value": van.year_built
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Location",
+            "value": `${van.location}, ${van.state}`
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Vehicle Type",
+            "value": van.Vehicle_type
+          }
+        ].filter(p => p.value)
+      });
+      document.head.appendChild(script);
+
+      // Update page title and meta
+      document.title = `${van.title} - ${van.location}, ${van.state} | Coffee Van Classifieds`;
+      
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', `${van.title} - ${van.condition} condition coffee van for sale in ${van.location}, ${van.state}. $${van.price?.toLocaleString()} AUD. ${van.description?.substring(0, 120)}...`);
+      }
+
+      return () => {
+        const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+        scripts.forEach(s => s.remove());
+      };
+    }
   }, [van?.id]);
 
   if (isLoading) {
@@ -119,7 +179,7 @@ export default function VanDetail() {
                         <motion.img
                           key={currentImageIndex}
                           src={images[currentImageIndex]}
-                          alt={van.title}
+                          alt={`${van.title} - Image ${currentImageIndex + 1} of ${images.length} - ${van.Vehicle_type} coffee van for sale ${van.location}`}
                           className="w-full h-full object-cover"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -131,7 +191,7 @@ export default function VanDetail() {
                   <DialogContent className="max-w-4xl">
                     <img
                       src={images[currentImageIndex]}
-                      alt={van.title}
+                      alt={`${van.title} - Detailed view of ${van.Vehicle_type} coffee van equipment and setup`}
                       className="w-full h-auto rounded-lg"
                     />
                   </DialogContent>
@@ -168,10 +228,10 @@ export default function VanDetail() {
                       key={idx}
                       onClick={() => setCurrentImageIndex(idx)}
                       className={`w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-colors ${
-                        idx === currentImageIndex ? 'border-[#F7B500]' : 'border-transparent'
+                        idx === currentImageIndex ? 'border-[#FDD202]' : 'border-transparent'
                       }`}
                     >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
+                      <img src={img} alt={`Thumbnail ${idx + 1} - ${van.title}`} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>

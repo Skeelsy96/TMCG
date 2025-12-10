@@ -16,12 +16,12 @@ export default function TrustSection() {
           >
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/9c82541a7_3RealEstateVanslinedup2.JPG"
-              alt="TMCG Coffee Vans"
+              alt="Three premium coffee vans built by The Mobile Coffee Group lined up - Australian mobile coffee business fleet"
               className="w-full h-64 object-cover rounded-2xl shadow-lg"
             />
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/a55736403_Walk-InCustomerthumbsup.png"
-              alt="Happy Customer"
+              alt="Happy mobile coffee van owner showing thumbs up after purchase - Successful coffee business customer testimonial"
               className="w-full h-64 object-cover rounded-2xl shadow-lg mt-8"
             />
           </motion.div>

@@ -27,7 +27,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent z-10" />
         <img
           src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/595190562_Embracing.png"
-          alt="Coffee Van"
+          alt="Modern mobile coffee van setup - Professional barista equipment for Australian mobile coffee business"
           className="w-full h-full object-cover"
         />
       </div>

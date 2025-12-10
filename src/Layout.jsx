@@ -7,10 +7,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Update meta tags based on current page
+  React.useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    
+    const descriptions = {
+      'Home': 'Australia\'s leading marketplace for buying and selling second-hand coffee vans. Find quality mobile coffee businesses from verified sellers nationwide.',
+      'BrowseVans': 'Browse hundreds of quality used coffee vans for sale across Australia. Filter by location, price, and features to find your perfect mobile coffee business.',
+      'Blog': 'Expert guides and resources for buying, selling, and running a successful mobile coffee van business in Australia.',
+      'About': 'Learn about Coffee Van Classifieds, Australia\'s trusted platform for mobile coffee business transactions backed by The Mobile Coffee Group.',
+      'Contact': 'Get in touch with our team for assistance with buying or selling your coffee van. Call 1300 74 60 20 or email us today.'
+    };
+
+    const desc = descriptions[currentPageName] || 'Coffee Van Classifieds - Buy and sell mobile coffee vans across Australia';
+    
+    if (metaDescription) metaDescription.setAttribute('content', desc);
+    if (ogDescription) ogDescription.setAttribute('content', desc);
+    if (ogTitle) ogTitle.setAttribute('content', `${currentPageName === 'Home' ? '' : currentPageName + ' - '}Coffee Van Classifieds`);
+  }, [currentPageName]);
+
   const navigation = [
     { name: 'Home', page: 'Home' },
     { name: 'Browse Vans', page: 'BrowseVans' },
     { name: 'My Listings', page: 'MyListings' },
+    { name: 'Resources', page: 'Blog' },
     { name: 'About', page: 'About' },
     { name: 'Contact', page: 'Contact' },
   ];
@@ -162,7 +184,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="lg:col-span-1">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
-                alt="The Mobile Coffee Group"
+                alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace"
                 className="h-16 w-auto mb-6"
               />
               <p className="text-gray-400 text-sm leading-relaxed">

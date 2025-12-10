@@ -5,6 +5,8 @@ import ListVan from './pages/ListVan';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import MyListings from './pages/MyListings';
+import Blog from './pages/Blog';
+import BlogArticle from './pages/BlogArticle';
 import __Layout from './Layout.jsx';
 
 
@@ -16,6 +18,8 @@ export const PAGES = {
     "About": About,
     "Contact": Contact,
     "MyListings": MyListings,
+    "Blog": Blog,
+    "BlogArticle": BlogArticle,
 }
 
 export const pagesConfig = {
