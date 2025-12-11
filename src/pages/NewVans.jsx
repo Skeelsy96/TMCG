@@ -10,7 +10,7 @@ export default function NewVans() {
       name: 'Compact Van Package',
       slug: 'CompactVan',
       description: 'Perfect for tight streets, school zones, and local neighbourhoods',
-      image: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
       icon: Coffee,
       highlights: ['Low running costs', 'Easy parking', 'Ideal for estates']
     },
@@ -34,7 +34,7 @@ export default function NewVans() {
       name: 'Custom & Bespoke',
       slug: 'CustomVan',
       description: 'Totally custom builds tailored to your unique vision',
-      image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/f12d813ed_Landcruiser1.jpg',
       icon: Boxes,
       highlights: ['Unlimited customization', 'Any vehicle type', 'Unique builds']
     }

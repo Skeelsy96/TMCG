@@ -36,8 +36,8 @@ export default function WalkInVan() {
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/75d3c2840_ProductionFit-out1.jpeg',
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/02e641f3a_ProductionFit-out2.jpg',
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/6bee872cf_ProductionFit-out3.jpg',
-    'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop'
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1460956e5_ServeFromRearVans7.png',
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/bc29b3948_G10ServeFromRearVans2.jpg'
   ];
 
   return (

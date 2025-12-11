@@ -18,7 +18,7 @@ export default function FitOuts() {
       name: 'Ute Fit-Out Package',
       slug: 'UteFitOut',
       description: 'Purpose-built tray or canopy setups for maximum versatility',
-      image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/f12d813ed_Landcruiser1.jpg',
       icon: Truck,
       highlights: ['Tray service', 'Canopy options', 'Rugged & reliable']
     }

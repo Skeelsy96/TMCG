@@ -58,19 +58,19 @@ export default function TMCGHome() {
   const vanPackages = [
     {
       name: 'Compact Van',
-      image: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
       features: ['Perfect for tight streets', 'School zones & estates', 'Low running costs'],
       link: createPageUrl('CompactVan')
     },
     {
       name: 'Large Van',
-      image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1460956e5_ServeFromRearVans7.png',
       features: ['High-volume service', 'Markets & festivals', 'Multiple staff capacity'],
       link: createPageUrl('LargeVan')
     },
     {
       name: 'Walk-In Van',
-      image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/062a79d1b_ProductionFit-out4.jpg',
       features: ['Maximum space', 'Premium events', 'Full interior setup'],
       link: createPageUrl('WalkInVan')
     }
@@ -100,7 +100,7 @@ export default function TMCGHome() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-2xl"
+            className="max-w-3xl mx-auto text-center"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -112,17 +112,18 @@ export default function TMCGHome() {
               <span className="text-[#FDD202] text-sm font-medium">Australia's Premier Mobile Coffee Specialists</span>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-              Brew More Than Coffee.{' '}
-              <span className="text-[#FDD202]">Brew A Lifestyle.</span>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 text-center">
+              Brew More Than Coffee
+              <br />
+              <span className="text-[#FDD202]">Brew A Lifestyle</span>
             </h1>
 
-            <p className="text-xl text-gray-400 mb-10 leading-relaxed">
+            <p className="text-xl text-gray-400 mb-10 leading-relaxed text-center">
               19+ years building mobile coffee businesses. 900+ custom vans delivered. 
               Your journey from dream to first cup starts here.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#enquiry-form"
                 className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all text-lg shadow-lg hover:shadow-xl"
@@ -138,18 +139,18 @@ export default function TMCGHome() {
               </Link>
             </div>
 
-            <div className="flex flex-wrap gap-8 mt-12">
-              <div>
-                <div className="text-3xl font-bold text-[#FDD202]">900+</div>
-                <div className="text-gray-500 text-sm">Vans Built</div>
+            <div className="grid grid-cols-3 gap-8 mt-16 max-w-2xl">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-[#FDD202] mb-2">900+</div>
+                <div className="text-gray-400 text-sm">Vans Built</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-[#FDD202]">19+</div>
-                <div className="text-gray-500 text-sm">Years Experience</div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-[#FDD202] mb-2">19+</div>
+                <div className="text-gray-400 text-sm">Years Experience</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-[#FDD202]">1M+ kg</div>
-                <div className="text-gray-500 text-sm">Coffee Sold</div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-[#FDD202] mb-2">1M+ kg</div>
+                <div className="text-gray-400 text-sm">Coffee Sold</div>
               </div>
             </div>
           </motion.div>

@@ -13,9 +13,9 @@ export default function CustomVan() {
   ];
 
   const gallery = [
-    'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop'
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/43b23d8b5_FJCruiser3.jpg',
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1a5923ea7_FJCruiser2.jpg',
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/f12d813ed_Landcruiser1.jpg'
   ];
 
   return (

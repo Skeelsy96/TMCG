@@ -62,25 +62,25 @@ export default function Layout({ children, currentPageName }) {
       </div>
 
       {/* Main Navigation */}
-      <header className="bg-white sticky top-0 z-50 shadow-sm">
+      <header className="bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link to={createPageUrl('TMCGHome')} className="flex items-center">
+            <Link to={createPageUrl('TMCGHome')} className="flex items-center flex-shrink-0">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
                 alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace"
-                className="h-14 w-auto"
+                className="h-14 w-14 object-contain"
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-5 flex-1 justify-center">
               {navigation.map((item) => (
                 <Link
                   key={item.page}
                   to={createPageUrl(item.page)}
-                  className={`text-sm font-medium transition-colors relative group ${
+                  className={`text-sm font-medium transition-colors relative group whitespace-nowrap ${
                     currentPageName === item.page
                       ? 'text-[#FDD202]'
                       : 'text-black hover:text-[#FDD202]'
@@ -92,22 +92,6 @@ export default function Layout({ children, currentPageName }) {
                   }`} />
                 </Link>
               ))}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="hidden lg:flex items-center gap-3">
-              <button
-                onClick={scrollToEnquiry}
-                className="bg-[#FDD202] text-black px-5 py-2.5 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
-              >
-                Enquire Now
-              </button>
-              <Link
-                to={createPageUrl('BookCall')}
-                className="bg-black text-white px-5 py-2.5 rounded-full font-semibold hover:bg-[#333333] transition-all"
-              >
-                Book a Call
-              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -181,20 +165,40 @@ export default function Layout({ children, currentPageName }) {
       </header>
 
       {/* Page Content */}
-      <main>{children}</main>
+      <main className="pb-24">{children}</main>
+
+      {/* Floating CTAs */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-t border-[#969696] py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={scrollToEnquiry}
+              className="bg-[#FDD202] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all shadow-lg"
+            >
+              Enquire Now
+            </button>
+            <Link
+              to={createPageUrl('BookCall')}
+              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
+            >
+              Book a Call
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
       <footer className="bg-black text-white border-t border-[#969696]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
                 alt="The Mobile Coffee Group"
-                className="h-16 w-auto mb-6"
+                className="h-12 w-12 object-contain mb-4"
               />
-              <p className="text-gray-400 text-sm leading-relaxed mb-4">
+              <p className="text-gray-400 text-sm leading-relaxed mb-2">
                 Brew More Than Coffee. Brew A Lifestyle.
               </p>
               <p className="text-gray-500 text-xs">
@@ -204,7 +208,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Van Packages */}
             <div>
-              <h3 className="text-[#FDD202] font-semibold mb-6">Van Packages</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-4 text-sm">Van Packages</h3>
               <ul className="space-y-3 text-sm">
                 <li><Link to={createPageUrl('NewVans')} className="text-gray-400 hover:text-white transition-colors">New Van Packages</Link></li>
                 <li><Link to={createPageUrl('FitOuts')} className="text-gray-400 hover:text-white transition-colors">Fit-Out Packages</Link></li>
@@ -214,7 +218,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Services */}
             <div>
-              <h3 className="text-[#FDD202] font-semibold mb-6">Services</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-4 text-sm">Services</h3>
               <ul className="space-y-3 text-sm">
                 <li><Link to={createPageUrl('EarlyBirdCoffee')} className="text-gray-400 hover:text-white transition-colors">Early Bird Coffee</Link></li>
                 <li><Link to={createPageUrl('Events')} className="text-gray-400 hover:text-white transition-colors">Events Network</Link></li>
@@ -225,7 +229,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact Info */}
             <div>
-              <h3 className="text-[#FDD202] font-semibold mb-6">Contact Us</h3>
+              <h3 className="text-[#FDD202] font-semibold mb-4 text-sm">Contact Us</h3>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="tel:1300746020" className="hover:text-white transition-colors flex items-center gap-2">
@@ -243,11 +247,11 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
 
-          <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
+          <div className="border-t border-white/10 mt-6 pt-4 flex flex-col md:flex-row justify-between items-center gap-2">
+            <p className="text-gray-500 text-xs">
               © {new Date().getFullYear()} The Mobile Coffee Group. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-gray-500">
+            <div className="flex gap-4 text-xs text-gray-500">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             </div>
