@@ -22,7 +22,7 @@ export default function BookingSection() {
             url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2dh9yagVZ217DA70maiVNanT4ngbs0id7gz80ZZN8MJCWG_gonsBorZWCH_fj9hFn4FVWIay36?gv=true',
             color: '#ffd202',
             label: 'Book a 15 Min Phone Consultation',
-            target: target,
+            target: target
           });
         }
       }
@@ -47,7 +47,7 @@ export default function BookingSection() {
           Speak directly with our team about van packages, finance options, and your next steps to mobile coffee freedom.
         </p>
         
-        <div className="flex justify-center">
+        <div className="flex justify-center h-20">
           <div id="calendar-button-target"></div>
         </div>
 
@@ -62,6 +62,6 @@ export default function BookingSection() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
