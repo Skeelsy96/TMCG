@@ -7,27 +7,35 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigation = [
-    { name: 'Home', page: 'TMCGHome' },
-    { name: 'New Van Packages', page: 'NewVans' },
-    { name: 'Fit-Out Packages', page: 'FitOuts' },
-    { name: 'Pre-Loved Vans', page: 'Classifieds' },
-    { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
-    { name: 'Events', page: 'Events' },
-    { name: 'Finance Options', page: 'FinanceOptions' },
-    { name: 'Resources', page: 'Resources' },
-    { name: 'About', page: 'TMCGAbout' },
-    { name: 'Contact', page: 'TMCGContact' },
-  ];
+  // Update meta tags based on current page
+  React.useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    
+    const descriptions = {
+      'Home': 'Australia\'s leading marketplace for buying and selling second-hand coffee vans. Find quality mobile coffee businesses from verified sellers nationwide.',
+      'BrowseVans': 'Browse hundreds of quality used coffee vans for sale across Australia. Filter by location, price, and features to find your perfect mobile coffee business.',
+      'Blog': 'Expert guides and resources for buying, selling, and running a successful mobile coffee van business in Australia.',
+      'About': 'Learn about Coffee Van Classifieds, Australia\'s trusted platform for mobile coffee business transactions backed by The Mobile Coffee Group.',
+      'Contact': 'Get in touch with our team for assistance with buying or selling your coffee van. Call 1300 74 60 20 or email us today.'
+    };
 
-  const scrollToEnquiry = () => {
-    const form = document.getElementById('enquiry-form');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = createPageUrl('TMCGHome') + '#enquiry-form';
-    }
-  };
+    const desc = descriptions[currentPageName] || 'Coffee Van Classifieds - Buy and sell mobile coffee vans across Australia';
+    
+    if (metaDescription) metaDescription.setAttribute('content', desc);
+    if (ogDescription) ogDescription.setAttribute('content', desc);
+    if (ogTitle) ogTitle.setAttribute('content', `${currentPageName === 'Home' ? '' : currentPageName + ' - '}Coffee Van Classifieds`);
+  }, [currentPageName]);
+
+  const navigation = [
+    { name: 'Home', page: 'Home' },
+    { name: 'Browse Vans', page: 'BrowseVans' },
+    { name: 'My Listings', page: 'MyListings' },
+    { name: 'Resources', page: 'Blog' },
+    { name: 'About', page: 'About' },
+    { name: 'Contact', page: 'Contact' },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -56,7 +64,7 @@ export default function Layout({ children, currentPageName }) {
             </a>
           </div>
           <div className="text-[#969696]">
-            Australia's Premier Mobile Coffee Van Specialists
+            Australia's #1 Coffee Van Marketplace
           </div>
         </div>
       </div>
@@ -66,16 +74,16 @@ export default function Layout({ children, currentPageName }) {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link to={createPageUrl('TMCGHome')} className="flex items-center">
+            <Link to={createPageUrl('Home')} className="flex items-center">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
-                alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace"
+                alt="The Mobile Coffee Group"
                 className="h-14 w-auto"
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-8">
               {navigation.map((item) => (
                 <Link
                   key={item.page}
@@ -94,19 +102,13 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </div>
 
-            {/* CTA Buttons */}
-            <div className="hidden lg:flex items-center gap-3">
-              <button
-                onClick={scrollToEnquiry}
-                className="bg-[#FDD202] text-black px-5 py-2.5 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
-              >
-                Enquire Now
-              </button>
+            {/* CTA Button */}
+            <div className="hidden lg:block">
               <Link
-                to={createPageUrl('BookCall')}
-                className="bg-black text-white px-5 py-2.5 rounded-full font-semibold hover:bg-[#333333] transition-all"
+                to={createPageUrl('ListVan')}
+                className="bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                Book a Call
+                Sell Your Van
               </Link>
             </div>
 
@@ -116,9 +118,9 @@ export default function Layout({ children, currentPageName }) {
               className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-black" />
+                <X className="w-6 h-6 text-[#1A1A1A]" />
               ) : (
-                <Menu className="w-6 h-6 text-black" />
+                <Menu className="w-6 h-6 text-[#1A1A1A]" />
               )}
             </button>
           </div>
@@ -148,21 +150,12 @@ export default function Layout({ children, currentPageName }) {
                     {item.name}
                   </Link>
                 ))}
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    scrollToEnquiry();
-                  }}
-                  className="block w-full text-center bg-[#FDD202] text-black py-3 rounded-lg font-semibold"
-                >
-                  Enquire Now
-                </button>
                 <Link
-                  to={createPageUrl('BookCall')}
+                  to={createPageUrl('ListVan')}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center bg-black text-white py-3 rounded-lg font-semibold"
+                  className="block w-full text-center bg-black text-white py-4 rounded-lg font-semibold mt-4"
                 >
-                  Book a Call
+                  Sell Your Van
                 </Link>
                 <div className="pt-4 border-t space-y-3">
                   <a href="tel:1300746020" className="flex items-center gap-3 text-gray-600">
@@ -191,35 +184,29 @@ export default function Layout({ children, currentPageName }) {
             <div className="lg:col-span-1">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
-                alt="The Mobile Coffee Group"
+                alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace"
                 className="h-16 w-auto mb-6"
               />
-              <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                Brew More Than Coffee. Brew A Lifestyle.
-              </p>
-              <p className="text-gray-500 text-xs">
-                Australia's premier mobile coffee van specialists with 19+ years of experience.
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Australia's leading manufacturer of mobile coffee vans. 
+                19+ years of experience helping entrepreneurs start their coffee journey.
               </p>
             </div>
 
-            {/* Van Packages */}
+            {/* Quick Links */}
             <div>
-              <h3 className="text-[#FDD202] font-semibold mb-6">Van Packages</h3>
-              <ul className="space-y-3 text-sm">
-                <li><Link to={createPageUrl('NewVans')} className="text-gray-400 hover:text-white transition-colors">New Van Packages</Link></li>
-                <li><Link to={createPageUrl('FitOuts')} className="text-gray-400 hover:text-white transition-colors">Fit-Out Packages</Link></li>
-                <li><Link to={createPageUrl('Classifieds')} className="text-gray-400 hover:text-white transition-colors">Pre-Loved Vans</Link></li>
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h3 className="text-[#FDD202] font-semibold mb-6">Services</h3>
-              <ul className="space-y-3 text-sm">
-                <li><Link to={createPageUrl('EarlyBirdCoffee')} className="text-gray-400 hover:text-white transition-colors">Early Bird Coffee</Link></li>
-                <li><Link to={createPageUrl('Events')} className="text-gray-400 hover:text-white transition-colors">Events Network</Link></li>
-                <li><Link to={createPageUrl('FinanceOptions')} className="text-gray-400 hover:text-white transition-colors">Finance Options</Link></li>
-                <li><Link to={createPageUrl('Resources')} className="text-gray-400 hover:text-white transition-colors">Resources</Link></li>
+              <h3 className="text-[#FDD202] font-semibold mb-6">Quick Links</h3>
+              <ul className="space-y-3">
+                {navigation.map((item) => (
+                  <li key={item.page}>
+                    <Link
+                      to={createPageUrl(item.page)}
+                      className="text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -240,6 +227,24 @@ export default function Layout({ children, currentPageName }) {
                   </a>
                 </li>
               </ul>
+            </div>
+
+            {/* Newsletter */}
+            <div>
+              <h3 className="text-[#FDD202] font-semibold mb-6">Stay Updated</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                Get notified about new vans for sale
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[#F7B500] transition-colors"
+                />
+                <button className="bg-[#FDD202] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#f5c400] transition-colors">
+                  Subscribe
+                </button>
+              </div>
             </div>
           </div>
 
