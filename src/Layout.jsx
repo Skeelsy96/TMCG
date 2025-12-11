@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from './utils';
-import { Menu, X, Phone, Mail, Coffee, ChevronDown } from 'lucide-react';
+import { Menu, X, Phone, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Layout({ children, currentPageName }) {
