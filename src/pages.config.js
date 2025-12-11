@@ -9,6 +9,22 @@ import Blog from './pages/Blog';
 import BlogArticle from './pages/BlogArticle';
 import TMCGHome from './pages/TMCGHome';
 import BookCall from './pages/BookCall';
+import NewVans from './pages/NewVans';
+import CompactVan from './pages/CompactVan';
+import LargeVan from './pages/LargeVan';
+import WalkInVan from './pages/WalkInVan';
+import CustomVan from './pages/CustomVan';
+import FitOuts from './pages/FitOuts';
+import SUVFitOut from './pages/SUVFitOut';
+import UteFitOut from './pages/UteFitOut';
+import Classifieds from './pages/Classifieds';
+import EarlyBirdCoffee from './pages/EarlyBirdCoffee';
+import Events from './pages/Events';
+import FinanceOptions from './pages/FinanceOptions';
+import ValiantFinance from './pages/ValiantFinance';
+import Resources from './pages/Resources';
+import TMCGAbout from './pages/TMCGAbout';
+import TMCGContact from './pages/TMCGContact';
 import __Layout from './Layout.jsx';
 
 
@@ -24,6 +40,22 @@ export const PAGES = {
     "BlogArticle": BlogArticle,
     "TMCGHome": TMCGHome,
     "BookCall": BookCall,
+    "NewVans": NewVans,
+    "CompactVan": CompactVan,
+    "LargeVan": LargeVan,
+    "WalkInVan": WalkInVan,
+    "CustomVan": CustomVan,
+    "FitOuts": FitOuts,
+    "SUVFitOut": SUVFitOut,
+    "UteFitOut": UteFitOut,
+    "Classifieds": Classifieds,
+    "EarlyBirdCoffee": EarlyBirdCoffee,
+    "Events": Events,
+    "FinanceOptions": FinanceOptions,
+    "ValiantFinance": ValiantFinance,
+    "Resources": Resources,
+    "TMCGAbout": TMCGAbout,
+    "TMCGContact": TMCGContact,
 }
 
 export const pagesConfig = {
