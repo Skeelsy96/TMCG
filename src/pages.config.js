@@ -7,6 +7,8 @@ import Contact from './pages/Contact';
 import MyListings from './pages/MyListings';
 import Blog from './pages/Blog';
 import BlogArticle from './pages/BlogArticle';
+import TMCGHome from './pages/TMCGHome';
+import BookCall from './pages/BookCall';
 import __Layout from './Layout.jsx';
 
 
@@ -20,6 +22,8 @@ export const PAGES = {
     "MyListings": MyListings,
     "Blog": Blog,
     "BlogArticle": BlogArticle,
+    "TMCGHome": TMCGHome,
+    "BookCall": BookCall,
 }
 
 export const pagesConfig = {
