@@ -25,6 +25,8 @@ import ValiantFinance from './pages/ValiantFinance';
 import Resources from './pages/Resources';
 import TMCGAbout from './pages/TMCGAbout';
 import TMCGContact from './pages/TMCGContact';
+import OperatorProfile from './pages/OperatorProfile';
+import BrowseOperators from './pages/BrowseOperators';
 import __Layout from './Layout.jsx';
 
 
@@ -56,6 +58,8 @@ export const PAGES = {
     "Resources": Resources,
     "TMCGAbout": TMCGAbout,
     "TMCGContact": TMCGContact,
+    "OperatorProfile": OperatorProfile,
+    "BrowseOperators": BrowseOperators,
 }
 
 export const pagesConfig = {

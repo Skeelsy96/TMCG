@@ -110,6 +110,9 @@ export default function Events() {
               <Coffee className="w-12 h-12 text-[#FDD202] mx-auto mb-4" />
               <h3 className="font-bold text-black mb-2">Coffee Van Operators</h3>
               <p className="text-[#333333] text-sm">Browse upcoming events in your area and grow your business</p>
+              <Link to={createPageUrl('BrowseOperators')} className="text-[#FDD202] text-sm hover:underline inline-block mt-2">
+                View Operator Directory →
+              </Link>
             </div>
             <div>
               <Users className="w-12 h-12 text-[#FDD202] mx-auto mb-4" />
