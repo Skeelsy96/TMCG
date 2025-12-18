@@ -184,11 +184,11 @@ export default function BrowseOperators() {
             Join our operator network and get connected with events across Australia
           </p>
           <Link
-            to={createPageUrl('TMCGContact')}
+            to={createPageUrl('OperatorApplication')}
             className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
           >
             <Plus className="w-5 h-5" />
-            Create Your Profile
+            Apply to Join Network
           </Link>
         </div>
       </section>

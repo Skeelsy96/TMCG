@@ -27,6 +27,8 @@ import TMCGAbout from './pages/TMCGAbout';
 import TMCGContact from './pages/TMCGContact';
 import OperatorProfile from './pages/OperatorProfile';
 import BrowseOperators from './pages/BrowseOperators';
+import OperatorApplication from './pages/OperatorApplication';
+import AdminOperatorApplications from './pages/AdminOperatorApplications';
 import __Layout from './Layout.jsx';
 
 
@@ -60,6 +62,8 @@ export const PAGES = {
     "TMCGContact": TMCGContact,
     "OperatorProfile": OperatorProfile,
     "BrowseOperators": BrowseOperators,
+    "OperatorApplication": OperatorApplication,
+    "AdminOperatorApplications": AdminOperatorApplications,
 }
 
 export const pagesConfig = {
