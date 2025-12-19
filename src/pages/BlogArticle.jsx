@@ -213,6 +213,413 @@ const ARTICLES = {
       <h2>Conclusion</h2>
       <p>Staying ahead of these trends is crucial for mobile coffee business success in 2025. Operators who adapt to changing consumer preferences and embrace new technologies will thrive in this competitive market.</p>
     `
+  },
+  'complete-van-package-guide': {
+    title: 'The Complete Van Package Guide',
+    category: 'Buying Guide',
+    readTime: '10 min read',
+    date: '2025-01-20',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&auto=format&fit=crop',
+    excerpt: 'Everything you need to know about choosing the right van package for your mobile coffee business.',
+    content: `
+      <p>Choosing the right van package is one of the most important decisions you'll make for your mobile coffee business. This comprehensive guide breaks down everything you need to know.</p>
+
+      <h2>Understanding Van Package Types</h2>
+      <p>There are three main categories of coffee van packages:</p>
+
+      <h3>1. Compact Van Packages</h3>
+      <p>Perfect for solo operators or those focusing on residential areas, school zones, and construction sites.</p>
+      <ul>
+        <li><strong>Base Vehicles:</strong> SUVs (Mitsubishi Outlander, Nissan X-Trail, Toyota Kluger)</li>
+        <li><strong>Serving Capacity:</strong> 50-100 coffees per day</li>
+        <li><strong>Investment Range:</strong> $60,000 - $90,000</li>
+        <li><strong>Best For:</strong> Part-time operators, tight access locations, lower volume sites</li>
+      </ul>
+
+      <h3>2. Large Van Packages</h3>
+      <p>The most popular option for full-time operators serving markets, events, and high-traffic locations.</p>
+      <ul>
+        <li><strong>Base Vehicles:</strong> Mercedes Sprinter, Ford Transit, Renault Master</li>
+        <li><strong>Serving Capacity:</strong> 150-300 coffees per day</li>
+        <li><strong>Investment Range:</strong> $120,000 - $180,000</li>
+        <li><strong>Best For:</strong> Full-time operators, markets, festivals, corporate events</li>
+      </ul>
+
+      <h3>3. Walk-In Van Packages</h3>
+      <p>Premium setups for high-volume operations and multi-barista teams.</p>
+      <ul>
+        <li><strong>Base Vehicles:</strong> Large box trucks, converted trucks</li>
+        <li><strong>Serving Capacity:</strong> 300+ coffees per day</li>
+        <li><strong>Investment Range:</strong> $180,000 - $250,000+</li>
+        <li><strong>Best For:</strong> High-volume events, permanent locations, multi-operator setups</li>
+      </ul>
+
+      <h2>What's Included in a Standard Package</h2>
+      <p>All TMCG packages come with turn-key solutions including:</p>
+      <ul>
+        <li>Commercial-grade espresso machine (Carimali Nimble or similar)</li>
+        <li>Professional coffee grinder</li>
+        <li>Water filtration system</li>
+        <li>Fresh and waste water tanks (80-200L depending on size)</li>
+        <li>Power system (generator, battery, or hybrid)</li>
+        <li>Refrigeration</li>
+        <li>Full fit-out with benches, storage, and serving window</li>
+        <li>Health department compliance</li>
+        <li>Basic equipment and supplies</li>
+        <li>Barista training</li>
+      </ul>
+
+      <h2>Power Systems Explained</h2>
+      <p>One of the most critical components is your power system:</p>
+
+      <h3>Generator Systems</h3>
+      <ul>
+        <li>Most affordable option</li>
+        <li>Reliable and proven</li>
+        <li>Requires fuel and regular maintenance</li>
+        <li>Can be noisy</li>
+      </ul>
+
+      <h3>Battery Systems (Pylontech)</h3>
+      <ul>
+        <li>Silent operation</li>
+        <li>Eco-friendly</li>
+        <li>Higher upfront cost</li>
+        <li>Ideal for noise-restricted areas</li>
+      </ul>
+
+      <h3>Hybrid Systems</h3>
+      <ul>
+        <li>Best of both worlds</li>
+        <li>Battery for quiet operation, generator backup</li>
+        <li>Maximum flexibility</li>
+      </ul>
+
+      <h2>Optional Upgrades to Consider</h2>
+      <p>Enhance your package with these popular additions:</p>
+      <ul>
+        <li><strong>Solar panels:</strong> $3,000 - $6,000</li>
+        <li><strong>POS system:</strong> $1,500 - $3,000</li>
+        <li><strong>Upgraded espresso machine:</strong> $5,000 - $15,000</li>
+        <li><strong>Second grinder:</strong> $2,000 - $4,000</li>
+        <li><strong>Extended water capacity:</strong> $1,000 - $2,000</li>
+        <li><strong>Custom branding/wrap:</strong> $3,000 - $8,000</li>
+      </ul>
+
+      <h2>Making Your Decision</h2>
+      <p>Consider these factors when choosing your package:</p>
+      <ul>
+        <li><strong>Target Market:</strong> Where will you primarily operate?</li>
+        <li><strong>Volume Expectations:</strong> How many coffees per day do you plan to serve?</li>
+        <li><strong>Budget:</strong> What can you afford including operational costs?</li>
+        <li><strong>Growth Plans:</strong> Do you plan to expand or hire staff?</li>
+        <li><strong>Location Restrictions:</strong> Are you limited by size or noise?</li>
+      </ul>
+
+      <h2>Financing Your Van</h2>
+      <p>Most operators finance their coffee van purchase. Typical options include:</p>
+      <ul>
+        <li>Commercial vehicle loans (5-7 year terms)</li>
+        <li>Equipment financing</li>
+        <li>Business loans</li>
+        <li>TMCG's preferred finance partners</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>The right van package aligns with your business goals, budget, and operational needs. Take time to discuss your specific requirements with our team—we've helped hundreds of operators find their perfect setup.</p>
+    `
+  },
+  'pylontech-battery-guide': {
+    title: 'Pylontech Battery System: Complete Guide',
+    category: 'Equipment Guide',
+    readTime: '7 min read',
+    date: '2025-01-12',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&auto=format&fit=crop',
+    excerpt: 'Everything you need to know about Pylontech 48V lithium battery systems for mobile coffee vans.',
+    content: `
+      <p>Pylontech battery systems are revolutionizing mobile coffee operations with silent, eco-friendly power. Here's your complete guide to this game-changing technology.</p>
+
+      <h2>What is Pylontech?</h2>
+      <p>Pylontech manufactures high-quality lithium iron phosphate (LiFePO4) battery systems specifically designed for commercial applications. Their 48V modular systems are perfect for mobile coffee vans.</p>
+
+      <h2>System Components</h2>
+      <p>A typical Pylontech setup for coffee vans includes:</p>
+      <ul>
+        <li><strong>Battery Modules:</strong> Stackable 48V units (typically 2-4 modules)</li>
+        <li><strong>Battery Management System (BMS):</strong> Monitors and protects the batteries</li>
+        <li><strong>Inverter:</strong> Converts DC to AC power for equipment</li>
+        <li><strong>Charging System:</strong> Shore power and/or solar input</li>
+        <li><strong>Monitoring Display:</strong> Real-time power usage and battery status</li>
+      </ul>
+
+      <h2>Capacity and Performance</h2>
+      <p>Understanding what Pylontech can power:</p>
+
+      <h3>Standard 2-Module Setup (9.6kWh)</h3>
+      <ul>
+        <li>Run time: 4-6 hours of continuous coffee making</li>
+        <li>Coffees per charge: 150-200</li>
+        <li>Best for: Part-time operations, quiet locations</li>
+      </ul>
+
+      <h3>Large 4-Module Setup (19.2kWh)</h3>
+      <ul>
+        <li>Run time: 8-10 hours of continuous operation</li>
+        <li>Coffees per charge: 300-400</li>
+        <li>Best for: Full-day markets, festivals, events</li>
+      </ul>
+
+      <h2>Key Advantages</h2>
+      <ul>
+        <li><strong>Silent Operation:</strong> Perfect for noise-sensitive areas (hospitals, schools, offices)</li>
+        <li><strong>Zero Emissions:</strong> Environmentally friendly, no fumes</li>
+        <li><strong>Low Maintenance:</strong> No oil changes, spark plugs, or fuel</li>
+        <li><strong>Long Lifespan:</strong> 6,000+ charge cycles (10+ years)</li>
+        <li><strong>Consistent Power:</strong> Stable voltage throughout discharge</li>
+        <li><strong>Premium Image:</strong> Appeals to eco-conscious customers</li>
+      </ul>
+
+      <h2>Charging Options</h2>
+
+      <h3>Shore Power (Standard)</h3>
+      <p>Plug into any 240V outlet for overnight charging:</p>
+      <ul>
+        <li>Full charge time: 4-6 hours</li>
+        <li>Can charge at home, venue, or depot</li>
+        <li>Most cost-effective charging method</li>
+      </ul>
+
+      <h3>Solar Panels (Optional)</h3>
+      <p>Add solar for extended operation and emergency backup:</p>
+      <ul>
+        <li>Typical setup: 2-4 x 400W panels</li>
+        <li>Provides 1-3 hours additional runtime per day</li>
+        <li>Great for multi-day festivals</li>
+        <li>Reduces charging costs</li>
+      </ul>
+
+      <h2>Operating Costs</h2>
+      <p>Pylontech systems have significantly lower operating costs than generators:</p>
+
+      <h3>Daily Charging Cost</h3>
+      <ul>
+        <li>2-module system: $2-3 per full charge</li>
+        <li>4-module system: $4-6 per full charge</li>
+        <li>Compare to: $15-25 per day for generator fuel</li>
+      </ul>
+
+      <h3>Annual Savings</h3>
+      <ul>
+        <li>Fuel savings: $3,000-5,000 per year</li>
+        <li>Maintenance savings: $500-1,000 per year</li>
+        <li>Total annual savings: $3,500-6,000</li>
+      </ul>
+
+      <h2>Best Use Cases</h2>
+      <p>Pylontech systems excel in these scenarios:</p>
+      <ul>
+        <li>Corporate offices and business parks</li>
+        <li>Hospital and medical center catering</li>
+        <li>School and university campuses</li>
+        <li>Indoor events and venues</li>
+        <li>Residential areas with noise restrictions</li>
+        <li>Premium events requiring silent service</li>
+      </ul>
+
+      <h2>Maintenance Tips</h2>
+      <p>Keep your system running optimally:</p>
+      <ul>
+        <li>Regular charge cycles (don't let it fully discharge)</li>
+        <li>Keep batteries at moderate temperatures (avoid extreme heat/cold)</li>
+        <li>Check connections and terminals quarterly</li>
+        <li>Monitor battery health through the BMS</li>
+        <li>Annual professional inspection recommended</li>
+      </ul>
+
+      <h2>Is Pylontech Right for You?</h2>
+      <p>Consider Pylontech if you:</p>
+      <ul>
+        <li>Target noise-sensitive locations</li>
+        <li>Value sustainability and eco-friendly operations</li>
+        <li>Want premium positioning for your brand</li>
+        <li>Prefer low ongoing operational costs</li>
+        <li>Have access to regular charging facilities</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>Pylontech battery systems represent the future of mobile coffee operations. While the upfront investment is higher than traditional generators, the operational savings, environmental benefits, and access to premium locations make it an excellent choice for serious operators.</p>
+    `
+  },
+  'carimali-nimble-guide': {
+    title: 'Carimali Nimble Espresso Machine Guide',
+    category: 'Equipment Guide',
+    readTime: '6 min read',
+    date: '2025-01-08',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&auto=format&fit=crop',
+    excerpt: 'Master your Carimali Nimble espresso machine with this complete operation and maintenance guide.',
+    content: `
+      <p>The Carimali Nimble is the workhorse of mobile coffee operations—compact, reliable, and capable of producing exceptional espresso. This guide covers everything you need to know.</p>
+
+      <h2>Machine Overview</h2>
+      <p>The Carimali Nimble is specifically designed for mobile and compact operations:</p>
+      <ul>
+        <li><strong>Boiler Capacity:</strong> 5.5L</li>
+        <li><strong>Groups:</strong> 2-group configuration</li>
+        <li><strong>Power:</strong> 2.4kW (compatible with battery systems)</li>
+        <li><strong>Dimensions:</strong> 680mm W x 520mm D x 530mm H</li>
+        <li><strong>Weight:</strong> 48kg</li>
+      </ul>
+
+      <h2>Daily Startup Procedure</h2>
+      <p>Follow this routine for optimal performance:</p>
+      <ol>
+        <li><strong>Check water supply:</strong> Ensure adequate fresh water</li>
+        <li><strong>Power on:</strong> Turn on machine and allow 15-20 minutes warm-up</li>
+        <li><strong>Purge groups:</strong> Run water through both group heads</li>
+        <li><strong>Check pressure:</strong> Verify brew pressure at 9 bars</li>
+        <li><strong>Flush steam wand:</strong> Clear any residue</li>
+        <li><strong>Test shot:</strong> Pull a test espresso to check extraction</li>
+      </ol>
+
+      <h2>Extraction Basics</h2>
+      <p>Achieving the perfect shot:</p>
+
+      <h3>Dose and Distribution</h3>
+      <ul>
+        <li>Single shot: 9-10g</li>
+        <li>Double shot: 18-20g</li>
+        <li>Level grounds evenly in portafilter</li>
+        <li>Tamp with consistent 15kg pressure</li>
+      </ul>
+
+      <h3>Extraction Time</h3>
+      <ul>
+        <li>Target time: 25-30 seconds</li>
+        <li>Yield: 30-40ml for double shot</li>
+        <li>Appearance: Rich, tiger-striped crema</li>
+      </ul>
+
+      <h3>Troubleshooting Extraction</h3>
+      <ul>
+        <li><strong>Too fast (under 20s):</strong> Grind finer or increase dose</li>
+        <li><strong>Too slow (over 35s):</strong> Grind coarser or decrease dose</li>
+        <li><strong>Bitter taste:</strong> Lower water temperature or shorter extraction</li>
+        <li><strong>Sour taste:</strong> Increase water temperature or longer extraction</li>
+      </ul>
+
+      <h2>Steam Wand Technique</h2>
+      <p>Perfect milk texturing:</p>
+
+      <h3>Stretching Phase (0-5 seconds)</h3>
+      <ul>
+        <li>Position wand just below milk surface</li>
+        <li>Introduce air with gentle "chirping" sound</li>
+        <li>Aim for 20-30% volume increase</li>
+      </ul>
+
+      <h3>Texturing Phase (5-15 seconds)</h3>
+      <ul>
+        <li>Submerge wand deeper to create whirlpool</li>
+        <li>No more air introduction</li>
+        <li>Heat to 60-65°C (140-150°F)</li>
+      </ul>
+
+      <h3>Final Result</h3>
+      <ul>
+        <li>Glossy, paint-like consistency</li>
+        <li>No large bubbles</li>
+        <li>Sweet taste, not scalded</li>
+      </ul>
+
+      <h2>Daily Cleaning Routine</h2>
+      <p>Maintain quality and longevity:</p>
+
+      <h3>During Service</h3>
+      <ul>
+        <li>Purge group heads between shots</li>
+        <li>Wipe steam wand immediately after each use</li>
+        <li>Keep drip tray emptied</li>
+        <li>Wipe down machine exterior regularly</li>
+      </ul>
+
+      <h3>End of Day</h3>
+      <ul>
+        <li><strong>Backflush groups:</strong> Use blind basket and cleaner</li>
+        <li><strong>Clean steam wand:</strong> Soak in hot water, scrub tip</li>
+        <li><strong>Remove portafilters:</strong> Clean and soak baskets</li>
+        <li><strong>Empty drip tray:</strong> Clean thoroughly</li>
+        <li><strong>Wipe down:</strong> Clean all surfaces</li>
+      </ul>
+
+      <h2>Weekly Maintenance</h2>
+      <ul>
+        <li>Deep clean group heads and gaskets</li>
+        <li>Descale steam wand internally</li>
+        <li>Check and clean shower screens</li>
+        <li>Verify all seals and gaskets</li>
+        <li>Clean grinder burrs</li>
+      </ul>
+
+      <h2>Monthly Maintenance</h2>
+      <ul>
+        <li>Replace group head gaskets if worn</li>
+        <li>Deep clean water system</li>
+        <li>Check pump pressure</li>
+        <li>Lubricate moving parts</li>
+        <li>Professional service check (recommended)</li>
+      </ul>
+
+      <h2>Common Issues and Solutions</h2>
+
+      <h3>No Water Flow</h3>
+      <ul>
+        <li>Check water supply</li>
+        <li>Verify pump operation</li>
+        <li>Inspect for blockages in group head</li>
+        <li>Check shower screen isn't clogged</li>
+      </ul>
+
+      <h3>Low Pressure</h3>
+      <ul>
+        <li>Adjust pump pressure (requires technician)</li>
+        <li>Check for leaks in system</li>
+        <li>Clean or replace shower screen</li>
+        <li>Descale if necessary</li>
+      </ul>
+
+      <h3>Steam Wand Not Working</h3>
+      <ul>
+        <li>Check boiler pressure (should be 1.2 bar)</li>
+        <li>Clean steam tip blockage</li>
+        <li>Verify steam valve operation</li>
+        <li>Check for scale buildup</li>
+      </ul>
+
+      <h2>Performance Optimization</h2>
+      <p>Get the most from your Nimble:</p>
+      <ul>
+        <li>Use filtered water to reduce scale</li>
+        <li>Maintain consistent water temperature (92-94°C)</li>
+        <li>Keep machine clean and well-maintained</li>
+        <li>Use fresh, properly stored coffee beans</li>
+        <li>Dial in grinder for each new batch of beans</li>
+        <li>Preheat cups for better temperature retention</li>
+      </ul>
+
+      <h2>When to Call a Technician</h2>
+      <p>Professional service needed for:</p>
+      <ul>
+        <li>Pressure adjustments</li>
+        <li>Pump replacement</li>
+        <li>Boiler issues</li>
+        <li>Electrical problems</li>
+        <li>Temperature control issues</li>
+        <li>Annual comprehensive service</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>The Carimali Nimble is a reliable, powerful machine that will serve you well with proper care. Master the basics, maintain a strict cleaning schedule, and you'll produce consistently excellent coffee that keeps customers coming back.</p>
+    `
   }
 };
 

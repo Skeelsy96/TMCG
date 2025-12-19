@@ -9,9 +9,9 @@ const RESOURCES = [
   {
     title: 'The Complete Van Package Guide',
     category: 'New Vans & Fit-Outs',
-    type: 'PDF Guide',
+    type: 'Article',
     description: 'Comprehensive overview of all van packages, inclusions, and options.',
-    link: '#'
+    link: createPageUrl('BlogArticle') + '?id=complete-van-package-guide'
   },
   {
     title: 'Business Starter Guide',
@@ -45,16 +45,16 @@ const RESOURCES = [
   {
     title: 'Pylontech Battery System Guide',
     category: 'Equipment & Tech',
-    type: 'Technical Doc',
+    type: 'Article',
     description: 'Everything about our 48v lithium battery stacks and power management.',
-    link: '#'
+    link: createPageUrl('BlogArticle') + '?id=pylontech-battery-guide'
   },
   {
     title: 'Carimali Nimble Espresso Machine',
     category: 'Equipment & Tech',
-    type: 'Equipment Guide',
+    type: 'Article',
     description: 'Operation manual and maintenance guide for our premium espresso machine.',
-    link: '#'
+    link: createPageUrl('BlogArticle') + '?id=carimali-nimble-guide'
   },
   {
     title: 'Mobile Coffee Industry Trends 2025',

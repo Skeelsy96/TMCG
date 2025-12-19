@@ -7,9 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export default function Events() {
   const [userType, setUserType] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,6 +23,36 @@ export default function Events() {
     location: '',
     details: ''
   });
+
+  const submitEventMutation = useMutation({
+    mutationFn: (data) => base44.integrations.Core.SendEmail({
+      to: 'info@themobilecoffeegroup.com.au',
+      subject: `Event Request from ${data.name}`,
+      body: `
+        <h2>New Event Request</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone || 'Not provided'}</p>
+        <p><strong>Event Date:</strong> ${data.eventDate || 'Not specified'}</p>
+        <p><strong>Location:</strong> ${data.location || 'Not specified'}</p>
+        <p><strong>Event Type:</strong> ${data.eventType || 'Not specified'}</p>
+        <p><strong>Details:</strong></p>
+        <p>${data.details || 'No additional details provided'}</p>
+      `
+    }),
+    onSuccess: () => {
+      setSubmitted(true);
+      toast.success('Event request submitted successfully!');
+    },
+    onError: () => {
+      toast.error('Failed to submit request. Please try again.');
+    }
+  });
+
+  const handleEventSubmit = (e) => {
+    e.preventDefault();
+    submitEventMutation.mutate(formData);
+  };
 
   const eventTypes = [
     { icon: Briefcase, title: 'Corporate Events', desc: 'Office functions, team building, conferences' },
@@ -89,7 +123,7 @@ export default function Events() {
       )}
 
       {/* Event Organizer Form */}
-      {userType === 'organizer' && (
+      {userType === 'organizer' && !submitted && (
         <section className="py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <button
@@ -110,7 +144,7 @@ export default function Events() {
                 ))}
               </div>
 
-              <div className="space-y-6">
+              <form onSubmit={handleEventSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label>Your Name *</Label>
@@ -118,6 +152,7 @@ export default function Events() {
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       placeholder="John Smith"
+                      required
                       className="mt-2"
                     />
                   </div>
@@ -128,6 +163,7 @@ export default function Events() {
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                       placeholder="john@example.com"
+                      required
                       className="mt-2"
                     />
                   </div>
@@ -171,16 +207,64 @@ export default function Events() {
                     className="mt-2 min-h-[120px]"
                   />
                 </div>
-                <Button className="w-full bg-[#FDD202] text-black hover:bg-[#f5c400] h-12">
-                  Submit Event Request
+                <Button 
+                  type="submit" 
+                  disabled={submitEventMutation.isPending}
+                  className="w-full bg-[#FDD202] text-black hover:bg-[#f5c400] h-12"
+                >
+                  {submitEventMutation.isPending ? 'Submitting...' : 'Submit Event Request'}
                 </Button>
+              </form>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Success Message */}
+      {submitted && (
+        <section className="py-20">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="bg-white rounded-2xl p-12 border border-[#DBDBDB]">
+              <div className="w-16 h-16 bg-[#FDD202] rounded-full flex items-center justify-center mx-auto mb-6">
+                <Coffee className="w-8 h-8 text-black" />
+              </div>
+              <h2 className="text-3xl font-bold text-black mb-4">Request Received!</h2>
+              <p className="text-[#333333] mb-8">
+                Thank you for your event request. Our team will review your details and connect you with suitable coffee van operators in your area.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  to={createPageUrl('BrowseOperators')}
+                  className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
+                >
+                  Browse Operators
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <button
+                  onClick={() => {
+                    setSubmitted(false);
+                    setUserType(null);
+                    setFormData({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      eventType: '',
+                      eventDate: '',
+                      location: '',
+                      details: ''
+                    });
+                  }}
+                  className="inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold border border-[#DBDBDB] hover:bg-[#F5F5F5] transition-all"
+                >
+                  Submit Another Request
+                </button>
               </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Operator Form */}
+      {/* Operator Section */}
       {userType === 'operator' && (
         <section className="py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -194,14 +278,22 @@ export default function Events() {
               <h2 className="text-2xl font-bold text-black mb-6">Join the TMCG Events Network</h2>
               <p className="text-[#333333] mb-8">
                 Get access to premium event bookings, corporate clients, and regular market opportunities. 
-                Available to TMCG van owners and approved operators.
+                Create your operator profile to connect with event organizers across Australia.
               </p>
-              <Link
-                to={createPageUrl('TMCGContact')}
-                className="block w-full text-center bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
-              >
-                Contact Us to Join
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to={createPageUrl('OperatorApplication')}
+                  className="flex-1 text-center bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
+                >
+                  Apply to Join Network
+                </Link>
+                <Link
+                  to={createPageUrl('BrowseOperators')}
+                  className="flex-1 text-center bg-white text-black px-8 py-4 rounded-full font-semibold border border-[#DBDBDB] hover:bg-[#F5F5F5] transition-all"
+                >
+                  View Operator Directory
+                </Link>
+              </div>
             </div>
           </div>
         </section>
