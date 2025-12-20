@@ -41,8 +41,20 @@ export default function LeadEnquiryForm() {
     mobile: '',
     email: '',
     stateSuburb: '',
-    bestDateTime: ''
+    bestDateTime: '',
+    
+    // Configuration
+    configurationId: ''
   });
+
+  // Load configuration from URL if present
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const configId = urlParams.get('config');
+    if (configId) {
+      updateField('configurationId', configId);
+    }
+  }, []);
 
   const totalSteps = 5;
 
@@ -724,6 +736,17 @@ export default function LeadEnquiryForm() {
                   </div>
                 </div>
               </div>
+
+              {formData.configurationId && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+                  <p className="text-sm text-black font-semibold mb-2">
+                    ✓ Van Configuration Attached
+                  </p>
+                  <p className="text-xs text-[#333333]">
+                    Your custom van design from the configurator will be shared with our team.
+                  </p>
+                </div>
+              )}
 
               <div className="bg-[#FDD202]/10 border border-[#FDD202] rounded-xl p-6">
                 <p className="text-sm text-black">
