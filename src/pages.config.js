@@ -29,6 +29,7 @@ import OperatorProfile from './pages/OperatorProfile';
 import BrowseOperators from './pages/BrowseOperators';
 import OperatorApplication from './pages/OperatorApplication';
 import AdminOperatorApplications from './pages/AdminOperatorApplications';
+import VanConfigurator from './pages/VanConfigurator';
 import __Layout from './Layout.jsx';
 
 
@@ -64,6 +65,7 @@ export const PAGES = {
     "BrowseOperators": BrowseOperators,
     "OperatorApplication": OperatorApplication,
     "AdminOperatorApplications": AdminOperatorApplications,
+    "VanConfigurator": VanConfigurator,
 }
 
 export const pagesConfig = {
