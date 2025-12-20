@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { ArrowLeft, ArrowRight, Check, Download, Share2, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Download, Share2, RotateCcw, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
+import { base44 } from '@/api/base44Client';
 import VanSelector from '../components/configurator/VanSelector';
 import LayoutConfigurator from '../components/configurator/LayoutConfigurator';
 import MaterialsSelector from '../components/configurator/MaterialsSelector';
 import BrandingSelector from '../components/configurator/BrandingSelector';
 import ConfigurationSummary from '../components/configurator/ConfigurationSummary';
+import VanPreview3D from '../components/configurator/VanPreview3D';
+import PriceTracker from '../components/configurator/PriceTracker';
 
 const STEPS = [
   { id: 1, name: 'Select Van', component: VanSelector },
@@ -20,6 +24,7 @@ const STEPS = [
 
 export default function VanConfigurator() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [configId, setConfigId] = useState(null);
   const [configuration, setConfiguration] = useState({
     vanModel: null,
     layout: {
@@ -38,6 +43,82 @@ export default function VanConfigurator() {
       businessName: ''
     }
   });
+
+  // Load configuration from URL if shared
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedConfigId = urlParams.get('config');
+    if (sharedConfigId) {
+      loadConfiguration(sharedConfigId);
+    }
+  }, []);
+
+  const loadConfiguration = async (id) => {
+    try {
+      const config = await base44.integrations.Core.InvokeLLM({
+        prompt: `Retrieve configuration with ID: ${id}`,
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            configuration: { type: 'object' }
+          }
+        }
+      });
+      if (config.configuration) {
+        setConfiguration(config.configuration);
+        setConfigId(id);
+        toast.success('Configuration loaded');
+      }
+    } catch (error) {
+      toast.error('Failed to load configuration');
+    }
+  };
+
+  const saveConfiguration = async () => {
+    try {
+      const user = await base44.auth.me();
+      const id = `config-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Save to user profile
+      await base44.auth.updateMe({
+        van_configurations: {
+          [id]: {
+            ...configuration,
+            created: new Date().toISOString()
+          }
+        }
+      });
+
+      setConfigId(id);
+      toast.success('Configuration saved to your profile');
+      return id;
+    } catch (error) {
+      toast.error('Please log in to save configuration');
+      return null;
+    }
+  };
+
+  const generateShareLink = async () => {
+    try {
+      const id = configId || await saveConfiguration();
+      if (!id) return;
+
+      const shareUrl = `${window.location.origin}${createPageUrl('VanConfigurator')}?config=${id}`;
+      
+      if (navigator.share) {
+        await navigator.share({
+          title: 'My Van Configuration',
+          text: 'Check out my custom coffee van design!',
+          url: shareUrl
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('Share link copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Share failed:', error);
+    }
+  };
 
   const updateConfiguration = (section, data) => {
     setConfiguration(prev => ({
@@ -146,20 +227,31 @@ export default function VanConfigurator() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CurrentStepComponent
-              configuration={configuration}
-              updateConfiguration={updateConfiguration}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          <div className="lg:col-span-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CurrentStepComponent
+                  configuration={configuration}
+                  updateConfiguration={updateConfiguration}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          
+          <div>
+            <div className="sticky top-6">
+              <h3 className="text-xl font-bold text-black mb-4">3D Preview</h3>
+              <VanPreview3D configuration={configuration} />
+            </div>
+          </div>
+        </div>
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#DBDBDB]">
@@ -186,8 +278,23 @@ export default function VanConfigurator() {
           ) : (
             <div className="flex gap-3">
               <Button
+                onClick={saveConfiguration}
+                variant="outline"
+                size="lg"
+              >
+                <Save className="w-5 h-5 mr-2" />
+                Save
+              </Button>
+              <Button
+                onClick={generateShareLink}
+                variant="outline"
+                size="lg"
+              >
+                <Share2 className="w-5 h-5 mr-2" />
+                Share
+              </Button>
+              <Button
                 onClick={() => {
-                  // Export configuration logic
                   const configData = JSON.stringify(configuration, null, 2);
                   const blob = new Blob([configData], { type: 'application/json' });
                   const url = URL.createObjectURL(blob);
@@ -203,7 +310,7 @@ export default function VanConfigurator() {
                 Export
               </Button>
               <Link
-                to={createPageUrl('TMCGContact')}
+                to={`${createPageUrl('TMCGContact')}?config=${configId || ''}`}
                 className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-3 rounded-lg font-semibold hover:bg-[#f5c400] transition-all"
               >
                 Request Quote
@@ -213,6 +320,9 @@ export default function VanConfigurator() {
           )}
         </div>
       </div>
+
+      {/* Price Tracker */}
+      {configuration.vanModel && <PriceTracker configuration={configuration} />}
     </div>
   );
 }
