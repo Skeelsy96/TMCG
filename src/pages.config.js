@@ -30,6 +30,13 @@ import BrowseOperators from './pages/BrowseOperators';
 import OperatorApplication from './pages/OperatorApplication';
 import AdminOperatorApplications from './pages/AdminOperatorApplications';
 import VanConfigurator from './pages/VanConfigurator';
+import PostEvent from './pages/PostEvent';
+import BrowseEvents from './pages/BrowseEvents';
+import EventDetail from './pages/EventDetail';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminEvents from './pages/AdminEvents';
+import AdminFeedback from './pages/AdminFeedback';
+import AdminContent from './pages/AdminContent';
 import __Layout from './Layout.jsx';
 
 
@@ -66,6 +73,13 @@ export const PAGES = {
     "OperatorApplication": OperatorApplication,
     "AdminOperatorApplications": AdminOperatorApplications,
     "VanConfigurator": VanConfigurator,
+    "PostEvent": PostEvent,
+    "BrowseEvents": BrowseEvents,
+    "EventDetail": EventDetail,
+    "AdminDashboard": AdminDashboard,
+    "AdminEvents": AdminEvents,
+    "AdminFeedback": AdminFeedback,
+    "AdminContent": AdminContent,
 }
 
 export const pagesConfig = {
