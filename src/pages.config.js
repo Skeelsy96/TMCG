@@ -1,85 +1,91 @@
-import Home from './pages/Home';
-import BrowseVans from './pages/BrowseVans';
-import VanDetail from './pages/VanDetail';
-import ListVan from './pages/ListVan';
 import About from './pages/About';
-import Contact from './pages/Contact';
-import MyListings from './pages/MyListings';
-import Blog from './pages/Blog';
-import BlogArticle from './pages/BlogArticle';
-import TMCGHome from './pages/TMCGHome';
-import BookCall from './pages/BookCall';
-import NewVans from './pages/NewVans';
-import CompactVan from './pages/CompactVan';
-import LargeVan from './pages/LargeVan';
-import WalkInVan from './pages/WalkInVan';
-import CustomVan from './pages/CustomVan';
-import FitOuts from './pages/FitOuts';
-import SUVFitOut from './pages/SUVFitOut';
-import UteFitOut from './pages/UteFitOut';
-import Classifieds from './pages/Classifieds';
-import EarlyBirdCoffee from './pages/EarlyBirdCoffee';
-import Events from './pages/Events';
-import FinanceOptions from './pages/FinanceOptions';
-import ValiantFinance from './pages/ValiantFinance';
-import Resources from './pages/Resources';
-import TMCGAbout from './pages/TMCGAbout';
-import TMCGContact from './pages/TMCGContact';
-import OperatorProfile from './pages/OperatorProfile';
-import BrowseOperators from './pages/BrowseOperators';
-import OperatorApplication from './pages/OperatorApplication';
-import AdminOperatorApplications from './pages/AdminOperatorApplications';
-import VanConfigurator from './pages/VanConfigurator';
-import PostEvent from './pages/PostEvent';
-import BrowseEvents from './pages/BrowseEvents';
-import EventDetail from './pages/EventDetail';
+import AdminContent from './pages/AdminContent';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminEvents from './pages/AdminEvents';
 import AdminFeedback from './pages/AdminFeedback';
-import AdminContent from './pages/AdminContent';
+import AdminOperatorApplications from './pages/AdminOperatorApplications';
+import Blog from './pages/Blog';
+import BlogArticle from './pages/BlogArticle';
+import BookCall from './pages/BookCall';
+import BrowseEvents from './pages/BrowseEvents';
+import BrowseOperators from './pages/BrowseOperators';
+import BrowseVans from './pages/BrowseVans';
+import Classifieds from './pages/Classifieds';
+import CompactVan from './pages/CompactVan';
+import Contact from './pages/Contact';
+import CustomVan from './pages/CustomVan';
+import EarlyBirdCoffee from './pages/EarlyBirdCoffee';
+import EventDetail from './pages/EventDetail';
+import Events from './pages/Events';
+import FinanceOptions from './pages/FinanceOptions';
+import FitOuts from './pages/FitOuts';
+import Home from './pages/Home';
+import LargeVan from './pages/LargeVan';
+import ListVan from './pages/ListVan';
+import MyListings from './pages/MyListings';
+import NewVans from './pages/NewVans';
+import OperatorApplication from './pages/OperatorApplication';
+import OperatorProfile from './pages/OperatorProfile';
+import PostEvent from './pages/PostEvent';
+import Resources from './pages/Resources';
+import SUVFitOut from './pages/SUVFitOut';
+import TMCGAbout from './pages/TMCGAbout';
+import TMCGContact from './pages/TMCGContact';
+import TMCGHome from './pages/TMCGHome';
+import UteFitOut from './pages/UteFitOut';
+import ValiantFinance from './pages/ValiantFinance';
+import VanConfigurator from './pages/VanConfigurator';
+import VanDetail from './pages/VanDetail';
+import WalkInVan from './pages/WalkInVan';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "BrowseVans": BrowseVans,
-    "VanDetail": VanDetail,
-    "ListVan": ListVan,
     "About": About,
-    "Contact": Contact,
-    "MyListings": MyListings,
-    "Blog": Blog,
-    "BlogArticle": BlogArticle,
-    "TMCGHome": TMCGHome,
-    "BookCall": BookCall,
-    "NewVans": NewVans,
-    "CompactVan": CompactVan,
-    "LargeVan": LargeVan,
-    "WalkInVan": WalkInVan,
-    "CustomVan": CustomVan,
-    "FitOuts": FitOuts,
-    "SUVFitOut": SUVFitOut,
-    "UteFitOut": UteFitOut,
-    "Classifieds": Classifieds,
-    "EarlyBirdCoffee": EarlyBirdCoffee,
-    "Events": Events,
-    "FinanceOptions": FinanceOptions,
-    "ValiantFinance": ValiantFinance,
-    "Resources": Resources,
-    "TMCGAbout": TMCGAbout,
-    "TMCGContact": TMCGContact,
-    "OperatorProfile": OperatorProfile,
-    "BrowseOperators": BrowseOperators,
-    "OperatorApplication": OperatorApplication,
-    "AdminOperatorApplications": AdminOperatorApplications,
-    "VanConfigurator": VanConfigurator,
-    "PostEvent": PostEvent,
-    "BrowseEvents": BrowseEvents,
-    "EventDetail": EventDetail,
+    "AdminContent": AdminContent,
     "AdminDashboard": AdminDashboard,
     "AdminEvents": AdminEvents,
     "AdminFeedback": AdminFeedback,
-    "AdminContent": AdminContent,
+    "AdminOperatorApplications": AdminOperatorApplications,
+    "Blog": Blog,
+    "BlogArticle": BlogArticle,
+    "BookCall": BookCall,
+    "BrowseEvents": BrowseEvents,
+    "BrowseOperators": BrowseOperators,
+    "BrowseVans": BrowseVans,
+    "Classifieds": Classifieds,
+    "CompactVan": CompactVan,
+    "Contact": Contact,
+    "CustomVan": CustomVan,
+    "EarlyBirdCoffee": EarlyBirdCoffee,
+    "EventDetail": EventDetail,
+    "Events": Events,
+    "FinanceOptions": FinanceOptions,
+    "FitOuts": FitOuts,
+    "Home": Home,
+    "LargeVan": LargeVan,
+    "ListVan": ListVan,
+    "MyListings": MyListings,
+    "NewVans": NewVans,
+    "OperatorApplication": OperatorApplication,
+    "OperatorProfile": OperatorProfile,
+    "PostEvent": PostEvent,
+    "Resources": Resources,
+    "SUVFitOut": SUVFitOut,
+    "TMCGAbout": TMCGAbout,
+    "TMCGContact": TMCGContact,
+    "TMCGHome": TMCGHome,
+    "UteFitOut": UteFitOut,
+    "ValiantFinance": ValiantFinance,
+    "VanConfigurator": VanConfigurator,
+    "VanDetail": VanDetail,
+    "WalkInVan": WalkInVan,
+    "ProductDetail": ProductDetail,
+    "Cart": Cart,
+    "Checkout": Checkout,
 }
 
 export const pagesConfig = {
