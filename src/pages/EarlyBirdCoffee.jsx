@@ -1,30 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { Coffee, CheckCircle, ArrowRight, Award, Zap, Heart } from 'lucide-react';
+import { Coffee, CheckCircle, ArrowRight, Award, Zap, Heart, ShoppingCart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
 
 export default function EarlyBirdCoffee() {
-  const blends = [
-    {
-      name: 'Vibe Blend',
-      description: 'Smooth, balanced, and crowd-pleasing',
-      notes: ['Chocolate', 'Caramel', 'Smooth finish'],
-      ideal: 'Perfect all-rounder for daily service'
-    },
-    {
-      name: 'Alpha Blend',
-      description: 'Bold, strong, and full-bodied',
-      notes: ['Dark chocolate', 'Nutty', 'Strong kick'],
-      ideal: 'For customers who love a powerful brew'
-    },
-    {
-      name: 'Honeycomb Blend',
-      description: 'Sweet, light, and aromatic',
-      notes: ['Honey', 'Floral', 'Light body'],
-      ideal: 'Specialty coffee enthusiasts'
-    }
-  ];
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => base44.entities.Product.list()
+  });
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
@@ -82,38 +68,70 @@ export default function EarlyBirdCoffee() {
         </div>
       </section>
 
-      {/* Blends */}
+      {/* Products */}
       <section className="py-16 bg-[#F5F5F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-black mb-12 text-center">Our Blends</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {blends.map((blend, idx) => (
-              <motion.div
-                key={blend.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-2xl p-8 border border-[#DBDBDB] hover:shadow-lg transition-shadow"
-              >
-                <h3 className="text-2xl font-bold text-black mb-2">{blend.name}</h3>
-                <p className="text-[#333333] mb-6">{blend.description}</p>
-                <div className="mb-6">
-                  <h4 className="font-semibold text-black mb-3">Tasting Notes:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {blend.notes.map((note) => (
-                      <span key={note} className="bg-[#FDD202]/10 text-black px-3 py-1 rounded-full text-sm border border-[#FDD202]">
-                        {note}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="pt-6 border-t border-[#DBDBDB]">
-                  <p className="text-sm text-[#333333] italic">{blend.ideal}</p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-bold text-black">Our Products</h2>
+            <Link
+              to={createPageUrl('Cart')}
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold border border-[#DBDBDB] hover:shadow-lg transition-all"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              View Cart
+            </Link>
           </div>
+
+          {isLoading ? (
+            <div className="text-center py-12 text-[#969696]">Loading products...</div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-12 text-[#969696]">No products available</div>
+          ) : (
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {products.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <Link
+                    to={createPageUrl('ProductDetail') + `?id=${product.id}`}
+                    className="group block bg-white rounded-2xl overflow-hidden border border-[#DBDBDB] hover:shadow-xl transition-all h-full"
+                  >
+                    {product.image && (
+                      <div className="relative h-48 bg-[#F5F5F5] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="text-xs text-[#FDD202] font-semibold mb-2 uppercase">{product.category}</div>
+                      <h3 className="text-lg font-bold text-black mb-2 group-hover:text-[#FDD202] transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-[#333333] mb-4 line-clamp-2">{product.description}</p>
+                      
+                      {product.size_options && product.size_options.length > 0 && (
+                        <div className="text-sm text-[#969696] mb-3">
+                          From ${Math.min(...product.size_options.map(s => s.price)).toFixed(2)}
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2 text-[#FDD202] font-semibold group-hover:gap-3 transition-all">
+                        View Details
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -121,20 +139,20 @@ export default function EarlyBirdCoffee() {
       <section className="py-16 bg-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Order <span className="text-[#FDD202]">Early Bird Coffee</span>
+            Ready to <span className="text-[#FDD202]">Order?</span>
           </h2>
           <p className="text-xl text-gray-400 mb-8">
-            Available exclusively to TMCG van owners and mobile coffee operators. 
-            Get in touch to discuss wholesale pricing and delivery schedules.
+            Browse our full range of products, add items to your cart, and place your order online. 
+            Fast delivery Australia-wide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={createPageUrl('TMCGHome') + '#enquiry-form'}
+            <Link
+              to={createPageUrl('Cart')}
               className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
             >
-              Enquire to Order
-              <ArrowRight className="w-5 h-5" />
-            </a>
+              <ShoppingCart className="w-5 h-5" />
+              View Cart & Checkout
+            </Link>
             <Link
               to={createPageUrl('TMCGContact')}
               className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all"
