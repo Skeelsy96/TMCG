@@ -5,29 +5,71 @@ import { ArrowLeft, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function CompactVan() {
-  const inclusions = [
-    '1 Group Commercial Espresso Machine (Carimali Nimble or equivalent)',
-    'Commercial Coffee Grinder',
-    'Dual Under-Counter Fridges',
-    'Dual Sinks with Hot/Cold Water',
-    '48v Lithium Battery System (Pylontech)',
-    '3000W Victron Inverter',
-    'Fresh & Waste Water Tanks',
-    'Interior LED Lighting',
-    'Service Window with Awning',
-    'Custom Benchtops & Storage',
-    'Complimentary Barista Training',
-    'Business Starter Guide'
+  const appliancesAndAccessories = [
+    'Carimali Nimble 2-Group Commercial Coffee Machine',
+    'Carimali XO21 Automatic Commercial Grinder',
+    '198L 2 Door Display Fridge',
+    '70L Drawer Fridge',
+    'Fridge Dividers',
+    'Cake & Muffin Display',
+    '3 x Spring Loaded Cup Dispensers',
+    'Lid Holders',
+    'Syrup Holders',
+    'Paper Towel Rack & Dispenser',
+    'Soap Dispenser',
+    'All Hoses, Clamps, Fixtures & Fittings',
+    'Fire Extinguisher'
   ];
 
-  const optionalExtras = [
-    'Food Display Unit',
-    'Additional Fridges',
-    'Upgraded Espresso Machine',
-    'Custom Van Graphics & Branding',
-    'Point of Sale System',
-    'Extended Battery Capacity'
+  const powerSystem = [
+    '5000 Watt 48V Victron Inverter',
+    '3 x 100 Amp Hour 48V Lithium-ion Battery',
+    'Battery Monitor',
+    'Electrical Certificate',
+    'Tagging of Appliances',
+    'External Power Inlet for Mains Supply',
+    'External Power Lead',
+    'All Associated Wiring of Appliances'
   ];
+
+  const waterAndWaste = [
+    'Hot/Cold Water System',
+    'Fresh Water Tank (106L)',
+    'Hot/Cold Hand Wash Sink with Sensor Tap',
+    'Hot/Cold Utensils Sink with Flick Mixer',
+    'Jug Rinser',
+    'Water Filter',
+    'Water Pump',
+    'Water Accumulator',
+    'External Water Inlet',
+    'Waste/Sullage Tank (50L)',
+    'Associated Plumbing of Appliances'
+  ];
+
+  const baristaKit = [
+    '3 x 1L Milk Jugs',
+    'Chocolate Shaker',
+    'Commercial Grade Tamp',
+    'Barista Training Videos',
+    'Quick Step Barista Guide and Drinks Menu',
+    'TMCG Business Starter Pack'
+  ];
+
+  const customizationOptions = {
+    interior: [
+      'Alu-panel Design Options - Splash back',
+      'Powder Coated or Painted - Colour of choice',
+      'Vinyl Wrapped - Design of choice'
+    ],
+    lighting: [
+      '(2x) LED Downlights - optional vintage bulbs',
+      'LED Strip lighting'
+    ],
+    benchtop: [
+      'Stainless-Steel bench top',
+      'Timber bench top'
+    ]
+  };
 
   const vanOptions = [
     'VW Caddy',
@@ -69,10 +111,34 @@ export default function CompactVan() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Compact Van <span className="text-[#FDD202]">Package</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl">
-            Ideal for navigating tight streets, industrial estates, school zones, and local back streets. 
-            Lower running costs with all the professional equipment you need.
+          <p className="text-xl text-gray-400 max-w-3xl mb-6">
+            Engineered to be both exceptionally nimble and highly efficient, making them the ideal choice for a range of operational environments.
           </p>
+          <div className="bg-white/5 rounded-2xl p-6 max-w-4xl">
+            <h3 className="text-lg font-semibold text-[#FDD202] mb-3">Perfect for:</h3>
+            <ul className="grid md:grid-cols-2 gap-3 text-gray-400">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                <span>Corporate Precincts and Business Parks</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                <span>Industrial Estates and Trade Centers</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                <span>Sports Ovals and Event Venues</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                <span>Local Parks and Community Spaces</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                <span>Residential Back Streets and Suburbs</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -92,11 +158,43 @@ export default function CompactVan() {
               </div>
             </div>
 
-            {/* Inclusions */}
+            {/* Standard Inclusions */}
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
-              <h2 className="text-2xl font-bold text-black mb-6">What's Included</h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {inclusions.map((item, idx) => (
+              <h2 className="text-2xl font-bold text-black mb-6">Standard Package Inclusions</h2>
+              
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Appliances and Accessories</h3>
+              <div className="space-y-2">
+                {appliancesAndAccessories.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Power System</h3>
+              <div className="space-y-2">
+                {powerSystem.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Water and Waste</h3>
+              <div className="space-y-2">
+                {waterAndWaste.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Barista Kit</h3>
+              <div className="space-y-2">
+                {baristaKit.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
                     <span className="text-[#333333]">{item}</span>
@@ -105,17 +203,30 @@ export default function CompactVan() {
               </div>
             </div>
 
-            {/* Optional Extras */}
+            {/* Customization Options */}
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
-              <h2 className="text-2xl font-bold text-black mb-6">Optional Extras</h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {optionalExtras.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <div className="w-5 h-5 border-2 border-[#FDD202] rounded flex-shrink-0 mt-0.5" />
-                    <span className="text-[#333333]">{item}</span>
-                  </div>
+              <h2 className="text-2xl font-bold text-black mb-6">Interior Customization Options</h2>
+              
+              <h3 className="text-lg font-semibold text-black mb-3">Design Options - Splash Back</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.interior.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
                 ))}
-              </div>
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Internal Lighting</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.lighting.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Bench Top Options</h3>
+              <ul className="space-y-2">
+                {customizationOptions.benchtop.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
             </div>
 
             {/* Gallery */}

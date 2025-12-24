@@ -4,13 +4,71 @@ import { createPageUrl } from '../utils';
 import { ArrowLeft, Sparkles, CheckCircle } from 'lucide-react';
 
 export default function CustomVan() {
-  const examples = [
-    { title: 'Piaggio Ape Conversions', desc: 'Unique Italian-style mobile cafes' },
-    { title: 'Food Truck Hybrids', desc: 'Coffee + food service combinations' },
-    { title: 'Vintage Vehicle Conversions', desc: 'Classic cars transformed into coffee bars' },
-    { title: 'Trailer Systems', desc: 'Custom-built coffee trailers' },
-    { title: 'Specialty Vehicles', desc: 'Unique builds for brand activations' }
+  const appliancesAndAccessories = [
+    'Carimali Nimble 2-Group Commercial Coffee Machine',
+    'Carimali XO21 Automatic Commercial Grinder',
+    '198L 2 Door Display Fridge',
+    '70L Drawer Fridge',
+    'Fridge Dividers',
+    'Cake & Muffin Display',
+    '3 x Spring Loaded Cup Dispensers',
+    'Lid Holders',
+    'Syrup Holders',
+    'Paper Towel Rack & Dispenser',
+    'Soap Dispenser',
+    'All Hoses, Clamps, Fixtures & Fittings',
+    'Fire Extinguisher'
   ];
+
+  const powerSystem = [
+    '5000 Watt 48V Victron Inverter',
+    '3 x 100 Amp Hour 48V Lithium-ion Battery',
+    'Battery Monitor',
+    'Electrical Certificate',
+    'Tagging of Appliances',
+    'External Power Inlet for Mains Supply',
+    'External Power Lead',
+    'All Associated Wiring of Appliances'
+  ];
+
+  const waterAndWaste = [
+    'Hot/Cold Water System',
+    'Fresh Water Tank (106L)',
+    'Hot/Cold Hand Wash Sink with Sensor Tap',
+    'Hot/Cold Utensils Sink with Flick Mixer',
+    'Jug Rinser',
+    'Water Filter',
+    'Water Pump',
+    'Water Accumulator',
+    'External Water Inlet',
+    'Waste/Sullage Tank (50L)',
+    'Associated Plumbing of Appliances'
+  ];
+
+  const baristaKit = [
+    '3 x 1L Milk Jugs',
+    'Chocolate Shaker',
+    'Commercial Grade Tamp',
+    'Barista Training Videos',
+    'Quick Step Barista Guide and Drinks Menu',
+    'TMCG Business Starter Pack'
+  ];
+
+  const customizationOptions = {
+    interior: [
+      'Alu-panel Design Options - Splash back',
+      'Powder Coated or Painted - Colour of choice',
+      'Vinyl Wrapped - Design of choice'
+    ],
+    lighting: [
+      '(2x) LED Downlights - optional vintage bulbs',
+      'LED Strip lighting'
+    ],
+    benchtop: [
+      'Stainless-Steel bench top',
+      'Timber bench top'
+    ]
+  };
 
   const gallery = [
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/43b23d8b5_FJCruiser3.jpg',
@@ -44,10 +102,15 @@ export default function CustomVan() {
               Custom & <span className="text-[#FDD202]">Bespoke Builds</span>
             </h1>
           </div>
-          <p className="text-xl text-gray-400 max-w-3xl">
-            Have a unique vision? We specialize in one-off custom builds — from vintage vehicles 
-            to food trucks, trailers, and anything in between. Your imagination is the only limit.
-          </p>
+          <div className="max-w-3xl">
+            <p className="text-2xl text-[#FDD202] font-bold mb-4">For Those Who Want Something a Little Different!</p>
+            <p className="text-xl text-gray-400 mb-4">
+              Our Bespoke Van Package is tailored to meet the needs of those who want something a bit different.
+            </p>
+            <p className="text-gray-400">
+              These types of vans are made to turn heads! Leveraging their 'Kerb Appeal' can be a very successful strategy for a Mobile Coffee Business.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -55,52 +118,72 @@ export default function CustomVan() {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
-              <h2 className="text-2xl font-bold text-black mb-6">Custom Build Examples</h2>
-              <div className="space-y-4">
-                {examples.map((example, idx) => (
-                  <div key={idx} className="flex items-start gap-4 p-4 bg-[#F5F5F5] rounded-xl border border-[#DBDBDB]">
-                    <CheckCircle className="w-6 h-6 text-[#FDD202] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-bold text-black mb-1">{example.title}</h3>
-                      <p className="text-[#333333] text-sm">{example.desc}</p>
-                    </div>
+              <h2 className="text-2xl font-bold text-black mb-6">Standard Package Inclusions</h2>
+              
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Appliances and Accessories</h3>
+              <div className="space-y-2">
+                {appliancesAndAccessories.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Power System</h3>
+              <div className="space-y-2">
+                {powerSystem.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Water and Waste</h3>
+              <div className="space-y-2">
+                {waterAndWaste.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Barista Kit</h3>
+              <div className="space-y-2">
+                {baristaKit.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
-              <h2 className="text-2xl font-bold text-black mb-6">How It Works</h2>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">1</div>
-                  <div>
-                    <h3 className="font-bold text-black mb-1">Initial Consultation</h3>
-                    <p className="text-[#333333]">Discuss your vision, requirements, and budget</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">2</div>
-                  <div>
-                    <h3 className="font-bold text-black mb-1">Design & Quote</h3>
-                    <p className="text-[#333333]">We create 3D renders and detailed specifications</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">3</div>
-                  <div>
-                    <h3 className="font-bold text-black mb-1">Build Phase</h3>
-                    <p className="text-[#333333]">Expert craftsmen bring your vision to life</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">4</div>
-                  <div>
-                    <h3 className="font-bold text-black mb-1">Training & Handover</h3>
-                    <p className="text-[#333333]">Complete training and your business journey begins</p>
-                  </div>
-                </div>
-              </div>
+              <h2 className="text-2xl font-bold text-black mb-6">Interior Customization Options</h2>
+              
+              <h3 className="text-lg font-semibold text-black mb-3">Design Options - Splash Back</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.interior.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Internal Lighting</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.lighting.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Bench Top Options</h3>
+              <ul className="space-y-2">
+                {customizationOptions.benchtop.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">

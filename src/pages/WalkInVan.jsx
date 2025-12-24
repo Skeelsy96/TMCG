@@ -4,22 +4,74 @@ import { createPageUrl } from '../utils';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 export default function WalkInVan() {
-  const inclusions = [
-    '2-3 Group Commercial Espresso Machine',
-    'Commercial Coffee Grinder (Premium)',
-    'Multiple Commercial Fridges & Freezers',
-    'Dual Sinks + Jug Rinser + Hand Wash Basin',
-    'High-Capacity 48v Battery System',
-    '5000W+ Victron Inverter',
-    'Large Fresh & Waste Water Tanks (200L+)',
-    'Extraction Fan & Full Ventilation System',
-    'Professional Interior Lighting',
-    'Multiple Service Windows',
-    'Custom Interior Fit-Out & Finishes',
-    'Ample Storage & Workspace',
-    'Complimentary Barista Training',
-    'Business Starter Guide & Ongoing Support'
+  const appliancesAndAccessories = [
+    'Carimali Nimble 2-Group Commercial Coffee Machine',
+    'Carimali XO21 Automatic Commercial Grinder',
+    'Schmick 70L Single Door Fridge',
+    '198L 2 Door Display Fridge',
+    'Fridge Dividers',
+    '2 x Under Counter Display Units',
+    '3 x Spring Loaded Cup Dispensers',
+    'Lid Holders',
+    'Syrup Holders',
+    'Paper Towel Rack / Dispenser',
+    'Soap Dispenser',
+    'Roof Extraction Fan - Including Turbo Vent',
+    'Lockable Cash Till',
+    'Knock Box',
+    'All Hoses, Clamps, Fixtures & Fittings',
+    'Fire Extinguisher'
   ];
+
+  const powerSystem = [
+    '5000 Watt 48V Victron Inverter',
+    '3 x 100 Amp Hour 48V Lithium-ion Battery',
+    'Battery Monitor',
+    'Electrical Certificate',
+    'Tagging of Appliances',
+    'External Power Inlet for Mains Supply',
+    'External Power Lead',
+    'All Associated Wiring of Appliances'
+  ];
+
+  const waterAndWaste = [
+    'Hot/Cold Water System',
+    'Fresh Water Tank (106L)',
+    'Hot/Cold Hand Wash Sink with Sensor Tap',
+    'Hot/Cold Utensils Sink with Flick Mixer',
+    'Jug Rinser',
+    'Water Filter',
+    'Water Pump',
+    'Water Accumulator',
+    'External Water Inlet',
+    'Waste/Sullage Tank (50L)',
+    'Associated Plumbing of Appliances'
+  ];
+
+  const baristaKit = [
+    '3 x 1L Milk Jugs',
+    'Chocolate Shaker',
+    'Commercial Grade Tamp',
+    'Barista Training Videos',
+    'Quick Step Barista Guide and Drinks Menu',
+    'TMCG Business Starter Pack'
+  ];
+
+  const customizationOptions = {
+    interior: [
+      'Alu-panel Design Options - Internal Walls and Roof Lining',
+      'Powder Coated or Painted - Colour of choice',
+      'Vinyl Wrapped - Design of choice'
+    ],
+    lighting: [
+      '(8x) LED Down lights',
+      'LED Strip lighting'
+    ],
+    benchtop: [
+      'Stainless-Steel bench top',
+      'Timber bench top'
+    ]
+  };
 
   const vanOptions = [
     'Iveco Daily',
@@ -63,10 +115,20 @@ export default function WalkInVan() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Walk-In Van <span className="text-[#FDD202]">Package</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl">
-            The ultimate mobile coffee solution. Maximum interior space for high-volume service, 
-            multiple baristas, and premium event catering. Built for serious operators.
-          </p>
+          <div className="max-w-3xl">
+            <p className="text-2xl text-[#FDD202] font-bold mb-4">Big Spaces | Big Impacts | Big Opportunities</p>
+            <p className="text-xl text-gray-400 mb-4">
+              Perfect for High-Volume service. Capitalising on abundant room for storage and additional workspace.
+            </p>
+            <p className="text-gray-400 mb-6">
+              These vans are optimal for large events and high-turnover catering. Ideal for single operators or 2-3 Staff members. Offering access through the rear barn-doors, service is carried out through the engineered "push-out" service window which offers a high vantage point for the operator to easily take orders.
+            </p>
+            <div className="bg-white/5 rounded-2xl p-6">
+              <p className="text-sm text-[#FDD202]">
+                Note: Incorporating optional items will increase power consumption and requires additional batteries. Share your vision with us so we can ensure your package meets your specific needs.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -85,15 +147,72 @@ export default function WalkInVan() {
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
-              <h2 className="text-2xl font-bold text-black mb-6">Premium Package Inclusions</h2>
-              <div className="space-y-3">
-                {inclusions.map((item, idx) => (
+              <h2 className="text-2xl font-bold text-black mb-6">Standard Package Inclusions</h2>
+              
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Appliances and Accessories</h3>
+              <div className="space-y-2">
+                {appliancesAndAccessories.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
                     <span className="text-[#333333]">{item}</span>
                   </div>
                 ))}
               </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Power System</h3>
+              <div className="space-y-2">
+                {powerSystem.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Water and Waste</h3>
+              <div className="space-y-2">
+                {waterAndWaste.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-bold text-black mb-3 mt-6">Barista Kit</h3>
+              <div className="space-y-2">
+                {baristaKit.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-[#FDD202] flex-shrink-0 mt-0.5" />
+                    <span className="text-[#333333]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
+              <h2 className="text-2xl font-bold text-black mb-6">Interior Customization Options</h2>
+              
+              <h3 className="text-lg font-semibold text-black mb-3">Design Options</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.interior.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Internal Lighting</h3>
+              <ul className="space-y-2 mb-6">
+                {customizationOptions.lighting.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold text-black mb-3">Bench Top Options</h3>
+              <ul className="space-y-2">
+                {customizationOptions.benchtop.map((item, idx) => (
+                  <li key={idx} className="text-[#333333] ml-6">• {item}</li>
+                ))}
+              </ul>
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
