@@ -10,7 +10,7 @@ export default function WalkInVan() {
     'Multiple Commercial Fridges & Freezers',
     'Dual Sinks + Jug Rinser + Hand Wash Basin',
     'High-Capacity 48v Battery System',
-    '5000w+ Pure Sine Wave Inverter',
+    '5000W+ Victron Inverter',
     'Large Fresh & Waste Water Tanks (200L+)',
     'Extraction Fan & Full Ventilation System',
     'Professional Interior Lighting',

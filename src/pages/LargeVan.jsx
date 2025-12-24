@@ -10,7 +10,7 @@ export default function LargeVan() {
     'Multiple Under-Counter Fridges',
     'Dual Sinks with Hot/Cold Water + Jug Rinser',
     '48v Lithium Battery System (Pylontech)',
-    '3000w Pure Sine Wave Inverter',
+    '3000W Victron Inverter',
     'Large Fresh & Waste Water Tanks (150L+)',
     'Extraction Fan & Ventilation',
     'Interior LED Lighting Package',

@@ -10,6 +10,8 @@ import BookCall from './pages/BookCall';
 import BrowseEvents from './pages/BrowseEvents';
 import BrowseOperators from './pages/BrowseOperators';
 import BrowseVans from './pages/BrowseVans';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import Classifieds from './pages/Classifieds';
 import CompactVan from './pages/CompactVan';
 import Contact from './pages/Contact';
@@ -27,6 +29,7 @@ import NewVans from './pages/NewVans';
 import OperatorApplication from './pages/OperatorApplication';
 import OperatorProfile from './pages/OperatorProfile';
 import PostEvent from './pages/PostEvent';
+import ProductDetail from './pages/ProductDetail';
 import Resources from './pages/Resources';
 import SUVFitOut from './pages/SUVFitOut';
 import TMCGAbout from './pages/TMCGAbout';
@@ -37,9 +40,6 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
 import __Layout from './Layout.jsx';
 
 
@@ -56,6 +56,8 @@ export const PAGES = {
     "BrowseEvents": BrowseEvents,
     "BrowseOperators": BrowseOperators,
     "BrowseVans": BrowseVans,
+    "Cart": Cart,
+    "Checkout": Checkout,
     "Classifieds": Classifieds,
     "CompactVan": CompactVan,
     "Contact": Contact,
@@ -73,6 +75,7 @@ export const PAGES = {
     "OperatorApplication": OperatorApplication,
     "OperatorProfile": OperatorProfile,
     "PostEvent": PostEvent,
+    "ProductDetail": ProductDetail,
     "Resources": Resources,
     "SUVFitOut": SUVFitOut,
     "TMCGAbout": TMCGAbout,
@@ -83,9 +86,6 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
-    "ProductDetail": ProductDetail,
-    "Cart": Cart,
-    "Checkout": Checkout,
 }
 
 export const pagesConfig = {

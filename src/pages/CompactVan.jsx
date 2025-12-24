@@ -11,7 +11,7 @@ export default function CompactVan() {
     'Dual Under-Counter Fridges',
     'Dual Sinks with Hot/Cold Water',
     '48v Lithium Battery System (Pylontech)',
-    '2000w Pure Sine Wave Inverter',
+    '3000W Victron Inverter',
     'Fresh & Waste Water Tanks',
     'Interior LED Lighting',
     'Service Window with Awning',
