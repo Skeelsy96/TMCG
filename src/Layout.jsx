@@ -8,17 +8,17 @@ export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Home', page: 'TMCGHome' },
-    { name: 'New Van Packages', page: 'NewVans' },
-    { name: 'Fit-Out Packages', page: 'FitOuts' },
-    { name: 'Pre-Loved Vans', page: 'Classifieds' },
-    { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
-    { name: 'Events', page: 'Events' },
-    { name: 'Finance Options', page: 'FinanceOptions' },
-    { name: 'Resources', page: 'Resources' },
-    { name: 'About', page: 'TMCGAbout' },
-    { name: 'Contact', page: 'TMCGContact' },
-  ];
+  { name: 'Home', page: 'TMCGHome' },
+  { name: 'New Van Packages', page: 'NewVans' },
+  { name: 'Fit-Out Packages', page: 'FitOuts' },
+  { name: 'Pre-Loved Vans', page: 'Classifieds' },
+  { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
+  { name: 'Events', page: 'Events' },
+  { name: 'Finance Options', page: 'FinanceOptions' },
+  { name: 'Resources', page: 'Resources' },
+  { name: 'About', page: 'TMCGAbout' },
+  { name: 'Contact', page: 'TMCGContact' }];
+
 
   const scrollToEnquiry = () => {
     const form = document.getElementById('enquiry-form');
@@ -67,85 +67,85 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to={createPageUrl('TMCGHome')} className="flex items-center flex-shrink-0">
-              <img 
+              <img
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
-                alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace"
-                className="h-14 w-14 object-contain"
-              />
+                alt="The Mobile Coffee Group - Australia's leading coffee van manufacturer and marketplace" className="px-1 h-14 w-14 object-contain" />
+
+
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-5 flex-1 justify-center">
-              {navigation.map((item) => (
-                <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
-                  className={`text-sm font-medium transition-colors relative group whitespace-nowrap ${
-                    currentPageName === item.page
-                      ? 'text-[#FDD202]'
-                      : 'text-black hover:text-[#FDD202]'
-                  }`}
-                >
+              {navigation.map((item) =>
+              <Link
+                key={item.page}
+                to={createPageUrl(item.page)}
+                className={`text-sm font-medium transition-colors relative group whitespace-nowrap ${
+                currentPageName === item.page ?
+                'text-[#FDD202]' :
+                'text-black hover:text-[#FDD202]'}`
+                }>
+
                   {item.name}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#FDD202] transition-all duration-300 ${
-                    currentPageName === item.page ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`} />
+                currentPageName === item.page ? 'w-full' : 'w-0 group-hover:w-full'}`
+                } />
                 </Link>
-              ))}
+              )}
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-black" />
-              ) : (
-                <Menu className="w-6 h-6 text-black" />
-              )}
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+
+              {mobileMenuOpen ?
+              <X className="w-6 h-6 text-black" /> :
+
+              <Menu className="w-6 h-6 text-black" />
+              }
             </button>
           </div>
         </nav>
 
         {/* Mobile Menu */}
         <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t overflow-hidden"
-            >
+          {mobileMenuOpen &&
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white border-t overflow-hidden">
+
               <div className="px-4 py-6 space-y-4">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.page}
-                    to={createPageUrl(item.page)}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-3 px-4 rounded-lg font-medium transition-colors ${
-                      currentPageName === item.page
-                        ? 'bg-[#FDD202] text-black'
-                        : 'text-black hover:bg-[#F5F5F5]'
-                    }`}
-                  >
+                {navigation.map((item) =>
+              <Link
+                key={item.page}
+                to={createPageUrl(item.page)}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block py-3 px-4 rounded-lg font-medium transition-colors ${
+                currentPageName === item.page ?
+                'bg-[#FDD202] text-black' :
+                'text-black hover:bg-[#F5F5F5]'}`
+                }>
+
                     {item.name}
                   </Link>
-                ))}
+              )}
                 <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    scrollToEnquiry();
-                  }}
-                  className="block w-full text-center bg-[#FDD202] text-black py-3 rounded-lg font-semibold"
-                >
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  scrollToEnquiry();
+                }}
+                className="block w-full text-center bg-[#FDD202] text-black py-3 rounded-lg font-semibold">
+
                   Enquire Now
                 </button>
                 <Link
-                  to={createPageUrl('BookCall')}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center bg-black text-white py-3 rounded-lg font-semibold"
-                >
+                to={createPageUrl('BookCall')}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full text-center bg-black text-white py-3 rounded-lg font-semibold">
+
                   Book a Call
                 </Link>
                 <div className="pt-4 border-t space-y-3">
@@ -160,7 +160,7 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               </div>
             </motion.div>
-          )}
+          }
         </AnimatePresence>
       </header>
 
@@ -173,14 +173,14 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex justify-center gap-4">
             <button
               onClick={scrollToEnquiry}
-              className="bg-[#FDD202] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all shadow-lg"
-            >
+              className="bg-[#FDD202] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-all shadow-lg">
+
               Enquire Now
             </button>
             <Link
               to={createPageUrl('BookCall')}
-              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
-            >
+              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
+
               Book a Call
             </Link>
           </div>
@@ -193,11 +193,11 @@ export default function Layout({ children, currentPageName }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand Column */}
             <div className="lg:col-span-1">
-              <img 
+              <img
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_69146bc33cf928fc6bc5fa52/24e4d88c0_TMCGLogo.png"
                 alt="The Mobile Coffee Group"
-                className="h-12 w-12 object-contain mb-4"
-              />
+                className="h-12 w-12 object-contain mb-4" />
+
               <p className="text-gray-400 text-sm leading-relaxed mb-2">
                 Brew More Than Coffee. Brew A Lifestyle.
               </p>
@@ -258,6 +258,6 @@ export default function Layout({ children, currentPageName }) {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 }
