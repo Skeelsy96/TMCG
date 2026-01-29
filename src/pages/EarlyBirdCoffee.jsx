@@ -19,8 +19,8 @@ export default function EarlyBirdCoffee() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
+            className="text-center">
+
             <div className="inline-flex items-center gap-2 bg-[#FDD202]/10 border border-[#FDD202]/30 rounded-full px-4 py-2 mb-6">
               <Coffee className="w-4 h-4 text-[#FDD202]" />
               <span className="text-[#FDD202] text-sm font-medium">In-House Roastery</span>
@@ -54,7 +54,7 @@ export default function EarlyBirdCoffee() {
               <div className="w-16 h-16 bg-[#FDD202]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-[#FDD202]" />
               </div>
-              <h3 className="text-xl font-bold text-black mb-2">Mobile-Optimized</h3>
+              <h3 className="text-xl font-bold text-black mb-2">Mobile-Optimised</h3>
               <p className="text-[#333333]">Blends engineered for consistency in mobile setups</p>
             </div>
             <div className="text-center">
@@ -75,40 +75,40 @@ export default function EarlyBirdCoffee() {
             <h2 className="text-3xl font-bold text-black">Our Products</h2>
             <Link
               to={createPageUrl('Cart')}
-              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold border border-[#DBDBDB] hover:shadow-lg transition-all"
-            >
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold border border-[#DBDBDB] hover:shadow-lg transition-all">
+
               <ShoppingCart className="w-5 h-5" />
               View Cart
             </Link>
           </div>
 
-          {isLoading ? (
-            <div className="text-center py-12 text-[#969696]">Loading products...</div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-12 text-[#969696]">No products available</div>
-          ) : (
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {products.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
+          {isLoading ?
+          <div className="text-center py-12 text-[#969696]">Loading products...</div> :
+          products.length === 0 ?
+          <div className="text-center py-12 text-[#969696]">No products available</div> :
+
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {products.map((product, index) =>
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}>
+
                   <Link
-                    to={createPageUrl('ProductDetail') + `?id=${product.id}`}
-                    className="group block bg-white rounded-2xl overflow-hidden border border-[#DBDBDB] hover:shadow-xl transition-all h-full"
-                  >
-                    {product.image && (
-                      <div className="relative h-48 bg-[#F5F5F5] overflow-hidden">
+                to={createPageUrl('ProductDetail') + `?id=${product.id}`}
+                className="group block bg-white rounded-2xl overflow-hidden border border-[#DBDBDB] hover:shadow-xl transition-all h-full">
+
+                    {product.image &&
+                <div className="relative h-48 bg-[#F5F5F5] overflow-hidden">
                         <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+
                       </div>
-                    )}
+                }
                     <div className="p-6">
                       <div className="text-xs text-[#FDD202] font-semibold mb-2 uppercase">{product.category}</div>
                       <h3 className="text-lg font-bold text-black mb-2 group-hover:text-[#FDD202] transition-colors">
@@ -116,11 +116,11 @@ export default function EarlyBirdCoffee() {
                       </h3>
                       <p className="text-sm text-[#333333] mb-4 line-clamp-2">{product.description}</p>
                       
-                      {product.size_options && product.size_options.length > 0 && (
-                        <div className="text-sm text-[#969696] mb-3">
-                          From ${Math.min(...product.size_options.map(s => s.price)).toFixed(2)}
+                      {product.size_options && product.size_options.length > 0 &&
+                  <div className="text-sm text-[#969696] mb-3">
+                          From ${Math.min(...product.size_options.map((s) => s.price)).toFixed(2)}
                         </div>
-                      )}
+                  }
 
                       <div className="flex items-center gap-2 text-[#FDD202] font-semibold group-hover:gap-3 transition-all">
                         View Details
@@ -129,9 +129,9 @@ export default function EarlyBirdCoffee() {
                     </div>
                   </Link>
                 </motion.div>
-              ))}
+            )}
             </div>
-          )}
+          }
         </div>
       </section>
 
@@ -148,15 +148,15 @@ export default function EarlyBirdCoffee() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={createPageUrl('Cart')}
-              className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
-            >
+              className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all">
+
               <ShoppingCart className="w-5 h-5" />
               View Cart & Checkout
             </Link>
             <Link
               to={createPageUrl('TMCGContact')}
-              className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all"
-            >
+              className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all">
+
               Contact Us
             </Link>
           </div>
@@ -213,6 +213,6 @@ export default function EarlyBirdCoffee() {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>);
+
 }
