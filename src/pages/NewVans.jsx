@@ -10,7 +10,7 @@ export default function NewVans() {
       name: 'Compact Van Package',
       slug: 'CompactVan',
       description: 'Perfect for tight streets, school zones, and local neighbourhoods',
-      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
+      image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/2017f0be7_SUV6.jpg',
       icon: Coffee,
       highlights: ['Low running costs', 'Easy parking', 'Ideal for estates']
     },
