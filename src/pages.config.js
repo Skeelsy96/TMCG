@@ -138,7 +138,7 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "Home",
+    mainPage: "TMCGHome",
     Pages: PAGES,
     Layout: __Layout,
 };
