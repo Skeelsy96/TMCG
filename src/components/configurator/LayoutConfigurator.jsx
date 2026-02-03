@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Coffee, Zap, Droplets, Box, Plus, Trash2, Move } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,50 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
 
   const vanDimensions = configuration.vanModel?.dimensions || { width: 2.0, length: 4.0 };
   const scale = 80; // pixels per meter
+
+  const containerRef = useRef(null);
+  const draggingRef = useRef({ id: null, offsetX: 0, offsetY: 0 });
+  const snapTo = 0.05; // metres
+  const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+
+  const onMouseDownAppliance = (e, appliance) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const mouseX = (e.clientX - rect.left) / scale;
+    const mouseY = (e.clientY - rect.top) / scale;
+    draggingRef.current = {
+      id: appliance.instanceId,
+      offsetX: mouseX - appliance.x,
+      offsetY: mouseY - appliance.y,
+    };
+  };
+
+  const onMouseMoveCanvas = (e) => {
+    if (!draggingRef.current.id || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    let x = (e.clientX - rect.left) / scale - draggingRef.current.offsetX;
+    let y = (e.clientY - rect.top) / scale - draggingRef.current.offsetY;
+
+    // Find dragged appliance to clamp within bounds
+    const idx = placedAppliances.findIndex(a => a.instanceId === draggingRef.current.id);
+    if (idx === -1) return;
+    const a = placedAppliances[idx];
+
+    x = clamp(x, 0, Math.max(0, vanDimensions.width - a.width));
+    y = clamp(y, 0, Math.max(0, vanDimensions.length - a.depth));
+
+    // Snap to grid
+    x = Math.round(x / snapTo) * snapTo;
+    y = Math.round(y / snapTo) * snapTo;
+
+    const updated = placedAppliances.map(ap => ap.instanceId === a.instanceId ? { ...ap, x, y } : ap);
+    setPlacedAppliances(updated);
+    updateConfiguration('layout', { appliances: updated, dimensions: vanDimensions });
+  };
+
+  const endDrag = () => {
+    draggingRef.current.id = null;
+  };
 
   const addAppliance = (appliance) => {
     const newAppliance = {
@@ -132,6 +176,10 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
 
           <div className="bg-[#F5F5F5] rounded-xl p-4 overflow-auto">
             <div
+              ref={containerRef}
+              onMouseMove={onMouseMoveCanvas}
+              onMouseUp={endDrag}
+              onMouseLeave={endDrag}
               className="relative bg-white border-2 border-dashed border-[#969696] rounded-lg mx-auto"
               style={{
                 width: vanDimensions.width * scale,
@@ -151,13 +199,14 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
               {placedAppliances.map((appliance) => (
                 <div
                   key={appliance.instanceId}
-                  className="absolute group"
+                  className="absolute group cursor-move"
                   style={{
                     left: appliance.x * scale,
                     top: appliance.y * scale,
                     width: appliance.width * scale,
                     height: appliance.depth * scale,
                   }}
+                  onMouseDown={(e) => onMouseDownAppliance(e, appliance)}
                 >
                   <div
                     className="w-full h-full rounded-lg border-2 border-black flex flex-col items-center justify-center relative shadow-lg"
@@ -178,33 +227,7 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
                       </button>
                     </div>
 
-                    {/* Movement controls */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        onClick={() => moveAppliance(appliance.instanceId, 'up')}
-                        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-[#FDD202]"
-                      >
-                        ▲
-                      </button>
-                      <button
-                        onClick={() => moveAppliance(appliance.instanceId, 'down')}
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-[#FDD202]"
-                      >
-                        ▼
-                      </button>
-                      <button
-                        onClick={() => moveAppliance(appliance.instanceId, 'left')}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-[#FDD202]"
-                      >
-                        ◀
-                      </button>
-                      <button
-                        onClick={() => moveAppliance(appliance.instanceId, 'right')}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-[#FDD202]"
-                      >
-                        ▶
-                      </button>
-                    </div>
+                    {/* Drag to move - controls removed per UX update */}
                   </div>
                 </div>
               ))}
@@ -212,7 +235,7 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
           </div>
 
           <div className="mt-4 text-sm text-[#969696] text-center">
-            Click appliances to see movement controls • Hover to delete
+            Drag and drop items to reposition • Click the red dot to remove
           </div>
         </div>
       </div>

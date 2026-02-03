@@ -105,15 +105,23 @@ export default function VanPreview3D({ configuration }) {
       isDragging.current = false;
     };
 
+    const handleWheel = (e) => {
+      if (!camera) return;
+      const factor = e.deltaY < 0 ? 0.9 : 1.1;
+      camera.position.multiplyScalar(factor);
+    };
+
     renderer.domElement.addEventListener('mousedown', handleMouseDown);
     renderer.domElement.addEventListener('mousemove', handleMouseMove);
     renderer.domElement.addEventListener('mouseup', handleMouseUp);
+    renderer.domElement.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
       window.removeEventListener('resize', handleResize);
       renderer.domElement.removeEventListener('mousedown', handleMouseDown);
       renderer.domElement.removeEventListener('mousemove', handleMouseMove);
       renderer.domElement.removeEventListener('mouseup', handleMouseUp);
+      renderer.domElement.removeEventListener('wheel', handleWheel);
       mountRef.current?.removeChild(renderer.domElement);
     };
   }, []);

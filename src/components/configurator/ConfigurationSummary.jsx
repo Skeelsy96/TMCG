@@ -141,7 +141,7 @@ export default function ConfigurationSummary({ configuration }) {
                 )}
                 <div className="flex gap-4">
                   <div>
-                    <div className="text-sm text-[#969696] mb-2">Color Scheme</div>
+                    <div className="text-sm text-[#969696] mb-2">Colour Scheme</div>
                     <div className="flex gap-2">
                       <div
                         className="w-12 h-12 rounded-lg border border-[#DBDBDB]"
@@ -195,7 +195,7 @@ export default function ConfigurationSummary({ configuration }) {
             </li>
             <li className="flex items-center gap-2">
               <Check className="w-4 h-4 text-blue-500" />
-              Finalize design and begin construction (8-12 weeks)
+              Finalise design and begin construction (8–12 weeks)
             </li>
           </ul>
         </div>

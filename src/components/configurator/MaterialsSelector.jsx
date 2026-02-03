@@ -49,7 +49,7 @@ export default function MaterialsSelector({ configuration, updateConfiguration }
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-black mb-4">Choose Materials & Finishes</h2>
         <p className="text-[#333333] text-lg max-w-2xl mx-auto">
-          Customize the look and feel of your van interior
+          Customise the look and feel of your van interior
         </p>
       </div>
 
@@ -97,7 +97,7 @@ export default function MaterialsSelector({ configuration, updateConfiguration }
 
         {/* Cabinetry Color */}
         <div>
-          <h3 className="text-xl font-bold text-black mb-6">Cabinetry Color</h3>
+          <h3 className="text-xl font-bold text-black mb-6">Cabinetry Colour</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {CABINETRY_OPTIONS.map((option) => (
               <button
