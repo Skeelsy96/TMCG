@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 
-const BLOG_ARTICLES = [
+const RESOURCES_ARTICLES = [
   {
     id: 'complete-guide-buying-coffee-van',
     title: 'The Complete Guide to Buying a Second-Hand Coffee Van',
@@ -68,18 +68,18 @@ const BLOG_ARTICLES = [
 
 const CATEGORIES = ['All', 'Buying Guide', 'Selling Tips', 'Industry News', 'Finance', 'Business Tips'];
 
-export default function Blog() {
+export default function ResourcesGuides() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredArticles = BLOG_ARTICLES.filter(article => {
+  const filteredArticles = RESOURCES_ARTICLES.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const featuredArticles = BLOG_ARTICLES.filter(a => a.featured);
+  const featuredArticles = RESOURCES_ARTICLES.filter(a => a.featured);
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
@@ -94,7 +94,7 @@ export default function Blog() {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Coffee Van <span className="text-[#FDD202]">Resources</span>
+              Resources <span className="text-[#FDD202]">&amp; Guides</span>
             </h1>
             <p className="text-[#969696] text-lg max-w-2xl mx-auto mb-8">
               Expert guides, industry insights, and tips for buying, selling, and running a successful mobile coffee business
@@ -106,7 +106,7 @@ export default function Blog() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#969696]" />
                 <Input
                   type="search"
-                  placeholder="Search articles..."
+                  placeholder="Search resources..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 h-14 bg-white border-[#DBDBDB] text-lg"
