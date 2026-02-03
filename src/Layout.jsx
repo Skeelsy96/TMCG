@@ -15,7 +15,7 @@ export default function Layout({ children, currentPageName }) {
   { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
   { name: 'Events', page: 'Events' },
   { name: 'Finance Options', page: 'FinanceOptions' },
-  { name: 'Resources', page: 'Resources' },
+  { name: 'Blog', page: 'Blog' },
   { name: 'About', page: 'TMCGAbout' },
   { name: 'Contact', page: 'TMCGContact' }];
 
@@ -178,9 +178,13 @@ export default function Layout({ children, currentPageName }) {
               Enquire Now
             </button>
             <Link
+              to={createPageUrl('VanConfigurator')}
+              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
+              Build Your Van
+            </Link>
+            <Link
               to={createPageUrl('BookCall')}
               className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
-
               Book a Call
             </Link>
           </div>
@@ -223,7 +227,7 @@ export default function Layout({ children, currentPageName }) {
                 <li><Link to={createPageUrl('EarlyBirdCoffee')} className="text-gray-400 hover:text-white transition-colors">Early Bird Coffee</Link></li>
                 <li><Link to={createPageUrl('Events')} className="text-gray-400 hover:text-white transition-colors">Events Network</Link></li>
                 <li><Link to={createPageUrl('FinanceOptions')} className="text-gray-400 hover:text-white transition-colors">Finance Options</Link></li>
-                <li><Link to={createPageUrl('Resources')} className="text-gray-400 hover:text-white transition-colors">Resources</Link></li>
+                <li><Link to={createPageUrl('Blog')} className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
               </ul>
             </div>
 

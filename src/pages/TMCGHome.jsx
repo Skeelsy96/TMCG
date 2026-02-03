@@ -8,6 +8,7 @@ import {
 import { motion } from 'framer-motion';
 import LeadEnquiryForm from '../components/tmcg/LeadEnquiryForm';
 import BookingSection from '../components/tmcg/BookingSection';
+import TestimonialSlider from '../components/tmcg/TestimonialSlider';
 
 export default function TMCGHome() {
   const branchCards = [
@@ -281,6 +282,8 @@ export default function TMCGHome() {
 
       {/* Booking Section */}
       <BookingSection />
+
+      <TestimonialSlider />
 
       {/* Trust & Social Proof */}
       <section className="py-20 bg-white">
