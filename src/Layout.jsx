@@ -15,7 +15,7 @@ export default function Layout({ children, currentPageName }) {
   { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
   { name: 'Events', page: 'Events' },
   { name: 'Finance Options', page: 'FinanceOptions' },
-  { name: 'Blog', page: 'Blog' },
+  { name: 'Resources & Guides', page: 'Blog' },
   { name: 'About', page: 'TMCGAbout' },
   { name: 'Contact', page: 'TMCGContact' }];
 
@@ -227,7 +227,7 @@ export default function Layout({ children, currentPageName }) {
                 <li><Link to={createPageUrl('EarlyBirdCoffee')} className="text-gray-400 hover:text-white transition-colors">Early Bird Coffee</Link></li>
                 <li><Link to={createPageUrl('Events')} className="text-gray-400 hover:text-white transition-colors">Events Network</Link></li>
                 <li><Link to={createPageUrl('FinanceOptions')} className="text-gray-400 hover:text-white transition-colors">Finance Options</Link></li>
-                <li><Link to={createPageUrl('Blog')} className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+                <li><Link to={createPageUrl('Blog')} className="text-gray-400 hover:text-white transition-colors">Resources & Guides</Link></li>
               </ul>
             </div>
 
