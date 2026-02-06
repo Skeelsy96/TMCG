@@ -43,18 +43,19 @@ export default function ListVan() {
     location: '',
     state: '',
     Vehicle_type: '',
-    Vehicle_subtype: '',
+    trailer_type: '',
+    van_type: '',
+    truck_body_type: '',
     Vehicle_Make: '',
     Vehicle_Model: '',
     year_built: '',
+    year_fitout: '',
     Kms: '',
     condition: '',
     description: '',
     features: [],
-    coffee_machine: '',
-    grinder: '',
     power_source: '',
-    water_capacity: '',
+    water_system_type: '',
     seller_name: '',
     seller_phone: '',
     seller_email: '',
@@ -78,7 +79,9 @@ export default function ListVan() {
       
       // Reset dependent fields when Vehicle_type changes
       if (field === 'Vehicle_type') {
-        newData.Vehicle_subtype = '';
+        newData.trailer_type = '';
+        newData.van_type = '';
+        newData.truck_body_type = '';
         newData.Vehicle_Make = '';
         newData.Vehicle_Model = '';
       }
@@ -99,7 +102,7 @@ export default function ListVan() {
   const availableModels = getModelsForMake(formData.Vehicle_Make, formData.Vehicle_type);
   
   // Get subtypes for selected vehicle type
-  const availableSubtypes = VEHICLE_TYPES[formData.Vehicle_type] || [];
+  // Subtype selections are handled per vehicle type (trailer_type, van_type, truck_body_type)
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -156,8 +159,8 @@ export default function ListVan() {
       ...formData,
       price: Number(formData.price),
       year_built: formData.year_built ? Number(formData.year_built) : null,
+      year_fitout: formData.year_fitout ? Number(formData.year_fitout) : null,
       Kms: formData.Kms ? Number(formData.Kms) : null,
-      water_capacity: formData.water_capacity ? Number(formData.water_capacity) : null,
     };
     createMutation.mutate(data);
   };
@@ -333,20 +336,55 @@ export default function ListVan() {
                   </Select>
                 </div>
 
-                {availableSubtypes.length > 0 && (
+                {formData.Vehicle_type === 'Trailer' && (
                   <div>
-                    <Label>Vehicle Subtype</Label>
+                    <Label>Trailer Type</Label>
                     <Select
-                      value={formData.Vehicle_subtype}
-                      onValueChange={(value) => handleChange('Vehicle_subtype', value)}
+                      value={formData.trailer_type}
+                      onValueChange={(value) => handleChange('trailer_type', value)}
                     >
                       <SelectTrigger className="mt-2">
-                        <SelectValue placeholder="Select subtype (optional)" />
+                        <SelectValue placeholder="Select trailer type" />
                       </SelectTrigger>
                       <SelectContent>
-                        {availableSubtypes.map((subtype) => (
-                          <SelectItem key={subtype} value={subtype}>{subtype}</SelectItem>
-                        ))}
+                        <SelectItem value="Single-Axle Trailer">Single-Axle Trailer</SelectItem>
+                        <SelectItem value="Dual-Axle Trailer">Dual-Axle Trailer</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+                {formData.Vehicle_type === 'Van' && (
+                  <div>
+                    <Label>Van Type</Label>
+                    <Select
+                      value={formData.van_type}
+                      onValueChange={(value) => handleChange('van_type', value)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select van type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Compact Van">Compact Van</SelectItem>
+                        <SelectItem value="Large Van">Large Van</SelectItem>
+                        <SelectItem value="Extra Large - LWB/HR Van">Extra Large - LWB/HR Van</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+                {formData.Vehicle_type === 'Truck' && (
+                  <div>
+                    <Label>Truck Body Type</Label>
+                    <Select
+                      value={formData.truck_body_type}
+                      onValueChange={(value) => handleChange('truck_body_type', value)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select truck body" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Mini Truck">Mini Truck</SelectItem>
+                        <SelectItem value="Vintage Truck">Vintage Truck</SelectItem>
+                        <SelectItem value="Extra Large Truck">Extra Large Truck</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -445,29 +483,7 @@ export default function ListVan() {
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="coffee_machine">Coffee Machine</Label>
-                    <Input
-                      id="coffee_machine"
-                      placeholder="e.g., La Marzocco Linea Mini"
-                      value={formData.coffee_machine}
-                      onChange={(e) => handleChange('coffee_machine', e.target.value)}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="grinder">Grinder</Label>
-                    <Input
-                      id="grinder"
-                      placeholder="e.g., Mazzer Super Jolly"
-                      value={formData.grinder}
-                      onChange={(e) => handleChange('grinder', e.target.value)}
-                      className="mt-2"
-                    />
-                  </div>
-                </div>
+                {/* Equipment specific fields can be added later if included in schema */}
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
@@ -488,15 +504,19 @@ export default function ListVan() {
                   </div>
 
                   <div>
-                    <Label htmlFor="water_capacity">Water Capacity (Litres)</Label>
-                    <Input
-                      id="water_capacity"
-                      type="number"
-                      placeholder="e.g., 100"
-                      value={formData.water_capacity}
-                      onChange={(e) => handleChange('water_capacity', e.target.value)}
-                      className="mt-2"
-                    />
+                    <Label>Water System</Label>
+                    <Select
+                      value={formData.water_system_type}
+                      onValueChange={(value) => handleChange('water_system_type', value)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select water system" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Hot and Cold Water">Hot and Cold Water</SelectItem>
+                        <SelectItem value="Cold Water">Cold Water</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 

@@ -171,7 +171,7 @@ export const TRAILER_MAKES = [
   'Belco Trailers', 'Humpback Trailers', 'Sunshine Trailers'
 ];
 
-export const POWER_SOURCES = ['generator', 'battery', 'Gas/LPG', 'hybrid'];
+export const POWER_SOURCES = ['Generator', 'Battery', 'Gas/LPG', 'Hybrid'];
 
 export const CONDITIONS = ['excellent', 'good', 'fair'];
 

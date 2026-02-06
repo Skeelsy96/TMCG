@@ -82,10 +82,10 @@ export default function AdvancedFilters({ filters, onFilterChange }) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Any Power Source</SelectItem>
-            <SelectItem value="generator">Generator</SelectItem>
-            <SelectItem value="battery">Battery</SelectItem>
+            <SelectItem value="Generator">Generator</SelectItem>
+            <SelectItem value="Battery">Battery</SelectItem>
             <SelectItem value="Gas/LPG">Gas/LPG</SelectItem>
-            <SelectItem value="hybrid">Hybrid</SelectItem>
+            <SelectItem value="Hybrid">Hybrid</SelectItem>
           </SelectContent>
         </Select>
       </div>
