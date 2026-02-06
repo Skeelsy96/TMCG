@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { 
   Upload, X, Plus, Check, Loader2, Coffee, MapPin, 
-  DollarSign, FileText, Camera, ArrowRight, ArrowLeft
+  DollarSign, FileText, Camera, ArrowRight, ArrowLeft, Wand2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -72,6 +72,7 @@ export default function ListVan() {
     condition: '',
     description: '',
     features: [],
+    tags: [],
     power_source: '',
     water_system_type: '',
     seller_name: '',
@@ -82,7 +83,9 @@ export default function ListVan() {
     status: 'pending',
   });
   const [newFeature, setNewFeature] = useState('');
+  const [newTag, setNewTag] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [aiLoading, setAiLoading] = useState({ title: false, description: false, tags: false });
 
   const createMutation = useMutation({
     mutationFn: (data) => base44.entities.PreLovedVanListings.create(data),
@@ -170,6 +173,72 @@ export default function ListVan() {
       ...prev,
       features: prev.features.filter((_, i) => i !== index),
     }));
+  };
+
+  const addTag = () => {
+    if (newTag.trim()) {
+      setFormData(prev => ({
+        ...prev,
+        tags: [...(prev.tags || []), newTag.trim()],
+      }));
+      setNewTag('');
+    }
+  };
+
+  const removeTag = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      tags: (prev.tags || []).filter((_, i) => i !== index),
+    }));
+  };
+
+  const buildListingContext = () => {
+    const f = formData;
+    const featuresText = (f.features || []).join(', ');
+    const tagsText = (f.tags || []).join(', ');
+    return `Title: ${f.title}\nPrice (AUD): ${f.price}\nLocation: ${f.location}, ${f.state}\nVehicle: ${f.Vehicle_type} ${f.trailer_type || f.van_type || f.truck_body_type || ''}\nMake & Model: ${f.Vehicle_Make} ${f.Vehicle_Model}\nYear Built: ${f.year_built || ''}\nYear Fitout: ${f.year_fitout || ''}\nOdometer (km): ${f.Kms || ''}\nCondition: ${f.condition || ''}\nPower: ${f.power_source || ''}\nWater: ${f.water_system_type || ''}\nFeatures: ${featuresText}\nExisting Tags: ${tagsText}`;
+  };
+
+  const generateTitleAI = async () => {
+    setAiLoading((s) => ({ ...s, title: true }));
+    const prompt = `You are an expert copywriter for used mobile coffee vans. Improve this listing title to be concise, specific, and high-impact for buyers in Australia (max 90 characters). Keep important details like year, make/model, and key selling point.\n\nContext:\n${buildListingContext()}\n\nOutput JUST the improved title.`;
+    const res = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: { type: 'object', properties: { title: { type: 'string' } } }
+    });
+    const newTitle = (res?.title || res?.data?.title || '').toString().trim();
+    if (newTitle) {
+      setFormData((p) => ({ ...p, title: newTitle }));
+    }
+    setAiLoading((s) => ({ ...s, title: false }));
+  };
+
+  const generateDescriptionAI = async () => {
+    setAiLoading((s) => ({ ...s, description: true }));
+    const prompt = `Write a compelling, detailed, and honest listing description for a pre-loved mobile coffee ${formData.Vehicle_type || 'van'} in Australia. Use an approachable, professional tone. Include: brief intro, van/build overview, equipment/features highlights, power/water, condition, ideal buyer use-cases, and a clear call to action. Avoid exaggerations and stick to provided details. Use short paragraphs and bullet points where helpful.\n\nContext:\n${buildListingContext()}\n\nReturn JSON with a single field 'description' (string).`;
+    const res = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: { type: 'object', properties: { description: { type: 'string' } } }
+    });
+    const newDesc = (res?.description || res?.data?.description || '').toString();
+    if (newDesc) {
+      setFormData((p) => ({ ...p, description: newDesc }));
+    }
+    setAiLoading((s) => ({ ...s, description: false }));
+  };
+
+  const suggestTagsAI = async () => {
+    setAiLoading((s) => ({ ...s, tags: true }));
+    const prompt = `Suggest 8-15 short, relevant SEO-friendly tags (lowercase, hyphenated where needed) for this pre-loved mobile coffee van listing in Australia. Focus on make/model, type, setup, key equipment, power/water, and use-cases. Do not include generic words like 'sale', 'coffee', 'van' alone.\n\nContext:\n${buildListingContext()}\n\nReturn JSON with field 'tags' (array of strings).`;
+    const res = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: { type: 'object', properties: { tags: { type: 'array', items: { type: 'string' } } } }
+    });
+    const suggested = res?.tags || res?.data?.tags || [];
+    if (Array.isArray(suggested) && suggested.length) {
+      setFormData((p) => ({ ...p, tags: Array.from(new Set([...(p.tags || []), ...suggested.map(t => String(t).toLowerCase())])) }));
+    }
+    setAiLoading((s) => ({ ...s, tags: false }));
   };
 
   const handleSubmit = () => {
@@ -584,6 +653,50 @@ export default function ListVan() {
                           <button
                             type="button"
                             onClick={() => removeFeature(idx)}
+                            className="text-gray-400 hover:text-gray-600"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <Label>Keywords & Tags</Label>
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      placeholder="Add a tag..."
+                      value={newTag}
+                      onChange={(e) => setNewTag(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                    />
+                    <Button type="button" onClick={addTag} variant="outline">
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={suggestTagsAI}
+                      variant="outline"
+                      disabled={aiLoading.tags}
+                      className="whitespace-nowrap"
+                    >
+                      {aiLoading.tags ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Wand2 className="w-4 h-4 mr-2" />}
+                      Suggest Tags
+                    </Button>
+                  </div>
+                  {formData.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {formData.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full text-sm"
+                        >
+                          {tag}
+                          <button
+                            type="button"
+                            onClick={() => removeTag(idx)}
                             className="text-gray-400 hover:text-gray-600"
                           >
                             <X className="w-4 h-4" />

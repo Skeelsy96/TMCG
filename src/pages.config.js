@@ -74,8 +74,6 @@ import FinanceOptions from './pages/FinanceOptions';
 import FitOuts from './pages/FitOuts';
 import Home from './pages/Home';
 import LargeVan from './pages/LargeVan';
-import ListVan from './pages/ListVan';
-import MyListings from './pages/MyListings';
 import MyOrders from './pages/MyOrders';
 import NewVans from './pages/NewVans';
 import OperatorApplication from './pages/OperatorApplication';
@@ -90,8 +88,10 @@ import TMCGHome from './pages/TMCGHome';
 import UteFitOut from './pages/UteFitOut';
 import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
-import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
+import VanDetail from './pages/VanDetail';
+import ListVan from './pages/ListVan';
+import MyListings from './pages/MyListings';
 import __Layout from './Layout.jsx';
 
 
@@ -123,8 +123,6 @@ export const PAGES = {
     "FitOuts": FitOuts,
     "Home": Home,
     "LargeVan": LargeVan,
-    "ListVan": ListVan,
-    "MyListings": MyListings,
     "MyOrders": MyOrders,
     "NewVans": NewVans,
     "OperatorApplication": OperatorApplication,
@@ -139,8 +137,10 @@ export const PAGES = {
     "UteFitOut": UteFitOut,
     "ValiantFinance": ValiantFinance,
     "VanConfigurator": VanConfigurator,
-    "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
+    "VanDetail": VanDetail,
+    "ListVan": ListVan,
+    "MyListings": MyListings,
 }
 
 export const pagesConfig = {
