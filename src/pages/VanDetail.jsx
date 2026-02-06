@@ -261,6 +261,18 @@ export default function VanDetail() {
               </div>
             )}
 
+            {/* Tags */}
+            {Array.isArray(van.tags) && van.tags.length > 0 && (
+              <div className="bg-white rounded-2xl p-8 shadow-sm">
+                <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Keywords</h2>
+                <div className="flex flex-wrap gap-2">
+                  {van.tags.map((tag, idx) => (
+                    <span key={idx} className="px-3 py-1 rounded-full text-sm bg-gray-100">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Specifications */}
             {specs.length > 0 && (
               <div className="bg-white rounded-2xl p-8 shadow-sm">
