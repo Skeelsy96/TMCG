@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
-import { ArrowRight, LogOut, BarChart3, ListChecks, Bookmark, PlusCircle } from 'lucide-react';
+import { ArrowRight, LogOut, BarChart3, ListChecks, Bookmark, PlusCircle, Calendar, User, ShoppingBag, Truck } from 'lucide-react';
 
 export default function Account() {
   const [authUser, setAuthUser] = useState(null);
@@ -23,6 +23,20 @@ export default function Account() {
   const { data: myListings = [] } = useQuery({
     queryKey: ['my-listings', authUser?.email],
     queryFn: () => base44.entities.CoffeeVan.filter({ created_by: authUser.email }),
+    enabled: !!authUser?.email,
+    initialData: [],
+  });
+
+  const { data: myEvents = [] } = useQuery({
+    queryKey: ['my-events', authUser?.email],
+    queryFn: () => base44.entities.EventPosting.filter({ created_by: authUser.email }),
+    enabled: !!authUser?.email,
+    initialData: [],
+  });
+
+  const { data: myOperatorProfiles = [] } = useQuery({
+    queryKey: ['my-operator-profile', authUser?.email],
+    queryFn: () => base44.entities.OperatorProfile.filter({ created_by: authUser.email }),
     enabled: !!authUser?.email,
     initialData: [],
   });
@@ -128,6 +142,51 @@ export default function Account() {
         <div className="max-w-7xl mx-auto px-4 flex flex-wrap gap-3">
           <Link to={createPageUrl('MyListings')} className="inline-flex items-center gap-2 bg-white border border-[#DBDBDB] px-5 py-3 rounded-full font-semibold hover:bg-gray-50">Manage Listings</Link>
           <Link to={createPageUrl('ChooseListingPackage')} className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-5 py-3 rounded-full font-semibold hover:bg-[#f5c400]"><PlusCircle className="w-4 h-4"/> List a Van</Link>
+        </div>
+      </section>
+
+      {/* Account Shortcuts */}
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Events Listed */}
+          <div className="bg-white rounded-2xl border border-[#DBDBDB] p-6 flex flex-col">
+            <div className="flex items-center gap-2 mb-2"><Calendar className="w-5 h-5 text-[#FDD202]" /><h3 className="font-bold text-black">Events Listed</h3></div>
+            <p className="text-sm text-[#333333] mb-4">Manage events you posted.</p>
+            {myEvents.length > 0 ? (
+              <Link to={createPageUrl('BrowseEvents')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">View My Events <ArrowRight className="w-4 h-4" /></Link>
+            ) : (
+              <Link to={createPageUrl('PostEvent')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">Create an Event Listing <ArrowRight className="w-4 h-4" /></Link>
+            )}
+          </div>
+
+          {/* Operator Profile */}
+          <div className="bg-white rounded-2xl border border-[#DBDBDB] p-6 flex flex-col">
+            <div className="flex items-center gap-2 mb-2"><User className="w-5 h-5 text-[#FDD202]" /><h3 className="font-bold text-black">Operator Profile</h3></div>
+            <p className="text-sm text-[#333333] mb-4">Your operator presence in the network.</p>
+            {myOperatorProfiles.length > 0 ? (
+              <Link to={`${createPageUrl('OperatorProfile')}?operatorId=${myOperatorProfiles[0].id}`} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">View Profile <ArrowRight className="w-4 h-4" /></Link>
+            ) : (
+              <Link to={createPageUrl('OperatorApplication')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">Create an Operator Profile <ArrowRight className="w-4 h-4" /></Link>
+            )}
+          </div>
+
+          {/* My Orders */}
+          <div className="bg-white rounded-2xl border border-[#DBDBDB] p-6 flex flex-col">
+            <div className="flex items-center gap-2 mb-2"><ShoppingBag className="w-5 h-5 text-[#FDD202]" /><h3 className="font-bold text-black">My Orders</h3></div>
+            <p className="text-sm text-[#333333] mb-4">View orders from Early Bird Coffee.</p>
+            <Link to={createPageUrl('MyOrders')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">View My Orders <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+
+          {/* Van Listing */}
+          <div className="bg-white rounded-2xl border border-[#DBDBDB] p-6 flex flex-col">
+            <div className="flex items-center gap-2 mb-2"><Truck className="w-5 h-5 text-[#FDD202]" /><h3 className="font-bold text-black">Van Listing</h3></div>
+            <p className="text-sm text-[#333333] mb-4">Your Pre‑Loved van listings.</p>
+            {myListings.length > 0 ? (
+              <Link to={createPageUrl('MyListings')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">View My Listings <ArrowRight className="w-4 h-4" /></Link>
+            ) : (
+              <Link to={createPageUrl('ChooseListingPackage')} className="mt-auto inline-flex items-center gap-2 text-black font-semibold hover:underline">Create a List My Van <ArrowRight className="w-4 h-4" /></Link>
+            )}
+          </div>
         </div>
       </section>
 

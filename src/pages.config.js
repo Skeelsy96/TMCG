@@ -91,6 +91,7 @@ import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
 import Account from './pages/Account';
+import MyOrders from './pages/MyOrders';
 import __Layout from './Layout.jsx';
 
 
@@ -139,6 +140,7 @@ export const PAGES = {
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
     "Account": Account,
+    "MyOrders": MyOrders,
 }
 
 export const pagesConfig = {

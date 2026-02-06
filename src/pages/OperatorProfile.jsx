@@ -11,13 +11,16 @@ import TMCGVerifiedBadge from '../components/common/TMCGVerifiedBadge';
 export default function OperatorProfile() {
   const { operatorId } = useParams();
   const [selectedImage, setSelectedImage] = React.useState(0);
+  const urlParams = new URLSearchParams(window.location.search);
+  const operatorIdParam = operatorId || urlParams.get('operatorId');
 
   const { data: operator, isLoading, error } = useQuery({
-    queryKey: ['operator', operatorId],
+    queryKey: ['operator', operatorIdParam],
     queryFn: async () => {
-      const operators = await base44.entities.OperatorProfile.filter({ id: operatorId });
+      const operators = await base44.entities.OperatorProfile.filter({ id: operatorIdParam });
       return operators[0];
-    }
+    },
+    enabled: !!operatorIdParam
   });
 
   if (isLoading) {
