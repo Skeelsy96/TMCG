@@ -103,7 +103,7 @@ export default function MyListings() {
               <h1 className="text-3xl font-bold text-white mb-2">
                 My <span className="text-[#FDD202]">Listings</span>
               </h1>
-              <p className="text-[#969696]">Manage your listings</p>
+              <p className="text-[#969696]">Manage your coffee van advertisements</p>
             </div>
             <Link
               to={createPageUrl('ListVan')}
