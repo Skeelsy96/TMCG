@@ -146,6 +146,7 @@ export default function WalkInVan() {
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
               <h2 className="text-2xl font-bold text-black mb-6">Walk-In Van Options</h2>
+              {/* Data-driven: manage options via VanModel (package_type='walk_in') */}
               <div className="grid sm:grid-cols-3 gap-4">
                 {vanOptions.map((van) => (
                   <div key={van} className="bg-[#F5F5F5] rounded-xl p-4 text-center border border-[#DBDBDB]">

@@ -159,6 +159,7 @@ export default function CompactVan() {
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
               {/* Tip: edit VanModel records to change this list */}
               <h2 className="text-2xl font-bold text-black mb-6">Compact Van Options</h2>
+              {/* Data-driven: manage options via VanModel (package_type='compact') */}
               <div className="grid sm:grid-cols-3 gap-4">
                 {vanOptions.map((van) => (
                   <div key={van} className="bg-[#F5F5F5] rounded-xl p-4 text-center border border-[#DBDBDB]">
