@@ -54,7 +54,7 @@ export default function EventDetail() {
       proposed_price: parseFloat(data.proposed_price)
     }),
     onSuccess: async () => {
-      await base44.entities.EventPosting.update(eventId, {
+      await base44.entities.EventPosts.update(eventId, {
         applications_count: (event.applications_count || 0) + 1
       });
       queryClient.invalidateQueries(['event', eventId]);
