@@ -46,11 +46,15 @@ export default function BrowseVans() {
     // Search filter
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
-      result = result.filter(van => 
-        van.title?.toLowerCase().includes(searchLower) ||
-        van.description?.toLowerCase().includes(searchLower) ||
-        van.location?.toLowerCase().includes(searchLower)
-      );
+      result = result.filter(van => {
+        const tags = Array.isArray(van.tags) ? van.tags.join(' ').toLowerCase() : '';
+        return (
+          van.title?.toLowerCase().includes(searchLower) ||
+          van.description?.toLowerCase().includes(searchLower) ||
+          van.location?.toLowerCase().includes(searchLower) ||
+          tags.includes(searchLower)
+        );
+      });
     }
 
     // State filter
