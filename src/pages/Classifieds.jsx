@@ -54,13 +54,22 @@ export default function Classifieds() {
               Quality pre-loved coffee vans from verified sellers across Australia. 
               Start your mobile coffee business at a fraction of the cost.
             </p>
-            <Link
-              to={createPageUrl('BrowseVans')}
-              className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all text-lg"
-            >
-              <Search className="w-5 h-5" />
-              Browse All Vans
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                to={createPageUrl('BrowseVans')}
+                className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all text-lg"
+              >
+                <Search className="w-5 h-5" />
+                Browse All Vans
+              </Link>
+              <Link
+                to={createPageUrl('ListVan')}
+                className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all text-lg"
+              >
+                List Your Van
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

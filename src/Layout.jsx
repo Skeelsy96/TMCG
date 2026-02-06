@@ -177,11 +177,19 @@ export default function Layout({ children, currentPageName }) {
 
               Enquire Now
             </button>
-            <Link
-              to={createPageUrl('VanConfigurator')}
-              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
-              Build Your Van
-            </Link>
+            {['Classifieds','BrowseVans','VanDetail','ListVan','MyListings'].includes(currentPageName) ? (
+              <Link
+                to={createPageUrl('ListVan')}
+                className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
+                List Your Van
+              </Link>
+            ) : (
+              <Link
+                to={createPageUrl('VanConfigurator')}
+                className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
+                Build Your Van
+              </Link>
+            )}
             <Link
               to={createPageUrl('BookCall')}
               className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
