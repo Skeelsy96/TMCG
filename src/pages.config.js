@@ -61,6 +61,7 @@ import BrowseOperators from './pages/BrowseOperators';
 import BrowseVans from './pages/BrowseVans';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import ChooseListingPackage from './pages/ChooseListingPackage';
 import Classifieds from './pages/Classifieds';
 import CompactVan from './pages/CompactVan';
 import Contact from './pages/Contact';
@@ -89,7 +90,7 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
-import ChooseListingPackage from './pages/ChooseListingPackage';
+import Account from './pages/Account';
 import __Layout from './Layout.jsx';
 
 
@@ -108,6 +109,7 @@ export const PAGES = {
     "BrowseVans": BrowseVans,
     "Cart": Cart,
     "Checkout": Checkout,
+    "ChooseListingPackage": ChooseListingPackage,
     "Classifieds": Classifieds,
     "CompactVan": CompactVan,
     "Contact": Contact,
@@ -136,7 +138,7 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
-    "ChooseListingPackage": ChooseListingPackage,
+    "Account": Account,
 }
 
 export const pagesConfig = {

@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from './utils';
+import { base44 } from '@/api/base44Client';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const ok = await base44.auth.isAuthenticated();
+      if (ok) {
+        const me = await base44.auth.me();
+        setAuthUser(me);
+      }
+    })();
+  }, []);
 
   const navigation = [
   { name: 'Home', page: 'TMCGHome' },
@@ -44,7 +56,8 @@ export default function Layout({ children, currentPageName }) {
       
       {/* Top Bar */}
       <div className="bg-black text-white py-2 px-4 text-sm hidden md:block">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
+          {/* Left: contacts */}
           <div className="flex items-center gap-6">
             <a href="tel:1300746020" className="flex items-center gap-2 hover:text-[#FDD202] transition-colors">
               <Phone className="w-4 h-4" />
@@ -55,8 +68,24 @@ export default function Layout({ children, currentPageName }) {
               info@themobilecoffeegroup.com.au
             </a>
           </div>
-          <div className="text-[#969696]">
+          {/* Center: tagline */}
+          <div className="text-center text-[#969696]">
             Australia's Premier Mobile Coffee Van Specialists
+          </div>
+          {/* Right: login/account */}
+          <div className="flex justify-end">
+            {authUser ? (
+              <Link to={createPageUrl('Account')} className="hover:text-[#FDD202] transition-colors">
+                {authUser.full_name || authUser.email}
+              </Link>
+            ) : (
+              <button
+                onClick={() => base44.auth.redirectToLogin(createPageUrl('Account'))}
+                className="hover:text-[#FDD202] transition-colors"
+              >
+                Log in
+              </button>
+            )}
           </div>
         </div>
       </div>
