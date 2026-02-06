@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
 
 export default function LargeVan() {
   const appliancesAndAccessories = [
@@ -70,7 +72,7 @@ export default function LargeVan() {
     ]
   };
 
-  const vanOptions = [
+  const DEFAULT_LARGE_VANS = [
     'LDV G10+',
     'Toyota HiAce',
     'Mercedes Vito',
@@ -79,6 +81,13 @@ export default function LargeVan() {
     'Renault Trafic',
     'Hyundai i-Load'
   ];
+
+  const { data: largeVanModels = [] } = useQuery({
+    queryKey: ['van-models', 'large'],
+    queryFn: () => base44.entities.VanModel.filter({ package_type: 'large', is_active: true }, 'order', 100),
+  });
+
+  const vanOptions = largeVanModels.length ? largeVanModels.map(v => v.name) : DEFAULT_LARGE_VANS;
 
   const gallery = [
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1460956e5_ServeFromRearVans7.png',

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { ArrowLeft, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
 
 export default function CompactVan() {
   const appliancesAndAccessories = [
@@ -71,7 +73,7 @@ export default function CompactVan() {
     ]
   };
 
-  const vanOptions = [
+  const DEFAULT_COMPACT_VANS = [
     'VW Caddy',
     'Peugeot Partner',
     'Renault Kangoo',
@@ -79,6 +81,13 @@ export default function CompactVan() {
     'Holden Combo',
     'Ford Transit Connect'
   ];
+
+  const { data: vanModels = [] } = useQuery({
+    queryKey: ['van-models', 'compact'],
+    queryFn: () => base44.entities.VanModel.filter({ package_type: 'compact', is_active: true }, 'order', 100),
+  });
+
+  const vanOptions = vanModels.length ? vanModels.map(v => v.name) : DEFAULT_COMPACT_VANS;
 
   const gallery = [
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
@@ -148,6 +157,7 @@ export default function CompactVan() {
           <div className="lg:col-span-2 space-y-8">
             {/* Van Options */}
             <div className="bg-white rounded-2xl p-8 border border-[#DBDBDB]">
+              {/* Tip: edit VanModel records to change this list */}
               <h2 className="text-2xl font-bold text-black mb-6">Compact Van Options</h2>
               <div className="grid sm:grid-cols-3 gap-4">
                 {vanOptions.map((van) => (

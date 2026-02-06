@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
 
 export default function WalkInVan() {
   const appliancesAndAccessories = [
@@ -73,7 +75,7 @@ export default function WalkInVan() {
     ]
   };
 
-  const vanOptions = [
+  const DEFAULT_WALKIN_VANS = [
     'Iveco Daily',
     'Mercedes Sprinter',
     'VW Crafter',
@@ -82,6 +84,13 @@ export default function WalkInVan() {
     'Fiat Ducato',
     'LDV Deliver 9'
   ];
+
+  const { data: walkInVanModels = [] } = useQuery({
+    queryKey: ['van-models', 'walk_in'],
+    queryFn: () => base44.entities.VanModel.filter({ package_type: 'walk_in', is_active: true }, 'order', 100),
+  });
+
+  const vanOptions = walkInVanModels.length ? walkInVanModels.map(v => v.name) : DEFAULT_WALKIN_VANS;
 
   const gallery = [
     'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/062a79d1b_ProductionFit-out4.jpg',
