@@ -359,13 +359,34 @@ export default function ListVan() {
                 
                 <div>
                   <Label htmlFor="title">Listing Title *</Label>
-                  <Input
-                    id="title"
-                    placeholder="e.g., 2020 Custom Coffee Trailer - Fully Equipped"
-                    value={formData.title}
-                    onChange={(e) => handleChange('title', e.target.value)}
-                    className="mt-2"
-                  />
+                  <div className="mt-2 flex gap-2">
+                    <Input
+                      id="title"
+                      placeholder="e.g., 2020 Custom Coffee Trailer - Fully Equipped"
+                      value={formData.title}
+                      onChange={(e) => handleChange('title', e.target.value)}
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={generateTitleAI}
+                      disabled={aiLoading.title || !formData.title}
+                      className="whitespace-nowrap"
+                    >
+                      {aiLoading.title ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Refining...
+                        </>
+                      ) : (
+                        <>
+                          <Wand2 className="w-4 h-4 mr-2" />
+                          Refine with AI
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
@@ -581,7 +602,28 @@ export default function ListVan() {
                 <h2 className="text-xl font-semibold text-black mb-6">Van Details</h2>
 
                 <div>
-                  <Label htmlFor="description">Description *</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="description">Description *</Label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={generateDescriptionAI}
+                      disabled={aiLoading.description}
+                    >
+                      {aiLoading.description ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Generating...
+                        </>
+                      ) : (
+                        <>
+                          <Wand2 className="w-4 h-4 mr-2" />
+                          Generate with AI
+                        </>
+                      )}
+                    </Button>
+                  </div>
                   <Textarea
                     id="description"
                     placeholder="Describe your coffee van, its history, what's included, why you're selling..."
