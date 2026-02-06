@@ -63,7 +63,7 @@ export default function Classifieds() {
                 Browse All Vans
               </Link>
               <Link
-                to={createPageUrl('ListVan')}
+                to={createPageUrl('ChooseListingPackage')}
                 className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all text-lg"
               >
                 List Your Van
@@ -122,7 +122,7 @@ export default function Classifieds() {
             List your coffee van and reach thousands of potential buyers across Australia.
           </p>
           <Link
-            to={createPageUrl('ListVan')}
+            to={createPageUrl('ChooseListingPackage')}
             className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
           >
             List Your Van

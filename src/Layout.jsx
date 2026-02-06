@@ -179,7 +179,7 @@ export default function Layout({ children, currentPageName }) {
             </button>
             {['Classifieds','BrowseVans','VanDetail','ListVan','MyListings'].includes(currentPageName) ? (
               <Link
-                to={createPageUrl('ListVan')}
+                to={createPageUrl('ChooseListingPackage')}
                 className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg">
                 List Your Van
               </Link>

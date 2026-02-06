@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { 
@@ -37,6 +37,24 @@ const steps = [
 
 export default function ListVan() {
   const [currentStep, setCurrentStep] = useState(1);
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedPackageCode = urlParams.get('package');
+
+  useEffect(() => {
+    if (!selectedPackageCode) {
+      window.location.href = createPageUrl('ChooseListingPackage');
+    }
+  }, [selectedPackageCode]);
+
+  const { data: selectedPackage } = useQuery({
+    queryKey: ['listing-package', selectedPackageCode],
+    queryFn: async () => {
+      const rows = await base44.entities.ListingPackage.filter({ code: selectedPackageCode });
+      return rows[0];
+    },
+    enabled: !!selectedPackageCode,
+    initialData: undefined,
+  });
   const [formData, setFormData] = useState({
     title: '',
     price: '',
@@ -237,6 +255,27 @@ export default function ListVan() {
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-2xl shadow-sm p-8">
+          {selectedPackage && (
+            <div className="mb-8 p-4 border border-[#DBDBDB] rounded-xl bg-[#F5F5F5]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm text-[#969696]">Selected Package</div>
+                  <div className="text-lg font-bold text-black">{selectedPackage.name} — ${selectedPackage.price_aud?.toLocaleString?.() || ''}</div>
+                </div>
+                <Link to={createPageUrl('ChooseListingPackage')} className="text-sm font-semibold text-black hover:underline">Change</Link>
+              </div>
+              {selectedPackage.features?.length > 0 && (
+                <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-[#333333]">
+                  {selectedPackage.features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <Check className="w-4 h-4 text-green-600" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {/* Step 1: Basic Info */}
             {currentStep === 1 && (
