@@ -84,7 +84,7 @@ export default function CompactVan() {
 
   const { data: vanModels = [] } = useQuery({
     queryKey: ['van-models', 'compact'],
-    queryFn: () => base44.entities.NewVanModels.filter({ package_type: 'compact', is_active: true }, 'order', 100),
+    queryFn: () => base44.entities.VanModel.filter({ package_type: 'compact', is_active: true }, 'order', 100),
   });
 
   const vanOptions = vanModels.length ? vanModels.map(v => v.name) : DEFAULT_COMPACT_VANS;

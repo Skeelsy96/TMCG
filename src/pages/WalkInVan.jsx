@@ -87,7 +87,7 @@ export default function WalkInVan() {
 
   const { data: walkInVanModels = [] } = useQuery({
     queryKey: ['van-models', 'walk_in'],
-    queryFn: () => base44.entities.NewVanModels.filter({ package_type: 'walk_in', is_active: true }, 'order', 100),
+    queryFn: () => base44.entities.VanModel.filter({ package_type: 'walk_in', is_active: true }, 'order', 100),
   });
 
   const vanOptions = walkInVanModels.length ? walkInVanModels.map(v => v.name) : DEFAULT_WALKIN_VANS;
