@@ -43,19 +43,19 @@ export default function MyListings() {
 
   const { data: myListings = [], isLoading } = useQuery({
     queryKey: ['my-listings', user?.email],
-    queryFn: () => base44.entities.CoffeeVan.filter({ created_by: user.email }, '-created_date'),
+    queryFn: () => base44.entities.PreLovedVanListings.filter({ created_by: user.email }, '-created_date'),
     enabled: !!user?.email,
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.CoffeeVan.delete(id),
+    mutationFn: (id) => base44.entities.PreLovedVanListings.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my-listings'] });
     },
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.CoffeeVan.update(id, data),
+    mutationFn: ({ id, data }) => base44.entities.PreLovedVanListings.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my-listings'] });
     },

@@ -22,7 +22,7 @@ export default function MyOrders() {
 
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ['my-orders', authUser?.email],
-    queryFn: () => base44.entities.Order.filter({ customer_email: authUser.email }, '-created_date', 50),
+    queryFn: () => base44.entities.EarlyBirdOrders.filter({ customer_email: authUser.email }, '-created_date', 50),
     enabled: !!authUser?.email,
     initialData: [],
   });

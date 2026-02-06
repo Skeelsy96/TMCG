@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import About from './pages/About';
+import Account from './pages/Account';
 import AdminContent from './pages/AdminContent';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminEvents from './pages/AdminEvents';
@@ -75,6 +76,7 @@ import Home from './pages/Home';
 import LargeVan from './pages/LargeVan';
 import ListVan from './pages/ListVan';
 import MyListings from './pages/MyListings';
+import MyOrders from './pages/MyOrders';
 import NewVans from './pages/NewVans';
 import OperatorApplication from './pages/OperatorApplication';
 import OperatorProfile from './pages/OperatorProfile';
@@ -90,13 +92,12 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
-import Account from './pages/Account';
-import MyOrders from './pages/MyOrders';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "About": About,
+    "Account": Account,
     "AdminContent": AdminContent,
     "AdminDashboard": AdminDashboard,
     "AdminEvents": AdminEvents,
@@ -124,6 +125,7 @@ export const PAGES = {
     "LargeVan": LargeVan,
     "ListVan": ListVan,
     "MyListings": MyListings,
+    "MyOrders": MyOrders,
     "NewVans": NewVans,
     "OperatorApplication": OperatorApplication,
     "OperatorProfile": OperatorProfile,
@@ -139,8 +141,6 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
-    "Account": Account,
-    "MyOrders": MyOrders,
 }
 
 export const pagesConfig = {

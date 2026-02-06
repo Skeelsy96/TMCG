@@ -15,7 +15,7 @@ export default function BrowseOperators() {
 
   const { data: operators = [], isLoading } = useQuery({
     queryKey: ['operators'],
-    queryFn: () => base44.entities.OperatorProfile.list('-created_date', 100)
+    queryFn: () => base44.entities.OperatorProfiles.list('-created_date', 100)
   });
 
   const filteredOperators = operators.filter(op => {

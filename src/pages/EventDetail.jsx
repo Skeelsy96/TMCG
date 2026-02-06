@@ -31,7 +31,7 @@ export default function EventDetail() {
   const { data: event, isLoading } = useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const events = await base44.entities.EventPosting.filter({ id: eventId });
+      const events = await base44.entities.EventPosts.filter({ id: eventId });
       return events[0];
     },
     enabled: !!eventId
@@ -39,7 +39,7 @@ export default function EventDetail() {
 
   const { data: applications = [] } = useQuery({
     queryKey: ['event-applications', eventId],
-    queryFn: () => base44.entities.EventApplication.filter({ event_id: eventId })
+    queryFn: () => base44.entities.EventApplications.filter({ event_id: eventId })
   });
 
   const { data: currentUser } = useQuery({
@@ -48,7 +48,7 @@ export default function EventDetail() {
   });
 
   const applyMutation = useMutation({
-    mutationFn: (data) => base44.entities.EventApplication.create({
+    mutationFn: (data) => base44.entities.EventApplications.create({
       ...data,
       event_id: eventId,
       proposed_price: parseFloat(data.proposed_price)
@@ -69,7 +69,7 @@ export default function EventDetail() {
 
   const acceptApplicationMutation = useMutation({
     mutationFn: async ({ applicationId }) => {
-      await base44.entities.EventApplication.update(applicationId, { status: 'accepted' });
+      await base44.entities.EventApplications.update(applicationId, { status: 'accepted' });
       await base44.entities.EventPosting.update(eventId, { 
         status: 'booked',
         selected_operator_id: applications.find(a => a.id === applicationId)?.operator_profile_id

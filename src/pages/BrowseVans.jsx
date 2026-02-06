@@ -37,7 +37,7 @@ export default function BrowseVans() {
 
   const { data: vans = [], isLoading } = useQuery({
     queryKey: ['vans'],
-    queryFn: () => base44.entities.CoffeeVan.filter({ status: 'active' }, '-created_date', 100),
+    queryFn: () => base44.entities.PreLovedVanListings.filter({ status: 'active' }, '-created_date', 100),
   });
 
   const filteredVans = useMemo(() => {

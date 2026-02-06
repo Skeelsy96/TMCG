@@ -49,7 +49,7 @@ export default function OperatorApplication() {
   ];
 
   const createApplicationMutation = useMutation({
-    mutationFn: (data) => base44.entities.OperatorApplication.create(data),
+    mutationFn: (data) => base44.entities.OperatorApplications.create(data),
     onSuccess: () => {
       setSubmitted(true);
       toast.success('Application submitted successfully!');

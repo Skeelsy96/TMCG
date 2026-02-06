@@ -17,7 +17,7 @@ export default function OperatorProfile() {
   const { data: operator, isLoading, error } = useQuery({
     queryKey: ['operator', operatorIdParam],
     queryFn: async () => {
-      const operators = await base44.entities.OperatorProfile.filter({ id: operatorIdParam });
+      const operators = await base44.entities.OperatorProfiles.filter({ id: operatorIdParam });
       return operators[0];
     },
     enabled: !!operatorIdParam

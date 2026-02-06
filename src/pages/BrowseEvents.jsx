@@ -18,7 +18,7 @@ export default function BrowseEvents() {
 
   const { data: events = [], isLoading } = useQuery({
     queryKey: ['events', statusFilter],
-    queryFn: () => base44.entities.EventPosting.filter({ status: statusFilter === 'all' ? undefined : statusFilter }, '-event_date')
+    queryFn: () => base44.entities.EventPosts.filter({ status: statusFilter === 'all' ? undefined : statusFilter }, '-event_date')
   });
 
   const filteredEvents = events.filter(event => {

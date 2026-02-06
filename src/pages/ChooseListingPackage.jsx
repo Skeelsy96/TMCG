@@ -51,7 +51,7 @@ export default function ChooseListingPackage() {
   const { data: packages = [], isLoading } = useQuery({
     queryKey: ['listing-packages'],
     queryFn: async () => {
-      const rows = await base44.entities.ListingPackage.list();
+      const rows = await base44.entities.PreLovedVanListingPackages.list();
       return rows;
     },
     initialData: [],

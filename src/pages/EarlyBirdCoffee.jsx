@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function EarlyBirdCoffee() {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
-    queryFn: () => base44.entities.Product.list()
+    queryFn: () => base44.entities.EarlyBirdProducts.list()
   });
 
   return (

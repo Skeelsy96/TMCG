@@ -49,7 +49,7 @@ export default function ListVan() {
   const { data: selectedPackage } = useQuery({
     queryKey: ['listing-package', selectedPackageCode],
     queryFn: async () => {
-      const rows = await base44.entities.ListingPackage.filter({ code: selectedPackageCode });
+      const rows = await base44.entities.PreLovedVanListingPackages.filter({ code: selectedPackageCode });
       return rows[0];
     },
     enabled: !!selectedPackageCode,
@@ -85,7 +85,7 @@ export default function ListVan() {
   const [isUploading, setIsUploading] = useState(false);
 
   const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.CoffeeVan.create(data),
+    mutationFn: (data) => base44.entities.PreLovedVanListings.create(data),
     onSuccess: () => {
       window.location.href = createPageUrl('BrowseVans');
     },

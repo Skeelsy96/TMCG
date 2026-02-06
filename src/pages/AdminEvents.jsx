@@ -15,11 +15,11 @@ export default function AdminEvents() {
 
   const { data: events = [], isLoading } = useQuery({
     queryKey: ['admin-events'],
-    queryFn: () => base44.entities.EventPosting.list('-event_date')
+    queryFn: () => base44.entities.EventPosts.list('-event_date')
   });
 
   const deleteEventMutation = useMutation({
-    mutationFn: (id) => base44.entities.EventPosting.delete(id),
+    mutationFn: (id) => base44.entities.EventPosts.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries(['admin-events']);
       toast.success('Event deleted');

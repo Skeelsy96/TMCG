@@ -84,7 +84,7 @@ export default function LargeVan() {
 
   const { data: largeVanModels = [] } = useQuery({
     queryKey: ['van-models', 'large'],
-    queryFn: () => base44.entities.VanModel.filter({ package_type: 'large', is_active: true }, 'order', 100),
+    queryFn: () => base44.entities.NewVanModels.filter({ package_type: 'large', is_active: true }, 'order', 100),
   });
 
   const vanOptions = largeVanModels.length ? largeVanModels.map(v => v.name) : DEFAULT_LARGE_VANS;

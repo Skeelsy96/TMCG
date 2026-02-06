@@ -38,7 +38,7 @@ export default function Checkout() {
 
   const placeOrderMutation = useMutation({
     mutationFn: async (orderData) => {
-      return await base44.entities.Order.create(orderData);
+      return await base44.entities.EarlyBirdOrders.create(orderData);
     },
     onSuccess: (order) => {
       localStorage.removeItem('earlyBirdCart');

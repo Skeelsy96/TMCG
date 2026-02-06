@@ -22,7 +22,7 @@ export default function VanDetail() {
 
   const { data: van, isLoading, error } = useQuery({
     queryKey: ['van', vanId],
-    queryFn: () => base44.entities.CoffeeVan.filter({ id: vanId }),
+    queryFn: () => base44.entities.PreLovedVanListings.filter({ id: vanId }),
     select: (data) => data[0],
     enabled: !!vanId,
   });
@@ -31,7 +31,7 @@ export default function VanDetail() {
   const viewMutation = useMutation({
     mutationFn: async () => {
       if (van) {
-        await base44.entities.CoffeeVan.update(van.id, { views: (van.views || 0) + 1 });
+        await base44.entities.PreLovedVanListings.update(van.id, { views: (van.views || 0) + 1 });
       }
     },
   });

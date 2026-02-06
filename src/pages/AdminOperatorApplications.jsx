@@ -14,13 +14,13 @@ export default function AdminOperatorApplications() {
 
   const { data: applications = [], isLoading } = useQuery({
     queryKey: ['operator-applications'],
-    queryFn: () => base44.entities.OperatorApplication.list('-created_date', 100)
+    queryFn: () => base44.entities.OperatorApplications.list('-created_date', 100)
   });
 
   const approveApplicationMutation = useMutation({
     mutationFn: async (app) => {
       // Create operator profile
-      await base44.entities.OperatorProfile.create({
+      await base44.entities.OperatorProfiles.create({
         business_name: app.business_name,
         operator_name: app.operator_name,
         bio: app.bio,
@@ -43,7 +43,7 @@ export default function AdminOperatorApplications() {
       });
       
       // Update application status
-      await base44.entities.OperatorApplication.update(app.id, {
+      await base44.entities.OperatorApplications.update(app.id, {
         status: 'approved',
         admin_notes: adminNotes
       });

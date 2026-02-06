@@ -10,12 +10,12 @@ import { motion } from 'framer-motion';
 export default function Classifieds() {
   const { data: featuredVans = [], isLoading } = useQuery({
     queryKey: ['featured-classifieds'],
-    queryFn: () => base44.entities.CoffeeVan.filter({ status: 'active', featured: true }, '-created_date', 3),
+    queryFn: () => base44.entities.PreLovedVanListings.filter({ status: 'active', featured: true }, '-created_date', 3),
   });
 
   const { data: recentVans = [] } = useQuery({
     queryKey: ['recent-classifieds'],
-    queryFn: () => base44.entities.CoffeeVan.filter({ status: 'active' }, '-created_date', 6),
+    queryFn: () => base44.entities.PreLovedVanListings.filter({ status: 'active' }, '-created_date', 6),
   });
 
   return (

@@ -17,11 +17,11 @@ export default function AdminFeedback() {
 
   const { data: feedback = [], isLoading } = useQuery({
     queryKey: ['admin-feedback'],
-    queryFn: () => base44.entities.PlatformFeedback.list('-created_date')
+    queryFn: () => base44.entities.FeedbackSubmissions.list('-created_date')
   });
 
   const updateFeedbackMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.PlatformFeedback.update(id, data),
+    mutationFn: ({ id, data }) => base44.entities.FeedbackSubmissions.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries(['admin-feedback']);
       toast.success('Feedback updated');
