@@ -60,7 +60,7 @@ export default function Classifieds() {
                 className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all text-lg"
               >
                 <Search className="w-5 h-5" />
-                Browse All Vans
+                Browse Pre‑Loved Van Listings
               </Link>
               <Link
                 to={createPageUrl('ChooseListingPackage')}
@@ -80,7 +80,7 @@ export default function Classifieds() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3 mb-8">
               <TrendingUp className="w-6 h-6 text-[#FDD202]" />
-              <h2 className="text-3xl font-bold text-black">Featured Listings</h2>
+              <h2 className="text-3xl font-bold text-black">Featured Pre‑Loved Van Listings</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {featuredVans.map((van) => (
@@ -94,7 +94,7 @@ export default function Classifieds() {
       {/* Recent Listings */}
       <section className="py-16 bg-[#F5F5F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-black mb-8">Recent Listings</h2>
+          <h2 className="text-3xl font-bold text-black mb-8">Recent Pre‑Loved Van Listings</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {recentVans.map((van) => (
               <VanCard key={van.id} van={van} />
@@ -105,7 +105,7 @@ export default function Classifieds() {
               to={createPageUrl('BrowseVans')}
               className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full font-semibold hover:bg-[#333333] transition-all"
             >
-              View All Listings
+              View All Pre‑Loved Van Listings
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

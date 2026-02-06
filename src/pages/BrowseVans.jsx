@@ -145,10 +145,10 @@ export default function BrowseVans() {
       <div className="bg-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Browse <span className="text-[#FDD202]">Coffee Vans</span>
+            Browse <span className="text-[#FDD202]">Pre‑Loved Van Listings</span>
           </h1>
           <p className="text-gray-400 text-lg">
-            {filteredVans.length} {filteredVans.length === 1 ? 'van' : 'vans'} available across Australia
+            {filteredVans.length} {filteredVans.length === 1 ? 'listing' : 'listings'} available across Australia
           </p>
         </div>
       </div>
