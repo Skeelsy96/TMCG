@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
     }
 
     // Create image record
-    const image = await base44.entities.CoffeeVanImage.create({
+    const image = await base44.entities.PreLovedVanImages.create({
       coffee_van_id: vanId,
       file_url: fileUrl,
       caption,
