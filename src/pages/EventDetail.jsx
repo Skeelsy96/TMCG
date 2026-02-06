@@ -70,10 +70,10 @@ export default function EventDetail() {
   const acceptApplicationMutation = useMutation({
     mutationFn: async ({ applicationId }) => {
       await base44.entities.EventApplications.update(applicationId, { status: 'accepted' });
-      await base44.entities.EventPosting.update(eventId, { 
-        status: 'booked',
-        selected_operator_id: applications.find(a => a.id === applicationId)?.operator_profile_id
-      });
+      await base44.entities.EventPosts.update(eventId, { 
+               status: 'booked',
+               selected_operator_id: applications.find(a => a.id === applicationId)?.operator_profile_id
+             });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['event', eventId]);
