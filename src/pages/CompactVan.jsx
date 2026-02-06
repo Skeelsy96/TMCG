@@ -279,6 +279,12 @@ export default function CompactVan() {
                 >
                   Book a Phone Consultation
                 </Link>
+                <Link
+                  to={createPageUrl('VanConfigurator')}
+                  className="block w-full text-center bg-white text-black px-6 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all"
+                >
+                  Build Your Van
+                </Link>
               </div>
               <div className="mt-8 pt-8 border-t border-white/10">
                 <p className="text-sm text-gray-400 mb-4">Questions? Call us directly:</p>

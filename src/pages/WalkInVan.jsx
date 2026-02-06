@@ -260,6 +260,12 @@ export default function WalkInVan() {
                 >
                   Book a Call
                 </Link>
+                <Link
+                  to={createPageUrl('VanConfigurator')}
+                  className="block w-full text-center bg-white text-black px-6 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all"
+                >
+                  Build Your Van
+                </Link>
               </div>
             </div>
           </div>
