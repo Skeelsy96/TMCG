@@ -90,15 +90,22 @@ export default function AdvancedFilters({ filters, onFilterChange }) {
         </Select>
       </div>
 
-      {/* Water Capacity */}
+      {/* Water System */}
       <div>
-        <Label className="text-sm font-medium text-[#333333] mb-2 block">Minimum Water Capacity (L)</Label>
-        <Input
-          type="number"
-          placeholder="e.g., 80"
-          value={filters.minWaterCapacity || ''}
-          onChange={(e) => onFilterChange({ minWaterCapacity: e.target.value })}
-        />
+        <Label className="text-sm font-medium text-[#333333] mb-2 block">Water System</Label>
+        <Select
+          value={filters.water_system_type || 'all'}
+          onValueChange={(value) => onFilterChange({ water_system_type: value === 'all' ? '' : value })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Any Water System" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Any Water System</SelectItem>
+            <SelectItem value="Hot and Cold Water">Hot and Cold Water</SelectItem>
+            <SelectItem value="Cold Water">Cold Water</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

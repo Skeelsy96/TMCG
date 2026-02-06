@@ -24,8 +24,9 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 export default function VanFilters({ filters, onFilterChange, onClearFilters }) {
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   
-  const hasFilters = filters.state || filters.Vehicle_type || filters.condition || 
-    filters.minPrice || filters.maxPrice || filters.search || filters.built_by_tmcg;
+  const hasFilters = filters.state || filters.Vehicle_type || filters.condition ||
+    filters.minPrice || filters.maxPrice || filters.search || filters.built_by_tmcg ||
+    filters.water_system_type;
 
   const FilterContent = () => (
     <div className="space-y-6">

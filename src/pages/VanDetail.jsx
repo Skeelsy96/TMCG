@@ -144,10 +144,8 @@ export default function VanDetail() {
     { label: 'Vehicle Type', value: van.Vehicle_type, icon: Coffee },
     { label: 'Make & Model', value: van.Vehicle_Make && van.Vehicle_Model ? `${van.Vehicle_Make} ${van.Vehicle_Model}` : null, icon: Coffee },
     { label: 'Odometer', value: van.Kms ? `${van.Kms.toLocaleString()} km` : null, icon: Coffee },
-    { label: 'Coffee Machine', value: van.coffee_machine, icon: Coffee },
-    { label: 'Grinder', value: van.grinder, icon: Coffee },
     { label: 'Power Source', value: van.power_source, icon: Zap },
-    { label: 'Water Capacity', value: van.water_capacity ? `${van.water_capacity}L` : null, icon: Droplets },
+    { label: 'Water System', value: van.water_system_type, icon: Droplets },
   ].filter(s => s.value);
 
   return (
@@ -321,8 +319,10 @@ export default function VanDetail() {
                 {van.Vehicle_type && (
                   <Badge variant="outline" className="border-[#969696]">{van.Vehicle_type}</Badge>
                 )}
-                {van.Vehicle_subtype && (
-                  <Badge variant="outline" className="border-[#969696]">{van.Vehicle_subtype}</Badge>
+                {(van.trailer_type || van.van_type || van.truck_body_type) && (
+                  <Badge variant="outline" className="border-[#969696]">
+                    {van.trailer_type || van.van_type || van.truck_body_type}
+                  </Badge>
                 )}
                 {van.condition && (
                   <Badge variant="outline" className={`capitalize ${

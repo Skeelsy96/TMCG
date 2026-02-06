@@ -29,7 +29,7 @@ export default function BrowseVans() {
     maxYear: '',
     maxKms: '',
     power_source: '',
-    minWaterCapacity: '',
+    water_system_type: '',
     built_by_tmcg: false,
   });
   const [sortBy, setSortBy] = useState('-created_date');
@@ -97,8 +97,8 @@ export default function BrowseVans() {
     if (filters.power_source) {
       result = result.filter(van => van.power_source === filters.power_source);
     }
-    if (filters.minWaterCapacity) {
-      result = result.filter(van => (van.water_capacity || 0) >= Number(filters.minWaterCapacity));
+    if (filters.water_system_type) {
+      result = result.filter(van => van.water_system_type === filters.water_system_type);
     }
 
     // Sort
@@ -134,7 +134,7 @@ export default function BrowseVans() {
       maxYear: '',
       maxKms: '',
       power_source: '',
-      minWaterCapacity: '',
+      water_system_type: '',
       built_by_tmcg: false,
     });
   };
