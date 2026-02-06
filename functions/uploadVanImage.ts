@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
     // Optionally set as main image on the listing
     if (isMain) {
       try {
-        await base44.entities.CoffeeVan.update(vanId, { main_image: fileUrl });
+        await base44.entities.PreLovedVanListings.update(vanId, { main_image: fileUrl });
       } catch (_err) {
         // Non-fatal: ignore if updating main image fails
       }
