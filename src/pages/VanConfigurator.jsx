@@ -275,6 +275,9 @@ export default function VanConfigurator() {
           </div>
         )}
 
+        {/* Helper note */}
+        <div className="text-xs text-[#969696] mb-4">Tip: You can update inclusions any time in the database (VanFitOutInclusionsList).</div>
+
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#DBDBDB]">
           <Button
