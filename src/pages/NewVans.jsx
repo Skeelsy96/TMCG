@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
-import { Coffee, ArrowRight, CheckCircle, Building, Truck, Boxes } from 'lucide-react';
+import { Coffee, ArrowRight, CheckCircle, Building, Truck, Boxes, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NewVans() {
@@ -92,6 +92,11 @@ export default function NewVans() {
                   className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-[#DBDBDB]"
                 >
                   <div className="relative h-80 overflow-hidden">
+                    {(pkg.slug === 'LargeVan' || pkg.slug === 'WalkInVan') && (
+                      <span className="absolute top-4 left-4 z-10 bg-[#FDD202] text-black text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5" /> Most Popular
+                      </span>
+                    )}
                     <img
                       src={pkg.image}
                       alt={`${pkg.name} - Premium mobile coffee van solution by TMCG`}
@@ -129,8 +134,33 @@ export default function NewVans() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-black">
+      {/* Featured Prices */}
+      <section className="py-16 bg-white border-t border-[#DBDBDB]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-black">Featured Prices</h2>
+            <p className="text-sm text-[#333333]">Indicative quotes and preliminary communications</p>
+          </div>
+          <div className="bg-[#F5F5F5] border border-[#DBDBDB] rounded-xl p-6">
+            <ul className="space-y-3 text-black">
+              <li>• Compact Van Package → $59,000 + GST + Compact Van of Choice</li>
+              <li>• Large Van Package (LDV G10+) → $90,000 + GST [Includes Vehicle Price]</li>
+              <li>• Large Van Fit-out Package → $59,000 + GST + Large Van of Choice [Excludes Vehicle Price]</li>
+              <li>• Walk-In Van Package (LDV Deliver 9) → $130,000 + GST [Includes Vehicle Price]</li>
+              <li>• Walk-In Van Fit-Out Package → $85,000 + GST + Walk-In Van of Choice [Excludes Vehicle Price]</li>
+              <li>• SUV Package → $59,000 + GST + SUV of Choice [Excludes Vehicle Price]</li>
+              <li>• Ute Package → $85,000 + GST + Ute of Choice [Excludes Vehicle Price]</li>
+              <li>• Customer/Bespoke Package → Price varies depending on Vehicle / Fit-out [Contact us for further price information]</li>
+            </ul>
+            <p className="text-xs text-[#333333] mt-4">
+              Note: For non-LDV models, vehicle pricing is subject to confirmation from the manufacturer.
+            </p>
+          </div>
+        </div>
+      </section>
+
+       {/* CTA Section */}
+       <section className="py-20 bg-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Design Your <span className="text-[#FDD202]">Dream Van?</span>
