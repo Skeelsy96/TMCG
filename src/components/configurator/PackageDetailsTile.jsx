@@ -38,9 +38,9 @@ export default function PackageDetailsTile({ vanModelId }) {
       ) : items.length === 0 ? (
         <div className="text-sm text-[#969696]">No details available.</div>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-1 text-sm">
           {items.map((inc) => (
-            <li key={inc.id} className="flex items-start gap-2">
+            <li key={inc.id} className="flex items-start gap-2 leading-tight">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FDD202] flex-shrink-0" />
               <span className="text-[#333333]">{inc.name}</span>
             </li>
