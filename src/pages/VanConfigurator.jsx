@@ -13,6 +13,7 @@ import BrandingSelector from '../components/configurator/BrandingSelector';
 import ConfigurationSummary from '../components/configurator/ConfigurationSummary';
 import VanPreview3D from '../components/configurator/VanPreview3D';
 import PriceTracker from '../components/configurator/PriceTracker';
+import InclusionsList from '../components/configurator/InclusionsList';
 
 const STEPS = [
   { id: 1, name: 'Select Van', component: VanSelector },
@@ -244,31 +245,35 @@ export default function VanConfigurator() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <CurrentStepComponent
-                  configuration={configuration}
-                  updateConfiguration={updateConfiguration}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          
-          <div>
-            <div className="sticky top-6">
-              <h3 className="text-xl font-bold text-black mb-4">3D Preview</h3>
-              <VanPreview3D configuration={configuration} />
-            </div>
-          </div>
+        <div className="mb-12">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CurrentStepComponent
+                configuration={configuration}
+                updateConfiguration={updateConfiguration}
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
+
+        {/* 3D Preview below the selector */}
+        <div className="mb-12">
+          <h3 className="text-xl font-bold text-black mb-4">3D Preview</h3>
+          <VanPreview3D configuration={configuration} />
+        </div>
+
+        {/* Inclusions & Extras */}
+        {configuration.vanModel && (
+          <div className="mb-12">
+            <InclusionsList vanModelId={configuration.vanModel.id} />
+          </div>
+        )}
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center mt-12 pt-8 border-t border-[#DBDBDB]">

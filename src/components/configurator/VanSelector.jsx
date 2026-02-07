@@ -60,7 +60,7 @@ export default function VanSelector({ configuration, updateConfiguration }) {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-8">
         {VAN_OPTIONS.map((van, index) => (
           <motion.button
             key={van.id}
@@ -70,7 +70,7 @@ export default function VanSelector({ configuration, updateConfiguration }) {
             onClick={() => updateConfiguration('vanModel', van)}
             className={`relative bg-white rounded-2xl overflow-hidden border-2 transition-all text-left ${
               configuration.vanModel?.id === van.id
-                ? 'border-[#FDD202] shadow-xl'
+                ? 'border-[#FDD202] shadow-xl scale-[1.02]'
                 : 'border-[#DBDBDB] hover:border-[#969696]'
             }`}
           >
@@ -80,7 +80,7 @@ export default function VanSelector({ configuration, updateConfiguration }) {
               </div>
             )}
 
-            <div className="relative h-48">
+            <div className="relative h-64">
               <img
                 src={van.image}
                 alt={van.name}
@@ -88,12 +88,12 @@ export default function VanSelector({ configuration, updateConfiguration }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-2xl font-bold text-white mb-1">{van.name}</h3>
+                <h3 className="text-3xl font-bold text-white mb-1">{van.name}</h3>
                 <p className="text-white/90 text-sm">{van.baseModel}</p>
               </div>
             </div>
 
-            <div className="p-6">
+            <div className="p-8">
               <div className="mb-4">
                 <div className="text-3xl font-bold text-black mb-1">
                   ${priceMap[van.id] ? priceMap[van.id].toLocaleString() : van.price}
@@ -106,7 +106,7 @@ export default function VanSelector({ configuration, updateConfiguration }) {
 
               <ul className="space-y-2">
                 {van.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-sm text-[#333333]">
+                  <li key={idx} className="flex items-center gap-2 text-base text-[#333333]">
                     <Check className="w-4 h-4 text-[#FDD202] flex-shrink-0" />
                     {feature}
                   </li>

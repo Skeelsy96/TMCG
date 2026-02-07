@@ -79,31 +79,31 @@ export default function PriceTracker({ configuration }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-24 right-6 bg-white rounded-2xl shadow-2xl border-2 border-[#FDD202] p-6 w-96 z-40"
+      className="fixed bottom-20 right-4 bg-white rounded-xl shadow-xl border border-[#FDD202] p-4 w-72 z-40"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center">
-          <DollarSign className="w-6 h-6 text-black" />
+      <div className="flex items-center gap-2 mb-2">
+        <div className="w-8 h-8 bg-[#FDD202] rounded-full flex items-center justify-center">
+          <DollarSign className="w-4 h-4 text-black" />
         </div>
         <div>
-          <div className="text-sm text-[#969696]">Estimated Total</div>
-          <div className="text-3xl font-bold text-black">
+          <div className="text-xs text-[#969696]">Estimated Total</div>
+          <div className="text-2xl font-bold text-black leading-none">
             ${breakdown.total.toLocaleString()}
           </div>
         </div>
       </div>
 
       {breakdown.items.length > 0 && (
-        <div className="border-t border-[#DBDBDB] pt-4 space-y-2">
+        <div className="border-t border-[#DBDBDB] pt-2 space-y-1 max-h-40 overflow-auto">
           {breakdown.items.map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              className="flex justify-between items-center text-sm"
+              transition={{ delay: idx * 0.03 }}
+              className="flex justify-between items-center text-xs"
             >
-              <span className="text-[#333333]">{item.name}</span>
+              <span className="text-[#333333] line-clamp-1">{item.name}</span>
               <span className="font-semibold text-black">
                 ${item.price.toLocaleString()}
               </span>
@@ -112,8 +112,8 @@ export default function PriceTracker({ configuration }) {
         </div>
       )}
 
-      <div className="mt-4 pt-4 border-t border-[#DBDBDB] text-xs text-[#969696]">
-        <TrendingUp className="w-4 h-4 inline mr-1" />
+      <div className="mt-2 pt-2 border-t border-[#DBDBDB] text-[10px] text-[#969696]">
+        <TrendingUp className="w-3 h-3 inline mr-1" />
         Excludes GST • Final quote may vary
       </div>
     </motion.div>
