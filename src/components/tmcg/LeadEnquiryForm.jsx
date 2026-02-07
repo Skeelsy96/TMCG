@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -110,13 +111,15 @@ export default function LeadEnquiryForm() {
     };
 
     try {
-      // TODO: Implement actual submission to Google Sheets / Zapier
-      console.log('Form submission:', submission);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setSubmitted(true);
+      const { data } = await base44.functions.invoke('leadToSheet', {
+        action: 'submit',
+        submission,
+      });
+      if (data?.success) {
+        setSubmitted(true);
+      } else {
+        throw new Error(data?.error || 'Unknown error');
+      }
     } catch (error) {
       console.error('Submission error:', error);
       alert('There was an error submitting your enquiry. Please try again or call us directly.');
