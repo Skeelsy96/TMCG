@@ -65,15 +65,9 @@ async function ensureSheet(base44) {
   );
   const spreadsheetId = createdFile.id;
 
-  // 2) Determine first sheet info
+  // 2) Use the default first tab name without extra API calls
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
-  const meta = await googleFetch(
-    sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
-  );
-  const firstProps = (meta.sheets || [])[0]?.properties || {};
-  const sheetId = firstProps.sheetId;
-  const sheetTitle = firstProps.title || 'Sheet1';
+  const sheetTitle = 'Sheet1';
 
   // 3) Write header row to match form fields + tracking
   const headers = [
@@ -91,38 +85,9 @@ async function ensureSheet(base44) {
     }
   );
 
-  // 4) Basic formatting: freeze header row, bold + gray background
-  const requests = [
-    {
-      updateSheetProperties: {
-        properties: { sheetId, gridProperties: { frozenRowCount: 1 } },
-        fields: 'gridProperties.frozenRowCount'
-      }
-    },
-    {
-      repeatCell: {
-        range: { sheetId, startRowIndex: 0, endRowIndex: 1 },
-        cell: {
-          userEnteredFormat: {
-            textFormat: { bold: true },
-            backgroundColor: { red: 0.95, green: 0.95, blue: 0.95 }
-          }
-        },
-        fields: 'userEnteredFormat(textFormat,backgroundColor)'
-      }
-    },
-    { autoResizeDimensions: { dimensions: { sheetId, dimension: 'COLUMNS', startIndex: 0, endIndex: headers.length } } }
-  ];
-  await googleFetch(
-    sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
-    { method: 'POST', body: JSON.stringify({ requests }) }
-  );
-
-  // 5) Save config
+  // 4) Save config
   const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_id: sheetId,
     sheet_title: sheetTitle,
   });
   return saved;
