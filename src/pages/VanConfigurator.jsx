@@ -15,6 +15,7 @@ import VanPreview3D from '../components/configurator/VanPreview3D';
 import PriceTracker from '../components/configurator/PriceTracker';
 import InclusionsList from '../components/configurator/InclusionsList';
 import PackageDetailsTile from '../components/configurator/PackageDetailsTile';
+import OptionalExtrasList from '../components/configurator/OptionalExtrasList';
 
 const STEPS = [
   { id: 1, name: 'Select Van', component: VanSelector },
@@ -43,7 +44,8 @@ export default function VanConfigurator() {
       secondaryColor: '#000000',
       logoPosition: 'side',
       businessName: ''
-    }
+    },
+    optionalExtras: []
   });
 
   // Map old IDs to new ones
@@ -187,7 +189,8 @@ export default function VanConfigurator() {
                     secondaryColor: '#000000',
                     logoPosition: 'side',
                     businessName: ''
-                  }
+                  },
+                  optionalExtras: []
                 });
                 setCurrentStep(1);
               }}
@@ -263,7 +266,17 @@ export default function VanConfigurator() {
           </AnimatePresence>
         </div>
 
-        {/* 3D Preview + Package Details */}
+        {/* Package Details - full width */}
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-black mb-4">Package Details</h3>
+          {configuration.vanModel ? (
+            <PackageDetailsTile vanModelId={configuration.vanModel.id} />
+          ) : (
+            <div className="rounded-xl border border-[#DBDBDB] bg-white p-4 text-sm text-[#969696]">Select a van to see package details.</div>
+          )}
+        </div>
+
+        {/* 3D Preview + Optional Extras */}
         <div className="mb-12">
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
@@ -271,11 +284,11 @@ export default function VanConfigurator() {
               <VanPreview3D configuration={configuration} updateConfiguration={updateConfiguration} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-black mb-4">Package Details</h3>
+              <h3 className="text-xl font-bold text-black mb-4">Optional Extras Available</h3>
               {configuration.vanModel ? (
-                <PackageDetailsTile vanModelId={configuration.vanModel.id} />
+                <OptionalExtrasList configuration={configuration} updateConfiguration={updateConfiguration} />
               ) : (
-                <div className="rounded-xl border border-[#DBDBDB] bg-white p-4 text-sm text-[#969696]">Select a van to see package details.</div>
+                <div className="rounded-xl border border-[#DBDBDB] bg-white p-4 text-sm text-[#969696]">Select a van to see optional extras.</div>
               )}
             </div>
           </div>
