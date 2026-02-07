@@ -15,7 +15,6 @@ import VanPreview3D from '../components/configurator/VanPreview3D';
 import PriceTracker from '../components/configurator/PriceTracker';
 import InclusionsList from '../components/configurator/InclusionsList';
 import PackageDetailsTile from '../components/configurator/PackageDetailsTile';
-import PackageDetailsTile from '../components/configurator/PackageDetailsTile';
 
 const STEPS = [
   { id: 1, name: 'Select Van', component: VanSelector },
