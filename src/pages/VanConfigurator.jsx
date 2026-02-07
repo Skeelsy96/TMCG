@@ -138,7 +138,9 @@ export default function VanConfigurator() {
   const updateConfiguration = (section, data) => {
     setConfiguration(prev => ({
       ...prev,
-      [section]: { ...prev[section], ...data }
+      [section]: (prev[section] && typeof prev[section] === 'object' && typeof data === 'object' && !Array.isArray(data))
+        ? { ...prev[section], ...data }
+        : data
     }));
   };
 
