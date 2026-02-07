@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 
 const VAN_ID_TO_TYPE = {
   'Compact-Van': 'compact',
   'Large-Van': 'large',
   'Walk-In Van': 'walk_in',
+};
+
+const CATEGORY_LABELS = {
+  appliances: 'Appliances & Accessories',
+  power: 'Power System',
+  water_waste: 'Water & Waste',
+  barista_kit: 'Barista Kit',
 };
 
 export default function PackageDetailsTile({ vanModelId }) {
@@ -31,6 +38,12 @@ export default function PackageDetailsTile({ vanModelId }) {
     return () => { active = false; };
   }, [vanModelId]);
 
+  const grouped = useMemo(() => {
+    const g = { appliances: [], power: [], water_waste: [], barista_kit: [] };
+    items.forEach((i) => { if (g[i.category]) g[i.category].push(i); });
+    return g;
+  }, [items]);
+
   return (
     <div className="rounded-xl border border-[#DBDBDB] bg-white p-4">
       {loading ? (
@@ -38,14 +51,23 @@ export default function PackageDetailsTile({ vanModelId }) {
       ) : items.length === 0 ? (
         <div className="text-sm text-[#969696]">No details available.</div>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-1 text-sm">
-          {items.map((inc) => (
-            <li key={inc.id} className="flex items-start gap-2 leading-tight">
-              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FDD202] flex-shrink-0" />
-              <span className="text-[#333333]">{inc.name}</span>
-            </li>
+        <div className="space-y-4">
+          {['appliances', 'power', 'water_waste', 'barista_kit'].map((key) => (
+            (grouped[key] && grouped[key].length > 0) && (
+              <div key={key}>
+                <h3 className="text-sm font-semibold text-black mb-2">{CATEGORY_LABELS[key]}</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-1.5 text-sm">
+                  {grouped[key].map((inc) => (
+                    <li key={inc.id} className="flex items-start gap-2 leading-tight">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FDD202] flex-shrink-0" />
+                      <span className="text-[#333333]">{inc.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
