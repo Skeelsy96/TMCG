@@ -50,53 +50,34 @@ async function ensureSheet(base44) {
     return existing[0];
   }
 
-  const token = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
-
-  // 1) Create spreadsheet
-  const created = await googleFetch(
-    token,
-    'https://sheets.googleapis.com/v4/spreadsheets',
+  // Use Drive to copy the provided template as a brand-new spreadsheet named "TMCG Leads"
+  const driveToken = await base44.asServiceRole.connectors.getAccessToken('googledrive');
+  const copiedFile = await googleFetch(
+    driveToken,
+    `https://www.googleapis.com/drive/v3/files/${TEMPLATE_SPREADSHEET_ID}/copy`,
     {
       method: 'POST',
-      body: JSON.stringify({ properties: { title: 'TMCG Leads' } })
+      body: JSON.stringify({ name: 'TMCG Leads' })
     }
   );
-  const spreadsheetId = created.spreadsheetId;
+  const spreadsheetId = copiedFile.id;
 
-  // 2) Copy the template sheet (preserves headers/formatting)
-  const copied = await googleFetch(
-    token,
-    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}/sheets/${TEMPLATE_SHEET_ID}:copyTo`,
-    {
-      method: 'POST',
-      body: JSON.stringify({ destinationSpreadsheetId: spreadsheetId })
-    }
-  );
-  const copiedSheetId = copied.sheetId;
-
-  // 3) Remove any default sheets except the copied one
+  // Get sheet metadata using Sheets API
+  const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
   const meta = await googleFetch(
-    token,
+    sheetsToken,
     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
   );
-  const deleteRequests = (meta.sheets || [])
-    .filter(s => s.properties.sheetId !== copiedSheetId)
-    .map(s => ({ deleteSheet: { sheetId: s.properties.sheetId } }));
-  if (deleteRequests.length) {
-    await googleFetch(
-      token,
-      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
-      { method: 'POST', body: JSON.stringify({ requests: deleteRequests }) }
-    );
-  }
 
-  const copiedSheetTitle = (meta.sheets || []).find(s => s.properties.sheetId === copiedSheetId)?.properties?.title || 'Leads';
+  const firstSheet = (meta.sheets || [])[0]?.properties || {};
+  const sheetId = firstSheet.sheetId;
+  const sheetTitle = firstSheet.title || 'Sheet1';
 
-  // 4) Save config
+  // Save config
   const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_id: copiedSheetId,
-    sheet_title: copiedSheetTitle,
+    sheet_id: sheetId,
+    sheet_title: sheetTitle,
   });
   return saved;
 }
