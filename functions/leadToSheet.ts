@@ -50,34 +50,62 @@ async function ensureSheet(base44) {
     return existing[0];
   }
 
-  // Use Drive to copy the provided template as a brand-new spreadsheet named "TMCG Leads"
+  // 1) Create a blank Google Spreadsheet via Drive (drive.file scope allows creating app-owned files)
   const driveToken = await base44.asServiceRole.connectors.getAccessToken('googledrive');
-  const copiedFile = await googleFetch(
+  const createdFile = await googleFetch(
     driveToken,
-    `https://www.googleapis.com/drive/v3/files/${TEMPLATE_SPREADSHEET_ID}/copy`,
+    'https://www.googleapis.com/drive/v3/files',
     {
       method: 'POST',
-      body: JSON.stringify({ name: 'TMCG Leads' })
+      body: JSON.stringify({
+        name: 'TMCG Leads',
+        mimeType: 'application/vnd.google-apps.spreadsheet'
+      })
     }
   );
-  const spreadsheetId = copiedFile.id;
+  const spreadsheetId = createdFile.id;
 
-  // Get sheet metadata using Sheets API
+  // 2) Copy the template sheet into the new spreadsheet (preserves headers/formatting)
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
+  const copied = await googleFetch(
+    sheetsToken,
+    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}/sheets/${TEMPLATE_SHEET_ID}:copyTo`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ destinationSpreadsheetId: spreadsheetId })
+    }
+  );
+  const copiedSheetId = copied.sheetId;
+
+  // 3) Remove the default sheet that Drive created
   const meta = await googleFetch(
     sheetsToken,
     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
   );
+  const deleteRequests = (meta.sheets || [])
+    .filter(s => s.properties.sheetId !== copiedSheetId)
+    .map(s => ({ deleteSheet: { sheetId: s.properties.sheetId } }));
+  if (deleteRequests.length) {
+    await googleFetch(
+      sheetsToken,
+      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+      { method: 'POST', body: JSON.stringify({ requests: deleteRequests }) }
+    );
+  }
 
-  const firstSheet = (meta.sheets || [])[0]?.properties || {};
-  const sheetId = firstSheet.sheetId;
-  const sheetTitle = firstSheet.title || 'Sheet1';
+  // 4) Get the copied sheet title
+  const metaAfter = await googleFetch(
+    sheetsToken,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
+  );
+  const copiedProps = (metaAfter.sheets || []).find(s => s.properties.sheetId === copiedSheetId)?.properties || {};
+  const copiedSheetTitle = copiedProps.title || 'Leads';
 
-  // Save config
+  // 5) Save config
   const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_id: sheetId,
-    sheet_title: sheetTitle,
+    sheet_id: copiedSheetId,
+    sheet_title: copiedSheetTitle,
   });
   return saved;
 }
