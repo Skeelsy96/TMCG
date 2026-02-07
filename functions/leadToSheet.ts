@@ -3,6 +3,19 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 const TEMPLATE_SPREADSHEET_ID = '1zUeMHGZptYyxFmfAgzxsK2NQMWOh9sJH4XH4Qd_Nnqg';
 const TEMPLATE_SHEET_ID = 982186800; // from gid
 
+// Headers for the raw data sheet (ordered)
+const RAW_HEADERS = [
+  'Timestamp', 'Source Page URL',
+  'UTM Source', 'UTM Medium', 'UTM Campaign',
+  'First Name', 'Last Name', 'Full Name',
+  'Email', 'Mobile', 'State & Suburb', 'Best Date/Time',
+  'Budget', 'Funding', 'Timeframe', 'Journey Progress', 'Van Style',
+  'Main Reason', 'Income Goal', 'Travel Preference', 'Boss Excitement', 'Free Time Activity',
+  'Existing Vans Count', 'Existing Business Time',
+  'Specific Questions', 'Anything Else', 'Extra Resources',
+  'Configuration ID', 'All Responses JSON'
+];
+
 function normalizeKey(s) {
   return String(s || '')
     .toLowerCase()
@@ -16,12 +29,14 @@ function flattenSubmission(submission) {
   // Derived fields
   flat.name = [submission.firstName, submission.lastName].filter(Boolean).join(' ').trim();
   flat.timestamp = submission.submittedAt;
+  flat.submitted_from = submission.submittedFrom || submission.pageUrl || submission.sourceUrl || '';
   flat.utm_source = submission?.utmParams?.source || '';
   flat.utm_medium = submission?.utmParams?.medium || '';
   flat.utm_campaign = submission?.utmParams?.campaign || '';
   if (Array.isArray(submission.extraResources)) {
     flat.extraResources = submission.extraResources.join(', ');
   }
+  flat.configuration_id = submission.configId || submission.configurationId || '';
   // Provide a full JSON dump as well
   flat.allresponsesjson = JSON.stringify(submission);
   return flat;
@@ -44,8 +59,8 @@ async function googleFetch(token, url, options = {}) {
 }
 
 async function ensureSheet(base44) {
-  // Try to read existing config
-  const existing = await base44.asServiceRole.entities.LeadSheetConfig.list();
+  // Try to read existing RAW config
+  const existing = await base44.asServiceRole.entities.RawLeadSheetConfig.list();
   if (existing && existing.length > 0) {
     return existing[0];
   }
@@ -58,7 +73,7 @@ async function ensureSheet(base44) {
     {
       method: 'POST',
       body: JSON.stringify({
-        name: 'TMCG Leads',
+        name: 'TMCG Leads Raw',
         mimeType: 'application/vnd.google-apps.spreadsheet'
       })
     }
@@ -67,132 +82,19 @@ async function ensureSheet(base44) {
 
   // Sheets token
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
+  const sheetTitle = 'Sheet1';
 
-  // Read template sheet title and header row from the provided example (programmatic recreation)
-  const templateMeta = await googleFetch(
-    sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}?fields=sheets.properties(sheetId%2Ctitle)`
-  );
-  const tplSheet = (templateMeta.sheets || []).find(s => s.properties.sheetId === TEMPLATE_SHEET_ID) || (templateMeta.sheets || [])[0];
-  const tplTitle = tplSheet?.properties?.title || 'Leads';
-
-  const headerResp = await googleFetch(
-    sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}/values/${encodeURIComponent(tplTitle)}!1:1`
-  );
-  const headers = (headerResp.values && headerResp.values[0]) || [];
-
-  // Rename first sheet, freeze header, header styling, wrap, autosize
-  const baseRequests = [
-    {
-      updateSheetProperties: {
-        properties: { sheetId: 0, title: tplTitle, gridProperties: { frozenRowCount: 1 } },
-        fields: 'title,gridProperties.frozenRowCount'
-      }
-    },
-    {
-      repeatCell: {
-        range: { sheetId: 0, startRowIndex: 0, endRowIndex: 1 },
-        cell: {
-          userEnteredFormat: {
-            textFormat: { bold: true },
-            backgroundColor: { red: 0.95, green: 0.95, blue: 0.95 },
-            wrapStrategy: 'WRAP'
-          }
-        },
-        fields: 'userEnteredFormat(textFormat,backgroundColor,wrapStrategy)'
-      }
-    },
-    {
-      autoResizeDimensions: {
-        dimensions: { sheetId: 0, dimension: 'COLUMNS', startIndex: 0, endIndex: Math.max(1, headers.length) }
-      }
-    },
-    {
-      repeatCell: {
-        range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000 },
-        cell: { userEnteredFormat: { wrapStrategy: 'WRAP' } },
-        fields: 'userEnteredFormat.wrapStrategy'
-      }
-    }
-  ];
-
-  // Try to read simple ONE_OF_LIST data validations from the template's second row and apply to whole columns in new sheet
-  let validationRequests = [];
-  try {
-    const tplGrid = await googleFetch(
-      sheetsToken,
-      `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}?includeGridData=true&fields=sheets(properties(sheetId%2Ctitle)%2Cdata(rowData(values(dataValidation))))`
-    );
-    const tplGridSheet = (tplGrid.sheets || []).find(s => s.properties.sheetId === TEMPLATE_SHEET_ID) || (tplGrid.sheets || [])[0];
-    const firstDataRow = tplGridSheet?.data?.[0]?.rowData?.[1]?.values || []; // row index 1 => row 2
-
-    headers.forEach((_, c) => {
-      const v = firstDataRow[c];
-      if (v && v.dataValidation && v.dataValidation.condition && v.dataValidation.condition.type === 'ONE_OF_LIST') {
-        validationRequests.push({
-          repeatCell: {
-            range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: c, endColumnIndex: c + 1 },
-            cell: { dataValidation: v.dataValidation },
-            fields: 'dataValidation'
-          }
-        });
-      }
-    });
-  } catch (_) {
-    // If reading validations fails, continue with base formatting only
-  }
-
-  // Number formats for common columns if present
-  const findCol = (label) => headers.findIndex(h => normalizeKey(h) === normalizeKey(label));
-  const numFormat = (col, format) => ({
-    repeatCell: {
-      range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: col, endColumnIndex: col + 1 },
-      cell: { userEnteredFormat: { numberFormat: format } },
-      fields: 'userEnteredFormat.numberFormat'
-    }
-  });
-
-  const tsIdx = findCol('Timestamp');
-  const budgetIdx = findCol('Budget');
-  const vansIdx = findCol('Existing Vans Count');
-  const jsonIdx = findCol('All Responses JSON');
-
-  const formatRequests = [];
-  if (tsIdx >= 0) formatRequests.push(numFormat(tsIdx, { type: 'DATE_TIME' }));
-  if (budgetIdx >= 0) formatRequests.push(numFormat(budgetIdx, { type: 'NUMBER', pattern: '"$"#,##0.00' }));
-  if (vansIdx >= 0) formatRequests.push(numFormat(vansIdx, { type: 'NUMBER', pattern: '0' }));
-  if (jsonIdx >= 0) {
-    formatRequests.push({
-      repeatCell: {
-        range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: jsonIdx, endColumnIndex: jsonIdx + 1 },
-        cell: { userEnteredFormat: { wrapStrategy: 'WRAP' } },
-        fields: 'userEnteredFormat.wrapStrategy'
-      }
-    });
-  }
-
-  // Apply all formatting requests
-  const allRequests = [...baseRequests, ...validationRequests, ...formatRequests];
-  if (allRequests.length) {
-    await googleFetch(
-      sheetsToken,
-      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
-      { method: 'POST', body: JSON.stringify({ requests: allRequests }) }
-    );
-  }
-
-  // Write header values exactly as template (programmatic recreation)
+  // Write RAW headers to row 1
   await googleFetch(
     sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(tplTitle)}!A1:1?valueInputOption=USER_ENTERED`,
-    { method: 'PUT', body: JSON.stringify({ range: `${tplTitle}!A1:1`, values: [headers] }) }
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetTitle)}!A1:1?valueInputOption=USER_ENTERED`,
+    { method: 'PUT', body: JSON.stringify({ range: `${sheetTitle}!A1:1`, values: [RAW_HEADERS] }) }
   );
 
-  // Save config
-  const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
+  // Save RAW config
+  const saved = await base44.asServiceRole.entities.RawLeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_title: tplTitle,
+    sheet_title: sheetTitle,
   });
   return saved;
 }
@@ -201,53 +103,30 @@ async function appendLeadRow(base44, submission) {
   const token = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
   const cfg = await ensureSheet(base44);
 
-  // Fetch header row from the target sheet (row 1)
-  const headerResp = await googleFetch(
-    token,
-    `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/${encodeURIComponent(cfg.sheet_title)}!1:1`
-  );
-  const headers = (headerResp.values && headerResp.values[0]) || [];
-
   const flat = flattenSubmission(submission);
 
-  // Build row to match headers by normalized keys
-  const row = headers.map(h => {
-    const key = normalizeKey(h);
-    // Common synonyms mapping
-    const map = {
-      phone: 'mobile',
-      mobilenumber: 'mobile',
-      mobile: 'mobile',
-      fullname: 'name',
-      name: 'name',
-      firstname: 'firstName',
-      lastname: 'lastName',
-      email: 'email',
-      state: 'stateSuburb',
-      suburb: 'stateSuburb',
-      statesuburb: 'stateSuburb',
-      bestdatetime: 'bestDateTime',
-      timestamp: 'timestamp',
-      utmsource: 'utm_source',
-      utmmedium: 'utm_medium',
-      utmcampaign: 'utm_campaign',
-      allresponsesjson: 'allresponsesjson'
-    };
+  // Mapping helper for common fields
+  const get = (keys = []) => {
+    for (const k of keys) {
+      if (submission && Object.prototype.hasOwnProperty.call(submission, k) && submission[k] != null) return submission[k];
+      if (flat && Object.prototype.hasOwnProperty.call(flat, k) && flat[k] != null) return flat[k];
+    }
+    return '';
+  };
 
-    const targetField = map[key] || key; // try direct match first
+  const row = [
+    get(['timestamp', 'submittedAt']),
+    get(['submitted_from', 'pageUrl', 'sourceUrl']),
+    get(['utm_source']), get(['utm_medium']), get(['utm_campaign']),
+    get(['firstName']), get(['lastName']), get(['name', 'fullName']),
+    get(['email']), get(['mobile', 'phone', 'phoneNumber']), get(['stateSuburb']), get(['bestDateTime']),
+    get(['budget']), get(['funding']), get(['timeframe']), get(['journeyProgress', 'journey']), get(['vanStyle']),
+    get(['mainReason']), get(['incomeGoal']), get(['travelPreference']), get(['bossExcitement']), get(['freeTimeActivity']),
+    get(['existingVansCount', 'existingVans']), get(['existingBusinessTime']),
+    get(['specificQuestions']), get(['anythingElse']), get(['extraResources']),
+    get(['configuration_id', 'configId', 'configurationId']), get(['allresponsesjson'])
+  ];
 
-    // Prefer exact field name if exists in original submission
-    if (submission.hasOwnProperty(targetField)) return submission[targetField];
-
-    // Then check our flattened dictionary
-    if (flat.hasOwnProperty(targetField)) return flat[targetField];
-
-    // Finally try camelCase to normalized match
-    const byNorm = Object.entries(flat).find(([k]) => normalizeKey(k) === key);
-    return byNorm ? byNorm[1] : '';
-  });
-
-  // Append the row
   const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/${encodeURIComponent(cfg.sheet_title)}!A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
   await googleFetch(token, appendUrl, {
     method: 'POST',
