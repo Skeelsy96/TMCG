@@ -108,7 +108,7 @@ async function appendLeadRow(base44, submission) {
   // Fetch header row from the target sheet (row 1)
   const headerResp = await googleFetch(
     token,
-    `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/1:1`
+    `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/${encodeURIComponent(cfg.sheet_title)}!1:1`
   );
   const headers = (headerResp.values && headerResp.values[0]) || [];
 
@@ -152,7 +152,7 @@ async function appendLeadRow(base44, submission) {
   });
 
   // Append the row
-  const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+  const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${cfg.spreadsheet_id}/values/${encodeURIComponent(cfg.sheet_title)}!A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
   await googleFetch(token, appendUrl, {
     method: 'POST',
     body: JSON.stringify({ values: [row] })
