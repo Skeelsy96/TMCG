@@ -50,7 +50,7 @@ async function ensureSheet(base44) {
     return existing[0];
   }
 
-  // 1) Create a blank Google Spreadsheet via Drive (drive.file scope allows creating app-owned files)
+  // Create a new Google Spreadsheet (owned by app)
   const driveToken = await base44.asServiceRole.connectors.getAccessToken('googledrive');
   const createdFile = await googleFetch(
     driveToken,
@@ -65,30 +65,134 @@ async function ensureSheet(base44) {
   );
   const spreadsheetId = createdFile.id;
 
-  // 2) Use the default first tab name without extra API calls
+  // Sheets token
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
-  const sheetTitle = 'Sheet1';
 
-  // 3) Write header row to match form fields + tracking
-  const headers = [
-    'Timestamp','First Name','Last Name','Name','Email','Mobile','State & Suburb','Best Date/Time','Submitted From',
-    'UTM Source','UTM Medium','UTM Campaign',
-    'Main Reason','Income Goal','Travel Preference','Boss Excitement','Free Time Activity','Existing Vans Count','Existing Business Time',
-    'Journey Progress','Van Style','Specific Questions','Timeframe','Budget','Funding','Anything Else','Extra Resources','Configuration ID','All Responses JSON'
+  // Read template sheet title and header row from the provided example (programmatic recreation)
+  const templateMeta = await googleFetch(
+    sheetsToken,
+    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}?fields=sheets.properties(sheetId%2Ctitle)`
+  );
+  const tplSheet = (templateMeta.sheets || []).find(s => s.properties.sheetId === TEMPLATE_SHEET_ID) || (templateMeta.sheets || [])[0];
+  const tplTitle = tplSheet?.properties?.title || 'Leads';
+
+  const headerResp = await googleFetch(
+    sheetsToken,
+    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}/values/${encodeURIComponent(tplTitle)}!1:1`
+  );
+  const headers = (headerResp.values && headerResp.values[0]) || [];
+
+  // Rename first sheet, freeze header, header styling, wrap, autosize
+  const baseRequests = [
+    {
+      updateSheetProperties: {
+        properties: { sheetId: 0, title: tplTitle, gridProperties: { frozenRowCount: 1 } },
+        fields: 'title,gridProperties.frozenRowCount'
+      }
+    },
+    {
+      repeatCell: {
+        range: { sheetId: 0, startRowIndex: 0, endRowIndex: 1 },
+        cell: {
+          userEnteredFormat: {
+            textFormat: { bold: true },
+            backgroundColor: { red: 0.95, green: 0.95, blue: 0.95 },
+            wrapStrategy: 'WRAP'
+          }
+        },
+        fields: 'userEnteredFormat(textFormat,backgroundColor,wrapStrategy)'
+      }
+    },
+    {
+      autoResizeDimensions: {
+        dimensions: { sheetId: 0, dimension: 'COLUMNS', startIndex: 0, endIndex: Math.max(1, headers.length) }
+      }
+    },
+    {
+      repeatCell: {
+        range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000 },
+        cell: { userEnteredFormat: { wrapStrategy: 'WRAP' } },
+        fields: 'userEnteredFormat.wrapStrategy'
+      }
+    }
   ];
+
+  // Try to read simple ONE_OF_LIST data validations from the template's second row and apply to whole columns in new sheet
+  let validationRequests = [];
+  try {
+    const tplGrid = await googleFetch(
+      sheetsToken,
+      `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}?includeGridData=true&fields=sheets(properties(sheetId%2Ctitle)%2Cdata(rowData(values(dataValidation))))`
+    );
+    const tplGridSheet = (tplGrid.sheets || []).find(s => s.properties.sheetId === TEMPLATE_SHEET_ID) || (tplGrid.sheets || [])[0];
+    const firstDataRow = tplGridSheet?.data?.[0]?.rowData?.[1]?.values || []; // row index 1 => row 2
+
+    headers.forEach((_, c) => {
+      const v = firstDataRow[c];
+      if (v && v.dataValidation && v.dataValidation.condition && v.dataValidation.condition.type === 'ONE_OF_LIST') {
+        validationRequests.push({
+          repeatCell: {
+            range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: c, endColumnIndex: c + 1 },
+            cell: { dataValidation: v.dataValidation },
+            fields: 'dataValidation'
+          }
+        });
+      }
+    });
+  } catch (_) {
+    // If reading validations fails, continue with base formatting only
+  }
+
+  // Number formats for common columns if present
+  const findCol = (label) => headers.findIndex(h => normalizeKey(h) === normalizeKey(label));
+  const numFormat = (col, format) => ({
+    repeatCell: {
+      range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: col, endColumnIndex: col + 1 },
+      cell: { userEnteredFormat: { numberFormat: format } },
+      fields: 'userEnteredFormat.numberFormat'
+    }
+  });
+
+  const tsIdx = findCol('Timestamp');
+  const budgetIdx = findCol('Budget');
+  const vansIdx = findCol('Existing Vans Count');
+  const jsonIdx = findCol('All Responses JSON');
+
+  const formatRequests = [];
+  if (tsIdx >= 0) formatRequests.push(numFormat(tsIdx, { type: 'DATE_TIME' }));
+  if (budgetIdx >= 0) formatRequests.push(numFormat(budgetIdx, { type: 'NUMBER', pattern: '"$"#,##0.00' }));
+  if (vansIdx >= 0) formatRequests.push(numFormat(vansIdx, { type: 'NUMBER', pattern: '0' }));
+  if (jsonIdx >= 0) {
+    formatRequests.push({
+      repeatCell: {
+        range: { sheetId: 0, startRowIndex: 1, endRowIndex: 2000, startColumnIndex: jsonIdx, endColumnIndex: jsonIdx + 1 },
+        cell: { userEnteredFormat: { wrapStrategy: 'WRAP' } },
+        fields: 'userEnteredFormat.wrapStrategy'
+      }
+    });
+  }
+
+  // Apply all formatting requests
+  const allRequests = [...baseRequests, ...validationRequests, ...formatRequests];
+  if (allRequests.length) {
+    await googleFetch(
+      sheetsToken,
+      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+      { method: 'POST', body: JSON.stringify({ requests: allRequests }) }
+    );
+  }
+
+  // Write header values exactly as template (programmatic recreation)
   await googleFetch(
     sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetTitle)}!A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
-    {
-      method: 'POST',
-      body: JSON.stringify({ values: [headers] })
-    }
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(tplTitle)}!A1:1?valueInputOption=USER_ENTERED`,
+    { method: 'PUT', body: JSON.stringify({ range: `${tplTitle}!A1:1`, values: [headers] }) }
   );
 
-  // 4) Save config
+  // Save config
   const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_title: sheetTitle,
+    sheet_title: tplTitle,
   });
   return saved;
 }
