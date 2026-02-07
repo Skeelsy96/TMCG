@@ -297,7 +297,7 @@ export default function VanPreview3D({ configuration }) {
       </div>
 
       <div className="absolute bottom-4 left-4 bg-black/80 text-white px-4 py-2 rounded-lg text-sm">
-        Click and drag to rotate • Scroll to zoom
+        Click and drag to rotate • Use + / - to zoom
       </div>
     </div>
   );
