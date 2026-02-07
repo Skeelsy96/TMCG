@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 
 const VAN_OPTIONS = [
   {
-    id: 'compact-suv',
-    name: 'Compact SUV',
-    baseModel: 'Mitsubishi Outlander / Nissan X-Trail',
+    id: 'Compact-Van',
+    name: 'Compact Van',
+    baseModel: 'VW Caddy / Renault Kangoo',
     dimensions: { width: 1.8, length: 2.5 },
     price: '65,000',
     image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
@@ -15,7 +15,7 @@ const VAN_OPTIONS = [
   {
     id: 'large-van',
     name: 'Large Van',
-    baseModel: 'Mercedes Sprinter / Ford Transit',
+    baseModel: 'LDV G10+ / Mercedes Vito',
     dimensions: { width: 2.0, length: 4.0 },
     price: '145,000',
     image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1460956e5_ServeFromRearVans7.png',
@@ -24,7 +24,7 @@ const VAN_OPTIONS = [
   {
     id: 'walk-in',
     name: 'Walk-In Van',
-    baseModel: 'Large Box Truck',
+    baseModel: 'LDV Deliver 9 / Ford Transit',
     dimensions: { width: 2.4, length: 5.0 },
     price: '195,000',
     image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/062a79d1b_ProductionFit-out4.jpg',
