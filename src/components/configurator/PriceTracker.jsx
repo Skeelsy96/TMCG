@@ -68,7 +68,18 @@ export default function PriceTracker({ configuration }) {
       breakdown.items.push({ name: 'Full Vehicle Wrap', price: 3500 });
     }
 
-    breakdown.total = breakdown.base + breakdown.materials + breakdown.branding;
+    // Optional extras
+    if (Array.isArray(configuration.optionalExtras)) {
+      configuration.optionalExtras.forEach((extra) => {
+        const price = Number(extra.price_aud) || 0;
+        if (price >= 0) {
+          breakdown.items.push({ name: extra.name, price });
+          breakdown.extras = (breakdown.extras || 0) + price;
+        }
+      });
+    }
+
+    breakdown.total = breakdown.base + breakdown.materials + breakdown.branding + (breakdown.extras || 0);
 
     return breakdown;
   };

@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { RotateCcw, ZoomIn, ZoomOut } from 'lucide-react';
+import { RotateCcw, ZoomIn, ZoomOut, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { base44 } from '@/api/base44Client';
 
-export default function VanPreview3D({ configuration }) {
+export default function VanPreview3D({ configuration, updateConfiguration }) {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
@@ -11,6 +12,18 @@ export default function VanPreview3D({ configuration }) {
   const vanGroupRef = useRef(null);
   const isDragging = useRef(false);
   const previousMousePosition = useRef({ x: 0, y: 0 });
+  const [showExtras, setShowExtras] = useState(false);
+  const [extras, setExtras] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const list = await base44.entities.VanFitOutOptionalExtrasList.list();
+        setExtras(Array.isArray(list) ? list : []);
+      } catch {
+        setExtras([]);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -241,7 +254,18 @@ export default function VanPreview3D({ configuration }) {
     group.add(benchtop);
   };
 
-  const resetCamera = () => {
+  // Optional extras selection helpers
+  const selectedExtras = Array.isArray(configuration?.optionalExtras) ? configuration.optionalExtras : [];
+  const toggleExtra = (extra) => {
+    if (!updateConfiguration) return;
+    const exists = selectedExtras.find(e => e.id === extra.id);
+    const next = exists
+      ? selectedExtras.filter(e => e.id !== extra.id)
+      : [...selectedExtras, { id: extra.id, name: extra.name, price_aud: extra.price_aud || 0 }];
+    updateConfiguration('optionalExtras', next);
+  };
+
+   const resetCamera = () => {
     if (cameraRef.current && vanGroupRef.current) {
       cameraRef.current.position.set(6, 4, 8);
       cameraRef.current.lookAt(0, 0, 0);
@@ -265,11 +289,11 @@ export default function VanPreview3D({ configuration }) {
     <div className="relative">
       <div 
         ref={mountRef} 
-        className="w-full h-[500px] rounded-xl overflow-hidden border border-[#DBDBDB] bg-[#F5F5F5]"
+        className="w-full h-[360px] md:h-[480px] rounded-xl overflow-hidden border border-[#DBDBDB] bg-[#F5F5F5]"
         style={{ cursor: 'grab' }}
       />
       
-      <div className="absolute top-4 right-4 flex gap-2">
+      <div className="absolute top-4 right-4 flex flex-wrap gap-2">
         <Button 
           onClick={resetCamera}
           variant="outline"
@@ -294,9 +318,41 @@ export default function VanPreview3D({ configuration }) {
         >
           <ZoomOut className="w-4 h-4" />
         </Button>
-      </div>
+        <Button 
+          onClick={() => setShowExtras((s) => !s)}
+          variant="outline"
+          size="sm"
+          className="bg-white shadow-lg px-3"
+        >
+          Optional Extras
+        </Button>
+        </div>
 
-      <div className="absolute bottom-4 left-4 bg-black/80 text-white px-4 py-2 rounded-lg text-sm">
+        {showExtras && (
+        <div className="absolute top-16 right-4 w-80 max-h-64 overflow-auto bg-white rounded-xl shadow-xl border border-[#DBDBDB] p-3 z-10">
+          <div className="font-semibold mb-2">Optional Extras</div>
+          <div className="space-y-2">
+            {extras.map((extra) => (
+              <label key={extra.id} className="flex items-center justify-between gap-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={!!selectedExtras.find(e => e.id === extra.id)}
+                    onChange={() => toggleExtra(extra)}
+                  />
+                  <span className="text-[#333333]">{extra.name}</span>
+                </div>
+                <span className="font-medium text-black">${(extra.price_aud || 0).toLocaleString()}</span>
+              </label>
+            ))}
+            {extras.length === 0 && (
+              <div className="text-xs text-[#969696]">No optional extras available.</div>
+            )}
+          </div>
+        </div>
+        )}
+
+        <div className="absolute bottom-4 left-4 bg-black/80 text-white px-4 py-2 rounded-lg text-sm">
         Click and drag to rotate • Use + / - to zoom
       </div>
     </div>

@@ -14,6 +14,7 @@ import ConfigurationSummary from '../components/configurator/ConfigurationSummar
 import VanPreview3D from '../components/configurator/VanPreview3D';
 import PriceTracker from '../components/configurator/PriceTracker';
 import InclusionsList from '../components/configurator/InclusionsList';
+import PackageDetailsTile from '../components/configurator/PackageDetailsTile';
 
 const STEPS = [
   { id: 1, name: 'Select Van', component: VanSelector },
@@ -262,10 +263,22 @@ export default function VanConfigurator() {
           </AnimatePresence>
         </div>
 
-        {/* 3D Preview below the selector */}
+        {/* 3D Preview + Package Details */}
         <div className="mb-12">
-          <h3 className="text-xl font-bold text-black mb-4">3D Preview</h3>
-          <VanPreview3D configuration={configuration} />
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <h3 className="text-xl font-bold text-black mb-4">3D Preview</h3>
+              <VanPreview3D configuration={configuration} updateConfiguration={updateConfiguration} />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">Package Details</h3>
+              {configuration.vanModel ? (
+                <PackageDetailsTile vanModelId={configuration.vanModel.id} />
+              ) : (
+                <div className="rounded-xl border border-[#DBDBDB] bg-white p-4 text-sm text-[#969696]">Select a van to see package details.</div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Inclusions & Extras */}
