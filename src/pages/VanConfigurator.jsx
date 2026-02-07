@@ -44,7 +44,21 @@ export default function VanConfigurator() {
     }
   });
 
-  // Load configuration from URL if shared
+  // Map old IDs to new ones
+  const normalizeLoadedConfig = (conf) => {
+    const map = {
+      'compact-suv': 'Compact-Van',
+      'large-van': 'Large-Van',
+      'walk-in': 'Walk-In Van'
+    };
+    const cloned = { ...conf };
+    if (cloned?.vanModel?.id && map[cloned.vanModel.id]) {
+      cloned.vanModel = { ...cloned.vanModel, id: map[cloned.vanModel.id] };
+    }
+    return cloned;
+  };
+
+   // Load configuration from URL if shared
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const sharedConfigId = urlParams.get('config');
@@ -65,7 +79,8 @@ export default function VanConfigurator() {
         }
       });
       if (config.configuration) {
-        setConfiguration(config.configuration);
+        const normalized = normalizeLoadedConfig(config.configuration);
+        setConfiguration(normalized);
         setConfigId(id);
         toast.success('Configuration loaded');
       }

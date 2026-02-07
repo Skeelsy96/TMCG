@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 
 const VAN_OPTIONS = [
   {
@@ -13,7 +14,7 @@ const VAN_OPTIONS = [
     features: ['50-100 coffees/day', 'Perfect for tight spaces', 'Low running costs']
   },
   {
-    id: 'large-van',
+    id: 'Large-Van',
     name: 'Large Van',
     baseModel: 'LDV G10+ / Mercedes Vito',
     dimensions: { width: 2.0, length: 4.0 },
@@ -22,7 +23,7 @@ const VAN_OPTIONS = [
     features: ['150-300 coffees/day', 'Multi-barista setup', 'Event ready']
   },
   {
-    id: 'walk-in',
+    id: 'Walk-In Van',
     name: 'Walk-In Van',
     baseModel: 'LDV Deliver 9 / Ford Transit',
     dimensions: { width: 2.4, length: 5.0 },
@@ -33,6 +34,23 @@ const VAN_OPTIONS = [
 ];
 
 export default function VanSelector({ configuration, updateConfiguration }) {
+  const [priceMap, setPriceMap] = useState({});
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const list = await base44.entities.VanFitOutPriceList.list();
+        const map = {};
+        list.forEach(item => {
+          const key = item.van_id || item.code || item.name;
+          if (!key) return;
+          if (typeof item.base_price_aud === 'number') map[key] = item.base_price_aud;
+        });
+        if (isMounted) setPriceMap(map);
+      } catch (e) {}
+    })();
+    return () => { isMounted = false; };
+  }, []);
   return (
     <div>
       <div className="text-center mb-12">
@@ -78,7 +96,7 @@ export default function VanSelector({ configuration, updateConfiguration }) {
             <div className="p-6">
               <div className="mb-4">
                 <div className="text-3xl font-bold text-black mb-1">
-                  ${van.price}
+                  ${priceMap[van.id] ? priceMap[van.id].toLocaleString() : van.price}
                   <span className="text-sm text-[#969696] font-normal ml-2">+ GST</span>
                 </div>
                 <div className="text-sm text-[#969696]">

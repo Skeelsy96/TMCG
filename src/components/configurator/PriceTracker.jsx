@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DollarSign, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 
 export default function PriceTracker({ configuration }) {
+  const [basePriceEntity, setBasePriceEntity] = useState(null);
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        if (!configuration?.vanModel?.id) { if (active) setBasePriceEntity(null); return; }
+        const list = await base44.entities.VanFitOutPriceList.list();
+        const rec = list.find(r => (r.van_id || r.code || r.name) === configuration.vanModel.id);
+        if (active) setBasePriceEntity(typeof rec?.base_price_aud === 'number' ? rec.base_price_aud : null);
+      } catch {}
+    })();
+    return () => { active = false; };
+  }, [configuration?.vanModel?.id]);
   const calculateBreakdown = () => {
     const breakdown = {
       base: 0,
@@ -13,7 +27,8 @@ export default function PriceTracker({ configuration }) {
 
     // Base van price
     if (configuration.vanModel) {
-      const basePrice = parseFloat(configuration.vanModel.price.replace(/,/g, ''));
+      const parsed = configuration.vanModel.price ? parseFloat(String(configuration.vanModel.price).replace(/,/g, '')) : 0;
+      const basePrice = typeof basePriceEntity === 'number' ? basePriceEntity : (configuration.vanModel.base_price_aud ?? parsed);
       breakdown.base = basePrice;
       breakdown.items.push({
         name: `${configuration.vanModel.name} Base Package`,
