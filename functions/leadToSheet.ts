@@ -65,47 +65,65 @@ async function ensureSheet(base44) {
   );
   const spreadsheetId = createdFile.id;
 
-  // 2) Copy the template sheet into the new spreadsheet (preserves headers/formatting)
+  // 2) Determine first sheet info
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
-  const copied = await googleFetch(
-    sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${TEMPLATE_SPREADSHEET_ID}/sheets/${TEMPLATE_SHEET_ID}:copyTo`,
-    {
-      method: 'POST',
-      body: JSON.stringify({ destinationSpreadsheetId: spreadsheetId })
-    }
-  );
-  const copiedSheetId = copied.sheetId;
-
-  // 3) Remove the default sheet that Drive created
   const meta = await googleFetch(
     sheetsToken,
     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
   );
-  const deleteRequests = (meta.sheets || [])
-    .filter(s => s.properties.sheetId !== copiedSheetId)
-    .map(s => ({ deleteSheet: { sheetId: s.properties.sheetId } }));
-  if (deleteRequests.length) {
-    await googleFetch(
-      sheetsToken,
-      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
-      { method: 'POST', body: JSON.stringify({ requests: deleteRequests }) }
-    );
-  }
+  const firstProps = (meta.sheets || [])[0]?.properties || {};
+  const sheetId = firstProps.sheetId;
+  const sheetTitle = firstProps.title || 'Sheet1';
 
-  // 4) Get the copied sheet title
-  const metaAfter = await googleFetch(
+  // 3) Write header row to match form fields + tracking
+  const headers = [
+    'Timestamp','First Name','Last Name','Name','Email','Mobile','State & Suburb','Best Date/Time','Submitted From',
+    'UTM Source','UTM Medium','UTM Campaign',
+    'Main Reason','Income Goal','Travel Preference','Boss Excitement','Free Time Activity','Existing Vans Count','Existing Business Time',
+    'Journey Progress','Van Style','Specific Questions','Timeframe','Budget','Funding','Anything Else','Extra Resources','Configuration ID','All Responses JSON'
+  ];
+  await googleFetch(
     sheetsToken,
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetTitle)}!A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ values: [headers] })
+    }
   );
-  const copiedProps = (metaAfter.sheets || []).find(s => s.properties.sheetId === copiedSheetId)?.properties || {};
-  const copiedSheetTitle = copiedProps.title || 'Leads';
+
+  // 4) Basic formatting: freeze header row, bold + gray background
+  const requests = [
+    {
+      updateSheetProperties: {
+        properties: { sheetId, gridProperties: { frozenRowCount: 1 } },
+        fields: 'gridProperties.frozenRowCount'
+      }
+    },
+    {
+      repeatCell: {
+        range: { sheetId, startRowIndex: 0, endRowIndex: 1 },
+        cell: {
+          userEnteredFormat: {
+            textFormat: { bold: true },
+            backgroundColor: { red: 0.95, green: 0.95, blue: 0.95 }
+          }
+        },
+        fields: 'userEnteredFormat(textFormat,backgroundColor)'
+      }
+    },
+    { autoResizeDimensions: { dimensions: { sheetId, dimension: 'COLUMNS', startIndex: 0, endIndex: headers.length } } }
+  ];
+  await googleFetch(
+    sheetsToken,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+    { method: 'POST', body: JSON.stringify({ requests }) }
+  );
 
   // 5) Save config
   const saved = await base44.asServiceRole.entities.LeadSheetConfig.create({
     spreadsheet_id: spreadsheetId,
-    sheet_id: copiedSheetId,
-    sheet_title: copiedSheetTitle,
+    sheet_id: sheetId,
+    sheet_title: sheetTitle,
   });
   return saved;
 }
