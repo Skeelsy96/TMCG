@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import LeadEnquiryForm from '../components/tmcg/LeadEnquiryForm';
 import BookingSection from '../components/tmcg/BookingSection';
 import TestimonialSlider from '../components/tmcg/TestimonialSlider';
+import HeroBackgroundVideo from '../components/common/HeroBackgroundVideo';
 
 export default function TMCGHome() {
   const branchCards = [
@@ -77,6 +78,10 @@ export default function TMCGHome() {
     }
   ];
 
+  // Video sources (Google Drive direct link)
+  const DRIVE_FILE_ID = '1RC8yonDAT2FAKq1W3CJZupYw3ET1r89E';
+  const desktopVideoSrc = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -87,14 +92,12 @@ export default function TMCGHome() {
           }} />
         </div>
 
-        <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block">
-          <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent z-10" />
-          <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/595190562_Embracing.png"
-            alt="Premium mobile coffee van setup by The Mobile Coffee Group"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {/* Background video */}
+        <HeroBackgroundVideo
+          desktopSrc={desktopVideoSrc}
+          poster="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/595190562_Embracing.png"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <motion.div
