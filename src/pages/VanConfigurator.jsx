@@ -13,7 +13,6 @@ import BrandingSelector from '../components/configurator/BrandingSelector';
 import ConfigurationSummary from '../components/configurator/ConfigurationSummary';
 import VanPreview3D from '../components/configurator/VanPreview3D';
 import PriceTracker from '../components/configurator/PriceTracker';
-import InclusionsList from '../components/configurator/InclusionsList';
 import PackageDetailsTile from '../components/configurator/PackageDetailsTile';
 import OptionalExtrasList from '../components/configurator/OptionalExtrasList';
 
@@ -294,12 +293,6 @@ export default function VanConfigurator() {
           </div>
         </div>
 
-        {/* Inclusions & Extras */}
-        {configuration.vanModel && (
-          <div className="mb-12">
-            <InclusionsList vanModelId={configuration.vanModel.id} />
-          </div>
-        )}
 
         {/* Helper note */}
         <div className="text-xs text-[#969696] mb-4">Tip: You can update inclusions any time in the database (VanFitOutInclusionsList).</div>
