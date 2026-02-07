@@ -114,7 +114,7 @@ export default function VanPreview3D({ configuration }) {
     renderer.domElement.addEventListener('mousedown', handleMouseDown);
     renderer.domElement.addEventListener('mousemove', handleMouseMove);
     renderer.domElement.addEventListener('mouseup', handleMouseUp);
-    renderer.domElement.addEventListener('wheel', handleWheel, { passive: true });
+    /* wheel zoom disabled - use + / - buttons */
 
     return () => {
       window.removeEventListener('resize', handleResize);
