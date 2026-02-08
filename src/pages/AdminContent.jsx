@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { ArrowLeft, FileText, Plus } from 'lucide-react';
-import ImportEarlyBirdProductsButton from '../components/admin/ImportEarlyBirdProductsButton';
-import CreateEarlyBirdSheetButton from '../components/admin/CreateEarlyBirdSheetButton';
+// Removed import tools for Google Sheet/XLSX as per request
 
 export default function AdminContent() {
   const contentCategories = [
@@ -66,13 +65,10 @@ export default function AdminContent() {
         </div>
 
         <div className="mt-12 grid gap-6">
-          <ImportEarlyBirdProductsButton />
-          <CreateEarlyBirdSheetButton />
-
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
             <h3 className="font-bold text-black mb-2">Content Management Note</h3>
             <p className="text-sm text-[#333333]">
-              Content management functionality is currently being developed. For now, you can view existing content through the links above. Direct editing capabilities will be added in future updates.
+              Products are now fully data-driven from the EarlyBirdProducts database. To refresh from an XLSX, run the importEarlyBirdFromXlsx function from the dashboard with your file URL.
             </p>
           </div>
         </div>
