@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '../utils';
 import { ArrowLeft, FileText, Plus } from 'lucide-react';
+import ImportEarlyBirdProductsButton from '../components/admin/ImportEarlyBirdProductsButton';
 
 export default function AdminContent() {
   const contentCategories = [
