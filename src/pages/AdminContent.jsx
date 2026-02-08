@@ -64,7 +64,10 @@ export default function AdminContent() {
           ))}
         </div>
 
-        <div className="mt-12 bg-blue-50 border border-blue-200 rounded-2xl p-8">
+        <div className="mt-12 grid gap-6">
+          <ImportEarlyBirdProductsButton />
+
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
           <h3 className="font-bold text-black mb-2">Content Management Note</h3>
           <p className="text-sm text-[#333333]">
             Content management functionality is currently being developed. For now, you can view existing content through the links above. Direct editing capabilities will be added in future updates.
