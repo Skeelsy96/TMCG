@@ -101,7 +101,7 @@ export default function EarlyBirdCoffee() {
                 className="group block bg-white rounded-2xl overflow-hidden border border-[#DBDBDB] hover:shadow-xl transition-all h-full">
 
                     {product.image &&
-                <div className="relative h-36 bg-[#F5F5F5] overflow-hidden">
+                <div className={`relative ${['Alpha Blend','Honeycomb Blend','Vibe Blend'].includes(product.name) ? 'h-36' : 'h-48'} bg-[#F5F5F5] overflow-hidden`}>
                         <img
                     src={product.image}
                     alt={product.name}
