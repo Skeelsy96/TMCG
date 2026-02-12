@@ -60,16 +60,20 @@ async function googleFetch(token, url, options = {}) {
 
 async function ensureSheet(base44) {
   // Try to read existing RAW config
-  const existing = await base44.asServiceRole.entities.RawLeadSheetConfig.list();
-  if (existing && existing.length > 0) {
-    return existing[0];
+  try {
+    const existing = await base44.asServiceRole.entities.RawLeadSheetConfig.list();
+    if (existing && existing.length > 0) {
+      return existing[0];
+    }
+  } catch (e) {
+    // If listing fails, continue to create a fresh config
   }
 
   // Create a new Google Spreadsheet (owned by app)
   const driveToken = await base44.asServiceRole.connectors.getAccessToken('googledrive');
   const createdFile = await googleFetch(
     driveToken,
-    'https://www.googleapis.com/drive/v3/files',
+    'https://www.googleapis.com/drive/v3/files?fields=id',
     {
       method: 'POST',
       body: JSON.stringify({
@@ -78,7 +82,10 @@ async function ensureSheet(base44) {
       })
     }
   );
-  const spreadsheetId = createdFile.id;
+  const spreadsheetId = createdFile?.id;
+  if (!spreadsheetId) {
+    throw new Error('Failed to create Google Sheet: missing file id');
+  }
 
   // Sheets token
   const sheetsToken = await base44.asServiceRole.connectors.getAccessToken('googlesheets');
