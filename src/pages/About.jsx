@@ -42,7 +42,7 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}>
 
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                About <span className="text-[#FDD202]">Coffee Van Classifieds</span>
+                About <span className="text-[#FDD202]">Our Pre-Loved Mobile Coffee Vans</span>
               </h1>
               <p className="text-xl text-gray-400 leading-relaxed mb-8">The Mobile Coffee Group not only builds Brand-New custom coffee vans, we are also dedicated to connecting buyers and sellers of quality second-hand coffee vans across Australia.
 
