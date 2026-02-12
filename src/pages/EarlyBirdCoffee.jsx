@@ -104,7 +104,7 @@ export default function EarlyBirdCoffee() {
                 <div className="relative h-48 bg-[#F5F5F5] overflow-hidden">
                         <img
                     src={product.image}
-                    alt={product.name} className="bg-[#ffffff] pr-10 pl-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    alt={product.name} className={`bg-[#ffffff] pr-10 pl-10 w-full h-full ${product.name === 'Early Bird Barista Kit' ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`} />
 
 
                       </div>

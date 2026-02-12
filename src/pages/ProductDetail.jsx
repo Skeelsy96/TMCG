@@ -97,7 +97,7 @@ export default function ProductDetail() {
               <img
                 src={product.image || 'https://via.placeholder.com/600'}
                 alt={product.name}
-                className="w-full aspect-square object-cover"
+                className={`w-full aspect-square ${product.name === 'Early Bird Barista Kit' ? 'object-contain' : 'object-cover'}`}
               />
             </div>
             {product.gallery_images?.length > 0 && (
