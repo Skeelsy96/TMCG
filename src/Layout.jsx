@@ -5,6 +5,26 @@ import { base44 } from '@/api/base44Client';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Polyfill: make SVGElement.className writable so external editors can set it safely
+if (typeof window !== 'undefined' && 'SVGElement' in window) {
+  try {
+    const __svgTest = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    // Some browsers throw when assigning string to className on SVG
+    // Attempt a write; if it fails, we'll define our own setter.
+    __svgTest.className = 'x';
+  } catch (_) {
+    try {
+      Object.defineProperty(window.SVGElement.prototype, 'className', {
+        get() { return this.getAttribute('class') || ''; },
+        set(v) { this.setAttribute('class', String(v)); },
+        configurable: true
+      });
+    } catch {
+      // no-op: if we can't redefine, ignore to avoid breaking runtime
+    }
+  }
+}
+
 export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authUser, setAuthUser] = useState(null);
