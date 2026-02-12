@@ -57,6 +57,11 @@ export default function About() {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
+                  to={createPageUrl('ListVan')}
+                  className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                  List Your Van ->
+                </Link>
+                <Link
                   to={createPageUrl('Contact')}
                   className="inline-flex items-center gap-2 border border-white/30 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors">
 
