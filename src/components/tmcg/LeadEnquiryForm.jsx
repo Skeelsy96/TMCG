@@ -184,12 +184,13 @@ export default function LeadEnquiryForm() {
               exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-bold text-black mb-6">
-                What excites you most about starting your mobile coffee business?
-              </h3>
-              <div className="space-y-3">
-                {[
-                  { value: 'earn_more', label: 'I want the opportunity to earn more money' },
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
+                <h3 className="text-2xl font-bold text-black mb-6">
+                  What excites you most about starting your mobile coffee business?
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { value: 'earn_more', label: 'I want the opportunity to earn more money' },
                   { value: 'freedom_travel', label: 'I want to have the freedom to travel' },
                   { value: 'escape_9to5', label: 'I want escape the 9-5' },
                   { value: 'more_free_time', label: 'I want to be able to have more free time' },
@@ -215,6 +216,7 @@ export default function LeadEnquiryForm() {
                   </label>
                 ))}
               </div>
+              </div>
             </motion.div>
           )}
 
@@ -228,7 +230,7 @@ export default function LeadEnquiryForm() {
               className="space-y-6"
             >
               {formData.mainReason === 'earn_more' && (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <h3 className="text-2xl font-bold text-black mb-6">
                     How much income do you want to generate per annum?
                   </h3>
@@ -254,11 +256,11 @@ export default function LeadEnquiryForm() {
                       </label>
                     ))}
                   </div>
-                </>
+                </div>
               )}
 
               {formData.mainReason === 'freedom_travel' && (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <h3 className="text-2xl font-bold text-black mb-6">
                     What sort of travelling do you want to do?
                   </h3>
@@ -289,11 +291,11 @@ export default function LeadEnquiryForm() {
                       </label>
                     ))}
                   </div>
-                </>
+                </div>
               )}
 
               {formData.mainReason === 'escape_9to5' && (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <h3 className="text-2xl font-bold text-black mb-6">
                     What excites you most about becoming your own boss?
                   </h3>
@@ -324,11 +326,11 @@ export default function LeadEnquiryForm() {
                       </label>
                     ))}
                   </div>
-                </>
+                </div>
               )}
 
               {formData.mainReason === 'more_free_time' && (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <h3 className="text-2xl font-bold text-black mb-6">
                     How will you spend your extra free time?
                   </h3>
@@ -359,12 +361,12 @@ export default function LeadEnquiryForm() {
                       </label>
                     ))}
                   </div>
-                </>
+                </div>
               )}
 
               {formData.mainReason === 'expand_existing_fleet' && (
                 <div className="space-y-8">
-                  <div>
+                  <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                     <h3 className="text-2xl font-bold text-black mb-6">
                       How many vans do you currently have?
                     </h3>
@@ -392,7 +394,7 @@ export default function LeadEnquiryForm() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                     <h3 className="text-2xl font-bold text-black mb-6">
                       How long have you been operating your existing business?
                     </h3>
@@ -433,7 +435,7 @@ export default function LeadEnquiryForm() {
               exit={{ opacity: 0, x: -20 }}
               className="space-y-8"
             >
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   Where are you on your journey?
                 </h3>
@@ -467,7 +469,7 @@ export default function LeadEnquiryForm() {
               </div>
 
               {formData.journeyProgress === 'I have some specific questions I would like answered' && (
-                <div>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <Label htmlFor="specificQuestions" className="text-black">Your Questions</Label>
                   <Textarea
                     id="specificQuestions"
@@ -479,13 +481,14 @@ export default function LeadEnquiryForm() {
                 </div>
               )}
 
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   Which style of mobile coffee van are you most interested in?
                 </h3>
                 <div className="space-y-3">
                   {[
-                    'Serve From Rear / Large Van',
+                    'Large Van',
+                    'Compact Van',
                     'Walk-In Van',
                     'Coffee Ute',
                     'Coffee SUV',
@@ -514,7 +517,7 @@ export default function LeadEnquiryForm() {
                 </div>
               </div>
 
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   When would you want to be serving your first coffee?
                 </h3>
@@ -553,7 +556,7 @@ export default function LeadEnquiryForm() {
               exit={{ opacity: 0, x: -20 }}
               className="space-y-8"
             >
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   What is your budget for this investment?
                 </h3>
@@ -581,7 +584,7 @@ export default function LeadEnquiryForm() {
                 </div>
               </div>
 
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   How would you be funding the investment?
                 </h3>
@@ -613,7 +616,7 @@ export default function LeadEnquiryForm() {
                 </div>
               </div>
 
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <Label htmlFor="anythingElse" className="text-black">Anything else we should know?</Label>
                 <Textarea
                   id="anythingElse"
@@ -635,7 +638,7 @@ export default function LeadEnquiryForm() {
               exit={{ opacity: 0, x: -20 }}
               className="space-y-8"
             >
-              <div>
+              <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                 <h3 className="text-2xl font-bold text-black mb-6">
                   Would you like some more information on any of these?
                 </h3>
@@ -788,15 +791,15 @@ export default function LeadEnquiryForm() {
               className="bg-[#FDD202] text-black hover:bg-[#f5c400]"
             >
               {isSubmitting ? (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Submitting...
-                </>
+                </div>
               ) : (
-                <>
+                <div className="bg-[#F5F5F5] rounded-2xl p-6 border border-[#DBDBDB]">
                   Submit My Details
                   <CheckCircle className="w-4 h-4 ml-2" />
-                </>
+                </div>
               )}
             </Button>
           )}
