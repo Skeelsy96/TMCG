@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { CheckCircle, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../../utils';
 
 export default function LeadEnquiryForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -189,14 +191,26 @@ export default function LeadEnquiryForm() {
         <p className="text-[#333333] text-lg mb-8">
           One of our dedicated Business Development Managers will reach out to you shortly to discuss your mobile coffee journey.
         </p>
-        <a
-          href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2dh9yagVZ217DA70maiVNanT4ngbs0id7gz80ZZN8MJCWG_gonsBorZWCH_fj9hFn4FVWIay36?gv=true"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
-        >
-          Book a 15 Min Phone Consultation
-        </a>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            to={createPageUrl('FinanceOptions')}
+            className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all"
+          >
+            Explore Our Finance Options
+          </Link>
+          <Link
+            to={createPageUrl('EarlyBirdCoffee')}
+            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold border border-[#DBDBDB] hover:bg-gray-100 transition-all"
+          >
+            Learn About Our Coffee & Supplies
+          </Link>
+          <Link
+            to={createPageUrl('Events')}
+            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold border border-[#DBDBDB] hover:bg-gray-100 transition-all"
+          >
+            Discover Your Local Events
+          </Link>
+        </div>
       </motion.div>
     );
   }
