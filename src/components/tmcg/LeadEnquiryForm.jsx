@@ -57,7 +57,34 @@ export default function LeadEnquiryForm() {
     }
   }, []);
 
-  const totalSteps = 5;
+  const buildSteps = () => {
+    const steps = ['mainReason'];
+    if (formData.mainReason === 'earn_more') steps.push('incomeGoal');
+    if (formData.mainReason === 'freedom_travel') steps.push('travelPreference');
+    if (formData.mainReason === 'escape_9to5') steps.push('bossExcitement');
+    if (formData.mainReason === 'more_free_time') steps.push('freeTimeActivity');
+    if (formData.mainReason === 'expand_existing_fleet') {
+      steps.push('existingVansCount', 'existingBusinessTime');
+    }
+
+    steps.push('journeyProgress');
+    if (formData.journeyProgress === 'I have some specific questions I would like answered') {
+      steps.push('specificQuestions');
+    }
+    steps.push('vanStyle');
+    steps.push('timeframe');
+
+    steps.push('budget');
+    steps.push('funding');
+    steps.push('anythingElse');
+
+    steps.push('extraResources');
+    steps.push('contactDetails');
+    return steps;
+  };
+  const steps = buildSteps();
+  const totalSteps = steps.length;
+  const currentStepKey = steps[currentStep - 1] || 'mainReason';
 
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -73,23 +100,41 @@ export default function LeadEnquiryForm() {
   };
 
   const canProceed = () => {
-    switch (currentStep) {
-      case 1:
+    const stepsLocal = buildSteps();
+    const key = stepsLocal[currentStep - 1];
+    switch (key) {
+      case 'mainReason':
         return formData.mainReason !== '';
-      case 2:
-        if (formData.mainReason === 'earn_more') return formData.incomeGoal !== '';
-        if (formData.mainReason === 'freedom_travel') return formData.travelPreference !== '';
-        if (formData.mainReason === 'escape_9to5') return formData.bossExcitement !== '';
-        if (formData.mainReason === 'more_free_time') return formData.freeTimeActivity !== '';
-        if (formData.mainReason === 'expand_existing_fleet') 
-          return formData.existingVansCount !== '' && formData.existingBusinessTime !== '';
+      case 'incomeGoal':
+        return formData.incomeGoal !== '';
+      case 'travelPreference':
+        return formData.travelPreference !== '';
+      case 'bossExcitement':
+        return formData.bossExcitement !== '';
+      case 'freeTimeActivity':
+        return formData.freeTimeActivity !== '';
+      case 'existingVansCount':
+        return formData.existingVansCount !== '';
+      case 'existingBusinessTime':
+        return formData.existingBusinessTime !== '';
+      case 'journeyProgress':
+        return formData.journeyProgress !== '';
+      case 'specificQuestions':
+        return formData.specificQuestions.trim().length > 0;
+      case 'vanStyle':
+        return formData.vanStyle !== '';
+      case 'timeframe':
+        return formData.timeframe !== '';
+      case 'budget':
+        return formData.budget !== '';
+      case 'funding':
+        return formData.funding !== '';
+      case 'anythingElse':
         return true;
-      case 3:
-        return formData.journeyProgress !== '' && formData.vanStyle !== '' && formData.timeframe !== '';
-      case 4:
-        return formData.budget !== '' && formData.funding !== '';
-      case 5:
-        return formData.firstName && formData.lastName && formData.mobile && formData.email;
+      case 'extraResources':
+        return true;
+      case 'contactDetails':
+        return !!(formData.firstName && formData.lastName && formData.mobile && formData.email);
       default:
         return true;
     }
