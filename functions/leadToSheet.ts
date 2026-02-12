@@ -112,11 +112,16 @@ async function appendLeadRow(base44, submission) {
 
   const flat = flattenSubmission(submission);
 
-  // Mapping helper for common fields
+  // Mapping helper for common fields (prefer flattened values and stringify non-scalars)
   const get = (keys = []) => {
     for (const k of keys) {
-      if (submission && Object.prototype.hasOwnProperty.call(submission, k) && submission[k] != null) return submission[k];
-      if (flat && Object.prototype.hasOwnProperty.call(flat, k) && flat[k] != null) return flat[k];
+      let v;
+      if (flat && Object.prototype.hasOwnProperty.call(flat, k) && flat[k] != null) v = flat[k];
+      else if (submission && Object.prototype.hasOwnProperty.call(submission, k) && submission[k] != null) v = submission[k];
+      else continue;
+      if (Array.isArray(v)) return v.join(', ');
+      if (typeof v === 'object') return JSON.stringify(v);
+      return v;
     }
     return '';
   };
