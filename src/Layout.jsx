@@ -7,22 +7,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // Polyfill: make SVGElement.className writable so external editors can set it safely
 if (typeof window !== 'undefined' && 'SVGElement' in window) {
+  const ensureAssignable = (el) => {
+    try {
+      // Try direct write; if it throws, define instance-level accessor
+      try { el.className = el.getAttribute('class') || ''; return; } catch {}
+      Object.defineProperty(el, 'className', {
+        get() { return this.getAttribute('class') || ''; },
+        set(v) { this.setAttribute('class', String(v)); },
+        configurable: true
+      });
+    } catch {}
+  };
+
   try {
     const __svgTest = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     // Some browsers throw when assigning string to className on SVG
-    // Attempt a write; if it fails, we'll define our own setter.
     __svgTest.className = 'x';
   } catch (_) {
+    // Fallback: try to patch prototype so future writes succeed
     try {
       Object.defineProperty(window.SVGElement.prototype, 'className', {
         get() { return this.getAttribute('class') || ''; },
         set(v) { this.setAttribute('class', String(v)); },
         configurable: true
       });
-    } catch {
-      // no-op: if we can't redefine, ignore to avoid breaking runtime
-    }
+    } catch {}
   }
+
+  // Patch existing SVG nodes
+  try {
+    document.querySelectorAll('svg, svg *').forEach(ensureAssignable);
+  } catch {}
+
+  // Observe new nodes and patch on the fly
+  try {
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes || []) {
+          if (node.nodeType !== 1) continue;
+          if (node.namespaceURI === 'http://www.w3.org/2000/svg') ensureAssignable(node);
+          try { node.querySelectorAll && node.querySelectorAll('svg, svg *').forEach(ensureAssignable); } catch {}
+        }
+      }
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  } catch {}
 }
 
 export default function Layout({ children, currentPageName }) {
