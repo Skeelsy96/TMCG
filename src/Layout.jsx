@@ -57,6 +57,7 @@ if (typeof window !== 'undefined' && 'SVGElement' in window) {
 export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authUser, setAuthUser] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
