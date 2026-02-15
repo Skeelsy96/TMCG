@@ -69,6 +69,13 @@ export default function Layout({ children, currentPageName }) {
     })();
   }, []);
 
+  // Scroll to top on route change
+  useEffect(() => {
+    // If there's a hash, let the browser handle scrolling to the element
+    if (location.hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }, [location.pathname, location.search]);
+
   const navigation = [
   { name: 'Home', page: 'TMCGHome' },
   { name: 'New Van Packages', page: 'NewVans' },
