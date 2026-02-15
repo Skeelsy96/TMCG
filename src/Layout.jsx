@@ -99,7 +99,7 @@ export default function Layout({ children, currentPageName }) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" key={location.key}>
       <style>{`
         :root {
           --tmcg-yellow: #FDD202;
