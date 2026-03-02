@@ -56,11 +56,21 @@ export default function CompareVans() {
           <div className="text-center text-[#969696]">Loading models…</div>
         ) : (
           <>
-            <VanCompareSelector models={models} selectedIds={selectedIds} onChange={handleChange} />
+            <CompareFilters
+              filters={filters}
+              onChange={setFilters}
+              minPrice={Math.min(0, ...models.map((m) => priceOf(m) || 0))}
+              maxPrice={Math.max(30000, ...models.map((m) => priceOf(m) || 0))}
+              onClear={() => { setFilters({ size: "All", style: "All", price: [0, 300000] }); setSelectedIds(["", "", ""]); }}
+            />
+
+            <VanCompareSelector models={filteredModels} selectedIds={selectedIds} onChange={handleChange} />
             <CompareTable selectedModels={selectedModels} />
 
+            <VanTypeBreakdown />
+
             <div className="text-xs text-[#666] text-center">
-              Tip: You can edit comparison data anytime in the VanModel records (comparison section).
+              Tip: You can edit comparison and pricing data in VanModel (comparison section and fit_out_style).
             </div>
           </>
         )}
