@@ -4,9 +4,113 @@ import { createPageUrl } from '../utils';
 import { Search, Calendar, Clock, ArrowRight, TrendingUp } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { motion } from 'framer-motion';
 
 const RESOURCES_ARTICLES = [
+  {
+    id: 'complete-guide-buying-coffee-van',
+    title: 'The Complete Guide to Buying a Second-Hand Coffee Van',
+    excerpt: 'Everything you need to know before purchasing a used mobile coffee business, from inspections to financing.',
+    category: 'Buying Guide',
+    readTime: '8 min read',
+    date: '2025-01-15',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop',
+    featured: true,
+    vanTypes: ['Large Van', 'Walk-In Van'],
+    topics: ['Buying', 'Checklist', 'Due Diligence']
+  },
+  {
+    id: 'maximize-resale-value',
+    title: '7 Ways to Maximize Your Coffee Van Resale Value',
+    excerpt: 'Expert tips on maintaining and improving your van to get the best price when selling.',
+    category: 'Selling Tips',
+    readTime: '6 min read',
+    date: '2025-01-10',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop',
+    featured: true,
+    vanTypes: ['Compact Van', 'Large Van'],
+    topics: ['Selling', 'Maintenance', 'Preparation']
+  },
+  {
+    id: 'mobile-coffee-trends-2025',
+    title: 'Mobile Coffee Industry Trends for 2025',
+    excerpt: 'Stay ahead with insights into emerging trends shaping the mobile coffee business landscape.',
+    category: 'Industry News',
+    readTime: '5 min read',
+    date: '2025-01-05',
+    image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop',
+    featured: true,
+    vanTypes: ['All'],
+    topics: ['Trends', 'Sustainability', 'Technology']
+  },
+  {
+    id: 'coffee-van-inspection-checklist',
+    title: 'Coffee Van Inspection Checklist: What to Look For',
+    excerpt: 'A comprehensive checklist for evaluating a used coffee van before you buy.',
+    category: 'Buying Guide',
+    readTime: '10 min read',
+    date: '2024-12-28',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop',
+    vanTypes: ['SUV', 'Ute', 'Large Van'],
+    topics: ['Inspection', 'Buying', 'Checklist']
+  },
+  {
+    id: 'financing-options-coffee-van',
+    title: 'Financing Options for Your Coffee Van Purchase',
+    excerpt: 'Explore different ways to finance your mobile coffee business dream.',
+    category: 'Finance',
+    readTime: '7 min read',
+    date: '2024-12-20',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop',
+    vanTypes: ['All'],
+    topics: ['Finance', 'Loans', 'Leasing']
+  },
+  {
+    id: 'building-coffee-van-business',
+    title: 'How to Build a Successful Coffee Van Business',
+    excerpt: 'Essential strategies for running a profitable mobile coffee operation.',
+    category: 'Business Tips',
+    readTime: '12 min read',
+    date: '2024-12-15',
+    image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=800&auto=format&fit=crop',
+    vanTypes: ['All'],
+    topics: ['Operations', 'Marketing', 'Growth']
+  },
+  {
+    id: 'complete-van-package-guide',
+    title: 'The Complete Van Package Guide',
+    excerpt: 'Everything you need to know about choosing the right van package for your mobile coffee business.',
+    category: 'Buying Guide',
+    readTime: '10 min read',
+    date: '2025-01-20',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop',
+    vanTypes: ['Compact Van', 'Large Van', 'Walk-In Van'],
+    topics: ['Packages', 'Planning']
+  },
+  {
+    id: 'pylontech-battery-guide',
+    title: 'Pylontech Battery System: Complete Guide',
+    excerpt: 'Everything you need to know about Pylontech 48V lithium battery systems for mobile coffee vans.',
+    category: 'Equipment Guide',
+    readTime: '7 min read',
+    date: '2025-01-12',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop',
+    vanTypes: ['Compact Van', 'Large Van', 'Walk-In Van'],
+    topics: ['Power', 'Equipment', 'Sustainability']
+  },
+  {
+    id: 'carimali-nimble-guide',
+    title: 'Carimali Nimble Espresso Machine Guide',
+    excerpt: 'Master your Carimali Nimble espresso machine with this complete operation and maintenance guide.',
+    category: 'Equipment Guide',
+    readTime: '6 min read',
+    date: '2025-01-08',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop',
+    vanTypes: ['All'],
+    topics: ['Equipment', 'Barista', 'Maintenance']
+  }
+];
   {
     id: 'complete-guide-buying-coffee-van',
     title: 'The Complete Guide to Buying a Second-Hand Coffee Van',
@@ -66,17 +170,24 @@ const RESOURCES_ARTICLES = [
   },
 ];
 
-const CATEGORIES = ['All', 'Buying Guide', 'Selling Tips', 'Industry News', 'Finance', 'Business Tips'];
+const CATEGORIES = ['All', 'Buying Guide', 'Selling Tips', 'Industry News', 'Finance', 'Business Tips', 'Equipment Guide'];
 
 export default function ResourcesGuides() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedVanType, setSelectedVanType] = useState('All');
+  const [selectedTopic, setSelectedTopic] = useState('All');
+
+  const vanTypes = ['All', ...Array.from(new Set(RESOURCES_ARTICLES.flatMap(a => a.vanTypes || [])))];
+  const topics = ['All', ...Array.from(new Set(RESOURCES_ARTICLES.flatMap(a => a.topics || [])))];
 
   const filteredArticles = RESOURCES_ARTICLES.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || article.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesVan = selectedVanType === 'All' || (article.vanTypes || []).includes(selectedVanType) || selectedVanType === 'All';
+    const matchesTopic = selectedTopic === 'All' || (article.topics || []).includes(selectedTopic) || selectedTopic === 'All';
+    return matchesSearch && matchesCategory && matchesVan && matchesTopic;
   });
 
   const featuredArticles = RESOURCES_ARTICLES.filter(a => a.featured);
@@ -119,7 +230,7 @@ export default function ResourcesGuides() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-3 mb-12 justify-center">
+        <div className="flex flex-wrap gap-3 mb-6 justify-center">
           {CATEGORIES.map((category) => (
             <button
               key={category}
@@ -133,6 +244,36 @@ export default function ResourcesGuides() {
               {category}
             </button>
           ))}
+        </div>
+
+        {/* Advanced Filters */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-12">
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">Van Type</label>
+            <Select value={selectedVanType} onValueChange={setSelectedVanType}>
+              <SelectTrigger className="bg-white border-[#DBDBDB]">
+                <SelectValue placeholder="All Van Types" />
+              </SelectTrigger>
+              <SelectContent>
+                {vanTypes.map(v => (
+                  <SelectItem key={v} value={v}>{v}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">Topic</label>
+            <Select value={selectedTopic} onValueChange={setSelectedTopic}>
+              <SelectTrigger className="bg-white border-[#DBDBDB]">
+                <SelectValue placeholder="All Topics" />
+              </SelectTrigger>
+              <SelectContent>
+                {topics.map(t => (
+                  <SelectItem key={t} value={t}>{t}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* Featured Articles */}
@@ -243,6 +384,18 @@ export default function ResourcesGuides() {
               <p className="text-[#969696] text-lg">No articles found matching your search.</p>
             </div>
           )}
+        </section>
+
+        {/* Community CTA */}
+        <section className="mt-16">
+          <div className="bg-white border border-[#DBDBDB] rounded-2xl p-8 text-center">
+            <h3 className="text-2xl font-bold text-black mb-3">Share Your Van Build Story or Testimonial</h3>
+            <p className="text-[#333333] mb-6 max-w-2xl mx-auto">Inspire the community by sharing your journey, lessons learned, and photos of your setup. Selected stories may be featured.</p>
+            <Link to={createPageUrl('SubmitStory')} className="inline-flex items-center gap-2 bg-[#FDD202] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#f5c400] transition-colors">
+              Submit Your Story
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </section>
       </div>
     </div>
