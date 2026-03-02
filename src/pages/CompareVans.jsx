@@ -14,6 +14,7 @@ export default function CompareVans() {
   });
 
   const [selectedIds, setSelectedIds] = React.useState(["", "", ""]);
+  const [filters, setFilters] = React.useState({ size: "All", style: "All", price: [0, 300000] });
 
   const handleChange = (idx, id) => {
     setSelectedIds((prev) => {
