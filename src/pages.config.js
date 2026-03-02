@@ -92,6 +92,7 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
+import SubmitStory from './pages/SubmitStory';
 import __Layout from './Layout.jsx';
 
 
@@ -141,6 +142,7 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
+    "SubmitStory": SubmitStory,
 }
 
 export const pagesConfig = {
