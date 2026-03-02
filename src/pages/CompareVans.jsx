@@ -3,6 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import VanCompareSelector from "../components/compare/VanCompareSelector";
 import CompareTable from "../components/compare/CompareTable";
+import CompareFilters from "../components/compare/CompareFilters";
+import VanTypeBreakdown from "../components/compare/VanTypeBreakdown";
 
 export default function CompareVans() {
   const { data: models = [], isLoading } = useQuery({

@@ -65,6 +65,7 @@ import Checkout from './pages/Checkout';
 import ChooseListingPackage from './pages/ChooseListingPackage';
 import Classifieds from './pages/Classifieds';
 import CompactVan from './pages/CompactVan';
+import CompareVans from './pages/CompareVans';
 import Contact from './pages/Contact';
 import CustomVan from './pages/CustomVan';
 import EarlyBirdCoffee from './pages/EarlyBirdCoffee';
@@ -84,6 +85,7 @@ import PostEvent from './pages/PostEvent';
 import ProductDetail from './pages/ProductDetail';
 import Resources from './pages/Resources';
 import SUVFitOut from './pages/SUVFitOut';
+import SubmitStory from './pages/SubmitStory';
 import TMCGAbout from './pages/TMCGAbout';
 import TMCGContact from './pages/TMCGContact';
 import TMCGHome from './pages/TMCGHome';
@@ -92,8 +94,6 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
-import SubmitStory from './pages/SubmitStory';
-import CompareVans from './pages/CompareVans';
 import __Layout from './Layout.jsx';
 
 
@@ -116,6 +116,7 @@ export const PAGES = {
     "ChooseListingPackage": ChooseListingPackage,
     "Classifieds": Classifieds,
     "CompactVan": CompactVan,
+    "CompareVans": CompareVans,
     "Contact": Contact,
     "CustomVan": CustomVan,
     "EarlyBirdCoffee": EarlyBirdCoffee,
@@ -135,6 +136,7 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Resources": Resources,
     "SUVFitOut": SUVFitOut,
+    "SubmitStory": SubmitStory,
     "TMCGAbout": TMCGAbout,
     "TMCGContact": TMCGContact,
     "TMCGHome": TMCGHome,
@@ -143,8 +145,6 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
-    "SubmitStory": SubmitStory,
-    "CompareVans": CompareVans,
 }
 
 export const pagesConfig = {
