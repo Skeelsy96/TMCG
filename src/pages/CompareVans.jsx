@@ -24,7 +24,19 @@ export default function CompareVans() {
     });
   };
 
-  const selectedModels = models.filter((m) => selectedIds.includes(m.id));
+  const priceOf = (m) => m?.comparison?.pricing?.base_from_aud ?? Number.POSITIVE_INFINITY;
+
+  const filteredModels = React.useMemo(() => {
+    return models.filter((m) => {
+      const sizeOk = filters.size === "All" || m.package_type === filters.size || m.comparison?.size?.toLowerCase().replace(" ", "_") === filters.size;
+      const styleOk = filters.style === "All" || (m.fit_out_style || "other") === filters.style;
+      const p = priceOf(m);
+      const priceOk = p >= filters.price[0] && p <= filters.price[1];
+      return sizeOk && styleOk && priceOk;
+    });
+  }, [models, filters]);
+
+  const selectedModels = filteredModels.filter((m) => selectedIds.includes(m.id));
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
