@@ -111,64 +111,6 @@ const RESOURCES_ARTICLES = [
     topics: ['Equipment', 'Barista', 'Maintenance']
   }
 ];
-  {
-    id: 'complete-guide-buying-coffee-van',
-    title: 'The Complete Guide to Buying a Second-Hand Coffee Van',
-    excerpt: 'Everything you need to know before purchasing a used mobile coffee business, from inspections to financing.',
-    category: 'Buying Guide',
-    readTime: '8 min read',
-    date: '2025-01-15',
-    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop',
-    featured: true,
-  },
-  {
-    id: 'maximize-resale-value',
-    title: '7 Ways to Maximize Your Coffee Van Resale Value',
-    excerpt: 'Expert tips on maintaining and improving your van to get the best price when selling.',
-    category: 'Selling Tips',
-    readTime: '6 min read',
-    date: '2025-01-10',
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop',
-    featured: true,
-  },
-  {
-    id: 'mobile-coffee-trends-2025',
-    title: 'Mobile Coffee Industry Trends for 2025',
-    excerpt: 'Stay ahead with insights into emerging trends shaping the mobile coffee business landscape.',
-    category: 'Industry News',
-    readTime: '5 min read',
-    date: '2025-01-05',
-    image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop',
-    featured: true,
-  },
-  {
-    id: 'coffee-van-inspection-checklist',
-    title: 'Coffee Van Inspection Checklist: What to Look For',
-    excerpt: 'A comprehensive checklist for evaluating a used coffee van before you buy.',
-    category: 'Buying Guide',
-    readTime: '10 min read',
-    date: '2024-12-28',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'financing-options-coffee-van',
-    title: 'Financing Options for Your Coffee Van Purchase',
-    excerpt: 'Explore different ways to finance your mobile coffee business dream.',
-    category: 'Finance',
-    readTime: '7 min read',
-    date: '2024-12-20',
-    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'building-coffee-van-business',
-    title: 'How to Build a Successful Coffee Van Business',
-    excerpt: 'Essential strategies for running a profitable mobile coffee operation.',
-    category: 'Business Tips',
-    readTime: '12 min read',
-    date: '2024-12-15',
-    image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=800&auto=format&fit=crop',
-  },
-];
 
 const CATEGORIES = ['All', 'Buying Guide', 'Selling Tips', 'Industry News', 'Finance', 'Business Tips', 'Equipment Guide'];
 
