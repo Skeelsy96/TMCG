@@ -93,6 +93,7 @@ import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
 import SubmitStory from './pages/SubmitStory';
+import CompareVans from './pages/CompareVans';
 import __Layout from './Layout.jsx';
 
 
@@ -143,6 +144,7 @@ export const PAGES = {
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
     "SubmitStory": SubmitStory,
+    "CompareVans": CompareVans,
 }
 
 export const pagesConfig = {
