@@ -78,8 +78,7 @@ export default function Layout({ children, currentPageName }) {
 
   const navigation = [
   { name: 'Home', page: 'TMCGHome' },
-  { name: 'New Van Packages', page: 'NewVans' },
-  { name: 'Fit-Out Packages', page: 'FitOuts' },
+  { name: 'New Packages', page: 'NewPackages' },
   { name: 'Pre-Loved Vans', page: 'Classifieds' },
   { name: 'Early Bird Coffee', page: 'EarlyBirdCoffee' },
   { name: 'Events', page: 'Events' },

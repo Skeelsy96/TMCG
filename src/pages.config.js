@@ -94,6 +94,7 @@ import ValiantFinance from './pages/ValiantFinance';
 import VanConfigurator from './pages/VanConfigurator';
 import VanDetail from './pages/VanDetail';
 import WalkInVan from './pages/WalkInVan';
+import NewPackages from './pages/NewPackages';
 import __Layout from './Layout.jsx';
 
 
@@ -145,6 +146,7 @@ export const PAGES = {
     "VanConfigurator": VanConfigurator,
     "VanDetail": VanDetail,
     "WalkInVan": WalkInVan,
+    "NewPackages": NewPackages,
 }
 
 export const pagesConfig = {
