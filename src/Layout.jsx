@@ -307,8 +307,7 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h3 className="text-[#FDD202] font-semibold mb-4 text-sm">Van Packages</h3>
               <ul className="space-y-3 text-sm">
-                <li><Link to={createPageUrl('NewVans')} className="text-gray-400 hover:text-white transition-colors">New Van Packages</Link></li>
-                <li><Link to={createPageUrl('FitOuts')} className="text-gray-400 hover:text-white transition-colors">Fit-Out Packages</Link></li>
+                <li><Link to={createPageUrl('NewPackages')} className="text-gray-400 hover:text-white transition-colors">New Packages</Link></li>
                 <li><Link to={createPageUrl('Classifieds')} className="text-gray-400 hover:text-white transition-colors">Pre-Loved Vans</Link></li>
               </ul>
             </div>
