@@ -128,13 +128,13 @@ export default function TMCGHome() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#enquiry-form"
+              <Link
+                to={createPageUrl('VanConfigurator')}
                 className="inline-flex items-center justify-center gap-2 bg-[#FDD202] text-black px-8 py-4 rounded-full font-semibold hover:bg-[#f5c400] transition-all text-lg shadow-lg hover:shadow-xl"
               >
                 Design My Coffee Van
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
               <Link
                 to={createPageUrl('Classifieds')}
                 className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all text-lg"
