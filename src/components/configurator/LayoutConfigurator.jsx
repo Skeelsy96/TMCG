@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Coffee, Zap, Droplets, Box, Plus, Trash2, Move } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const AVAILABLE_APPLIANCES = [
   { id: 'espresso', name: 'Espresso Machine', icon: Coffee, width: 0.6, depth: 0.5, color: '#8B4513' },
@@ -12,12 +13,30 @@ const AVAILABLE_APPLIANCES = [
   { id: 'power-system', name: 'Power System', icon: Zap, width: 0.5, depth: 0.3, color: '#FFD700' },
 ];
 
+// Allowed layouts by fit-out style
+const ALLOWED_LAYOUTS_MAP = {
+  serve_from_rear: ['rear_bar', 'side_service'],
+  walk_in: ['walk_in_galley_left', 'walk_in_galley_right', 'u_shape'],
+  suv_ute: ['tray_service', 'pop_up_bar'],
+  other: ['rear_bar', 'side_service']
+};
+
+// Helpers to read numeric specs (expect mm for dimensions)
+function buildSpecMap(specs = []) { const map = {}; specs.forEach(s => { if (s?.key) map[s.key] = s; }); return map; }
+function mmToM(v) { return typeof v === 'number' ? v / 1000 : undefined; }
+
 export default function LayoutConfigurator({ configuration, updateConfiguration }) {
   const [placedAppliances, setPlacedAppliances] = useState(
     configuration.layout.appliances || []
   );
 
-  const vanDimensions = configuration.vanModel?.dimensions || { width: 2.0, length: 4.0 };
+  const specMap = buildSpecMap(configuration.vanModel?.comparison?.specifications);
+  const widthM = mmToM(specMap?.interior_width_mm?.numeric_value);
+  const lengthM = mmToM(specMap?.interior_length_mm?.numeric_value);
+  const vanDimensions = {
+    width: widthM || 2.0,
+    length: lengthM || 4.0,
+  };
   const scale = 80; // pixels per meter
 
   const containerRef = useRef(null);
@@ -122,6 +141,15 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
     );
   }
 
+  // Ensure a default layout type allowed by current fit_out_style
+  const allowedLayouts = ALLOWED_LAYOUTS_MAP[configuration.vanModel?.fit_out_style || 'other'] || ALLOWED_LAYOUTS_MAP.other;
+  if (!configuration.layout?.type || !allowedLayouts.includes(configuration.layout.type)) {
+    // Set default without causing render loops (only when mismatch)
+    if (configuration.layout?.type !== allowedLayouts[0]) {
+      updateConfiguration('layout', { type: allowedLayouts[0] });
+    }
+  }
+
   return (
     <div>
       <div className="text-center mb-8">
@@ -129,6 +157,24 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
         <p className="text-[#333333] text-lg max-w-2xl mx-auto">
           Add appliances to your van and position them
         </p>
+      </div>
+
+      {/* Layout Type Selector */}
+      <div className="bg-white rounded-2xl p-6 border border-[#DBDBDB] mb-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
+          <div className="font-semibold text-black">Layout Type</div>
+          <Select value={configuration.layout?.type || allowedLayouts[0]} onValueChange={(v) => updateConfiguration('layout', { type: v })}>
+            <SelectTrigger className="w-full md:w-72 bg-white border-[#DBDBDB]">
+              <SelectValue placeholder="Select layout" />
+            </SelectTrigger>
+            <SelectContent>
+              {allowedLayouts.map((l) => (
+                <SelectItem key={l} value={l}>{l.replaceAll('_', ' ')}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <div className="text-xs text-[#666]">Allowed for: {(configuration.vanModel?.fit_out_style || 'other').replaceAll('_',' ')}</div>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">

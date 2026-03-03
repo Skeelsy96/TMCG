@@ -3,118 +3,120 @@ import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 
-const VAN_OPTIONS = [
-  {
-    id: 'Compact-Van',
-    name: 'Compact Van',
-    baseModel: 'VW Caddy / Renault Kangoo',
-    dimensions: { width: 1.8, length: 2.5 },
-    price: '65,000',
-    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/220ee09c6_SUV7.jpg',
-    features: ['50-100 coffees/day', 'Perfect for tight spaces', 'Low running costs']
-  },
-  {
-    id: 'Large-Van',
-    name: 'Large Van',
-    baseModel: 'LDV G10+ / Mercedes Vito',
-    dimensions: { width: 2.0, length: 4.0 },
-    price: '145,000',
-    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/1460956e5_ServeFromRearVans7.png',
-    features: ['150-300 coffees/day', 'Multi-barista setup', 'Event ready']
-  },
-  {
-    id: 'Walk-In Van',
-    name: 'Walk-In Van',
-    baseModel: 'LDV Deliver 9 / Ford Transit',
-    dimensions: { width: 2.4, length: 5.0 },
-    price: '195,000',
-    image: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693903e46b0f433668f86195/062a79d1b_ProductionFit-out4.jpg',
-    features: ['300+ coffees/day', 'Full interior access', 'Premium events']
-  }
-];
+function currencyAud(n) {
+  if (typeof n !== 'number') return '';
+  try { return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n); } catch { return `$${n}`; }
+}
+
+function getSpec(map, key) { return map[key]; }
+function buildSpecMap(specs = []) {
+  const map = {};
+  specs.forEach(s => { if (s?.key) map[s.key] = s; });
+  return map;
+}
 
 export default function VanSelector({ configuration, updateConfiguration }) {
-  const [priceMap, setPriceMap] = useState({});
+  const [models, setModels] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    let isMounted = true;
+    let mounted = true;
     (async () => {
-      try {
-        const list = await base44.entities.VanFitOutPriceList.list();
-        const map = {};
-        list.forEach(item => {
-          const key = item.van_id || item.code || item.name;
-          if (!key) return;
-          if (typeof item.base_price_aud === 'number') map[key] = item.base_price_aud;
-        });
-        if (isMounted) setPriceMap(map);
-      } catch (e) {}
+      const list = await base44.entities.VanModel.filter({ is_active: true }, 'order', 100);
+      if (mounted) {
+        setModels(list);
+        setLoading(false);
+      }
     })();
-    return () => { isMounted = false; };
+    return () => { mounted = false; };
   }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center py-12 text-[#969696]">Loading available vans…</div>
+    );
+  }
+
   return (
     <div>
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-black mb-4">Choose Your Base Van</h2>
         <p className="text-[#333333] text-lg max-w-2xl mx-auto">
-          Select the van size that best suits your business goals and target market
+          Select the exact model to drive pricing, dimensions and allowed layouts
         </p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8">
-        {VAN_OPTIONS.map((van, index) => (
-          <motion.button
-            key={van.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            onClick={() => updateConfiguration('vanModel', van)}
-            className={`relative bg-white rounded-2xl overflow-hidden border-2 transition-all text-left ${
-              configuration.vanModel?.id === van.id
-                ? 'border-[#FDD202] shadow-xl scale-[1.02]'
-                : 'border-[#DBDBDB] hover:border-[#969696]'
-            }`}
-          >
-            {configuration.vanModel?.id === van.id && (
-              <div className="absolute top-4 right-4 w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center z-10">
-                <Check className="w-6 h-6 text-black" />
-              </div>
-            )}
+        {models.map((m, index) => {
+          const specs = buildSpecMap(m?.comparison?.specifications);
+          const widthMm = getSpec(specs, 'interior_width_mm')?.numeric_value;
+          const lengthMm = getSpec(specs, 'interior_length_mm')?.numeric_value;
+          const widthM = typeof widthMm === 'number' ? (widthMm / 1000).toFixed(2) : null;
+          const lengthM = typeof lengthMm === 'number' ? (lengthMm / 1000).toFixed(2) : null;
+          const price = m?.comparison?.pricing?.base_from_aud;
 
-            <div className="relative h-64">
-              <img
-                src={van.image}
-                alt={van.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-3xl font-bold text-white mb-1">{van.name}</h3>
-                <p className="text-white/90 text-sm">{van.baseModel}</p>
-              </div>
-            </div>
-
-            <div className="p-8">
-              <div className="mb-4">
-                <div className="text-3xl font-bold text-black mb-1">
-                  ${priceMap[van.id] ? priceMap[van.id].toLocaleString() : van.price}
-                  <span className="text-sm text-[#969696] font-normal ml-2">+ GST</span>
+          return (
+            <motion.button
+              key={m.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              onClick={() => updateConfiguration('vanModel', m)}
+              className={`relative bg-white rounded-2xl overflow-hidden border-2 transition-all text-left ${
+                configuration.vanModel?.id === m.id
+                  ? 'border-[#FDD202] shadow-xl scale-[1.02]'
+                  : 'border-[#DBDBDB] hover:border-[#969696]'
+              }`}
+            >
+              {configuration.vanModel?.id === m.id && (
+                <div className="absolute top-4 right-4 w-10 h-10 bg-[#FDD202] rounded-full flex items-center justify-center z-10">
+                  <Check className="w-6 h-6 text-black" />
                 </div>
-                <div className="text-sm text-[#969696]">
-                  Interior: {van.dimensions.width}m × {van.dimensions.length}m
+              )}
+
+              <div className="relative h-64">
+                {m.image_url && (
+                  <img src={m.image_url} alt={m.name} className="w-full h-full object-cover" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-3xl font-bold text-white mb-1">{m.name}</h3>
+                  <div className="text-white/90 text-sm flex gap-2 items-center">
+                    <span className="px-2 py-0.5 bg-[#FDD202] text-black rounded">{(m.package_type || '').replace('_',' ')}</span>
+                    {m.fit_out_style && (
+                      <span className="px-2 py-0.5 bg-white/20 text-white rounded">{m.fit_out_style.replaceAll('_',' ')}</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <ul className="space-y-2">
-                {van.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-base text-[#333333]">
-                    <Check className="w-4 h-4 text-[#FDD202] flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.button>
-        ))}
+              <div className="p-8">
+                <div className="mb-4">
+                  <div className="text-3xl font-bold text-black mb-1">
+                    {price ? currencyAud(price) : ''}
+                    {price && <span className="text-sm text-[#969696] font-normal ml-2">+ GST</span>}
+                  </div>
+                  {(widthM || lengthM) && (
+                    <div className="text-sm text-[#969696]">
+                      Interior: {widthM || '—'}m × {lengthM || '—'}m
+                    </div>
+                  )}
+                </div>
+
+                {(m.comparison?.features || []).length > 0 && (
+                  <ul className="space-y-2">
+                    {(m.comparison.features || []).slice(0, 4).map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-base text-[#333333]">
+                        <Check className="w-4 h-4 text-[#FDD202] flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </motion.button>
+          );
+        })}
       </div>
 
       {configuration.vanModel && (
