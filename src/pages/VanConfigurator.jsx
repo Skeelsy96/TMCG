@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { base44 } from '@/api/base44Client';
-import VanSelector from '../components/configurator/VanSelector';
+import VanSelector from '../components/configurator/VanSelector.jsx';
 import LayoutConfigurator from '../components/configurator/LayoutConfigurator';
 import MaterialsSelector from '../components/configurator/MaterialsSelector';
 import BrandingSelector from '../components/configurator/BrandingSelector';

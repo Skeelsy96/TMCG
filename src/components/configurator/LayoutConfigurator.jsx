@@ -141,14 +141,15 @@ export default function LayoutConfigurator({ configuration, updateConfiguration 
     );
   }
 
-  // Ensure a default layout type allowed by current fit_out_style
   const allowedLayouts = ALLOWED_LAYOUTS_MAP[configuration.vanModel?.fit_out_style || 'other'] || ALLOWED_LAYOUTS_MAP.other;
-  if (!configuration.layout?.type || !allowedLayouts.includes(configuration.layout.type)) {
-    // Set default without causing render loops (only when mismatch)
-    if (configuration.layout?.type !== allowedLayouts[0]) {
-      updateConfiguration('layout', { type: allowedLayouts[0] });
+
+  React.useEffect(() => {
+    const list = ALLOWED_LAYOUTS_MAP[configuration.vanModel?.fit_out_style || 'other'] || ALLOWED_LAYOUTS_MAP.other;
+    if (!configuration.layout?.type || !list.includes(configuration.layout.type)) {
+      updateConfiguration('layout', { type: list[0] });
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configuration.vanModel?.fit_out_style]);
 
   return (
     <div>
