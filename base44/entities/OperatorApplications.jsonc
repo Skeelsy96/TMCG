@@ -1,0 +1,121 @@
+{
+  "name": "OperatorApplications",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string",
+      "description": "Coffee van business name"
+    },
+    "operator_name": {
+      "type": "string",
+      "description": "Owner/operator name"
+    },
+    "bio": {
+      "type": "string",
+      "description": "About the business"
+    },
+    "van_description": {
+      "type": "string",
+      "description": "Van details"
+    },
+    "years_in_business": {
+      "type": "number",
+      "description": "Years operating"
+    },
+    "services_offered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Services provided"
+    },
+    "event_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Event types serviced"
+    },
+    "location": {
+      "type": "string",
+      "description": "Primary location"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NSW",
+        "VIC",
+        "QLD",
+        "SA",
+        "WA",
+        "TAS",
+        "NT",
+        "ACT"
+      ],
+      "description": "Operating state"
+    },
+    "coverage_area": {
+      "type": "string",
+      "description": "Service coverage area"
+    },
+    "profile_image": {
+      "type": "string",
+      "description": "Main van photo URL"
+    },
+    "gallery_images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Gallery photo URLs"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Contact phone"
+    },
+    "website": {
+      "type": "string",
+      "description": "Website URL"
+    },
+    "social_instagram": {
+      "type": "string",
+      "description": "Instagram handle"
+    },
+    "social_facebook": {
+      "type": "string",
+      "description": "Facebook page"
+    },
+    "built_by_tmcg": {
+      "type": "boolean",
+      "default": false,
+      "description": "Van built by TMCG"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending",
+      "description": "Application status"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "Admin review notes"
+    }
+  },
+  "required": [
+    "business_name",
+    "operator_name",
+    "bio",
+    "location",
+    "state",
+    "contact_email",
+    "contact_phone"
+  ]
+}

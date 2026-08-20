@@ -1,0 +1,245 @@
+{
+  "name": "PreLovedVanListings",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Listing title"
+    },
+    "price": {
+      "type": "number",
+      "description": "Asking price in AUD"
+    },
+    "location": {
+      "type": "string",
+      "description": "City/State location"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NSW",
+        "VIC",
+        "QLD",
+        "SA",
+        "WA",
+        "TAS",
+        "NT",
+        "ACT"
+      ],
+      "description": "Australian state"
+    },
+    "Vehicle_type": {
+      "type": "string",
+      "enum": [
+        "Trailer",
+        "Van",
+        "Truck",
+        "Ute",
+        "SUV",
+        "Cart"
+      ],
+      "description": "Type of mobile coffee vehicle"
+    },
+    "set_up_style": {
+      "type": "string",
+      "description": "Set-Up and Fit-Out Configuration",
+      "enum": [
+        "Serve From Rear",
+        "Serve From Side",
+        "Walk-in"
+      ],
+      "conditionalOptions": {
+        "Trailer": [
+          "Serve From Rear",
+          "Serve From Side",
+          "Walk-in"
+        ],
+        "Van": [
+          "Serve From Rear",
+          "Walk-in"
+        ],
+        "Truck": [
+          "Serve From Side",
+          "Serve From Rear",
+          "Walk-In"
+        ]
+      },
+      "showWhen": {
+        "Vehicle_type": [
+          "Trailer",
+          "Van",
+          "Truck"
+        ]
+      }
+    },
+    "trailer_type": {
+      "type": "string",
+      "description": "Trailer Type and Configuration",
+      "enum": [
+        "Single-Axle Trailer",
+        "Dual-Axle Trailer"
+      ],
+      "showWhen": {
+        "Vehicle_type": "Trailer"
+      }
+    },
+    "van_type": {
+      "type": "string",
+      "description": "Type of Van",
+      "enum": [
+        "Compact Van",
+        "Large Van",
+        "Extra Large - LWB/HR Van"
+      ],
+      "showWhen": {
+        "Vehicle_type": "Van"
+      }
+    },
+    "truck_body_type": {
+      "type": "string",
+      "description": "Type of Truck",
+      "enum": [
+        "Mini Truck",
+        "Vintage Truck",
+        "Extra Large Truck"
+      ],
+      "showWhen": {
+        "Vehicle_type": "Truck"
+      }
+    },
+    "Vehicle_Make": {
+      "type": "string",
+      "description": "Vehicle Make"
+    },
+    "Vehicle_Model": {
+      "type": "string",
+      "description": "Vehicle Model"
+    },
+    "year_built": {
+      "type": "number",
+      "description": "Year the vehicle was manufactured"
+    },
+    "year_fitout": {
+      "type": "number",
+      "description": "Year the fit-out was installed"
+    },
+    "Kms": {
+      "type": "number",
+      "description": "Odometer reading in kilometres"
+    },
+    "condition": {
+      "type": "string",
+      "enum": [
+        "excellent",
+        "good",
+        "fair"
+      ],
+      "description": "Overall condition"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the van (core part of the ad)"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Key features and equipment"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords and tags to improve searchability"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Image URLs"
+    },
+    "main_image": {
+      "type": "string",
+      "description": "Primary listing image URL"
+    },
+    "power_source": {
+      "type": "string",
+      "enum": [
+        "Generator",
+        "Battery",
+        "Gas/LPG",
+        "Hybrid"
+      ],
+      "description": "Power Source"
+    },
+    "water_system_type": {
+      "type": "string",
+      "enum": [
+        "Hot and Cold Water",
+        "Cold Water"
+      ],
+      "description": "Type of Water System"
+    },
+    "seller_name": {
+      "type": "string",
+      "description": "Seller's name"
+    },
+    "seller_phone": {
+      "type": "string",
+      "description": "Seller's contact phone"
+    },
+    "seller_email": {
+      "type": "string",
+      "description": "Seller's email"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "sold",
+        "expired"
+      ],
+      "default": "pending",
+      "description": "Listing status"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this a featured listing"
+    },
+    "built_by_tmcg": {
+      "type": "boolean",
+      "default": false,
+      "description": "Verified as built by The Mobile Coffee Group"
+    },
+    "views": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of views"
+    }
+  },
+  "required": [
+    "title",
+    "price",
+    "state",
+    "description"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "RawLeadSheetConfig",
+  "type": "object",
+  "properties": {
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Google Sheets spreadsheet ID for raw leads"
+    },
+    "sheet_title": {
+      "type": "string",
+      "description": "Sheet/tab title for raw data"
+    }
+  },
+  "required": [
+    "spreadsheet_id",
+    "sheet_title"
+  ]
+}

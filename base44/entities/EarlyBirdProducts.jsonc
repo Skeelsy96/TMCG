@@ -1,0 +1,64 @@
+{
+  "name": "EarlyBirdProducts",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Product name"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Coffee",
+        "Chai",
+        "Hot Chocolate",
+        "Syrup",
+        "Equipment",
+        "Supplies"
+      ],
+      "description": "Product category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Product description"
+    },
+    "full_description": {
+      "type": "string",
+      "description": "Detailed product description"
+    },
+    "image": {
+      "type": "string",
+      "description": "Main product image URL"
+    },
+    "size_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "description": "Available sizes and prices"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Featured product"
+    },
+    "in_stock": {
+      "type": "boolean",
+      "default": true,
+      "description": "Product availability"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "description"
+  ]
+}

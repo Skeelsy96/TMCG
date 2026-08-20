@@ -1,0 +1,64 @@
+{
+  "name": "FeedbackSubmissions",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "bug_report",
+        "feature_request",
+        "complaint",
+        "compliment",
+        "general"
+      ],
+      "description": "Type of feedback"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Feedback subject"
+    },
+    "message": {
+      "type": "string",
+      "description": "Feedback message"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "User email"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Admin assigned priority"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "in_review",
+        "resolved",
+        "closed"
+      ],
+      "default": "new",
+      "description": "Feedback status"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "Admin internal notes"
+    },
+    "related_entity": {
+      "type": "string",
+      "description": "Related entity (event, operator, etc.)"
+    }
+  },
+  "required": [
+    "type",
+    "subject",
+    "message"
+  ]
+}

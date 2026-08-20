@@ -1,0 +1,32 @@
+{
+  "name": "VanFitOutPriceList",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Item or package name"
+    },
+    "van_id": {
+      "type": "string",
+      "description": "Identifier matching configurator IDs (e.g., Compact-Van, Large-Van, Walk-In Van)"
+    },
+    "base_price_aud": {
+      "type": "number",
+      "description": "Base package price in AUD"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related IDs (e.g., package IDs)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes or pricing details"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

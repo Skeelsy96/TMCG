@@ -1,0 +1,45 @@
+{
+  "name": "VanFitOutInclusionsList",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Inclusion name"
+    },
+    "van_type": {
+      "type": "string",
+      "enum": [
+        "compact",
+        "large",
+        "walk_in"
+      ],
+      "description": "Which van package this inclusion applies to"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "appliances",
+        "power",
+        "water_waste",
+        "barista_kit"
+      ],
+      "description": "Inclusion category"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related package IDs"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Details about the inclusion"
+    }
+  },
+  "required": [
+    "name",
+    "van_type",
+    "category"
+  ]
+}

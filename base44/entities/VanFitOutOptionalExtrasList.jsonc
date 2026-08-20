@@ -1,0 +1,28 @@
+{
+  "name": "VanFitOutOptionalExtrasList",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Optional extra name"
+    },
+    "price_aud": {
+      "type": "number",
+      "description": "Additional price in AUD"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related package IDs"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Details about the extra"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

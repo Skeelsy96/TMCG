@@ -1,0 +1,63 @@
+{
+  "name": "EventApplications",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Reference to EventPosting"
+    },
+    "operator_profile_id": {
+      "type": "string",
+      "description": "Reference to OperatorProfile"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Operator business name"
+    },
+    "operator_email": {
+      "type": "string",
+      "description": "Operator contact email"
+    },
+    "operator_phone": {
+      "type": "string",
+      "description": "Operator contact phone"
+    },
+    "proposed_price": {
+      "type": "number",
+      "description": "Proposed price for the service"
+    },
+    "message": {
+      "type": "string",
+      "description": "Application message/pitch"
+    },
+    "experience_description": {
+      "type": "string",
+      "description": "Relevant experience for this event"
+    },
+    "equipment_details": {
+      "type": "string",
+      "description": "Equipment that will be used"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "accepted",
+        "rejected",
+        "withdrawn"
+      ],
+      "default": "pending",
+      "description": "Application status"
+    },
+    "organizer_notes": {
+      "type": "string",
+      "description": "Notes from event organizer"
+    }
+  },
+  "required": [
+    "event_id",
+    "business_name",
+    "operator_email",
+    "message"
+  ]
+}

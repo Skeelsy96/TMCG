@@ -1,0 +1,59 @@
+{
+  "name": "PreLovedVanListingPackages",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "enum": [
+        "basic",
+        "premium",
+        "vip"
+      ],
+      "description": "Unique package code"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "price_aud": {
+      "type": "number",
+      "description": "Price in AUD"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Included features"
+    },
+    "featured_duration_days": {
+      "type": "number",
+      "description": "Days the listing is featured (0 if none)",
+      "default": 0
+    },
+    "social_promotion": {
+      "type": "string",
+      "description": "Type of social promotion (if any)",
+      "default": "none"
+    },
+    "listing_count": {
+      "type": "number",
+      "description": "How many listings included",
+      "default": 1
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether package is available"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "price_aud"
+  ]
+}

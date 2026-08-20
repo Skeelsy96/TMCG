@@ -1,0 +1,24 @@
+{
+  "name": "VanConfiguratorImagesList",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Configurator image name"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related product IDs"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes or details"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

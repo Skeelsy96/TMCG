@@ -1,0 +1,118 @@
+{
+  "name": "EventPosts",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Event title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed event description"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "Corporate",
+        "Private Function",
+        "Market/Festival",
+        "Sports Event",
+        "Wedding",
+        "Other"
+      ],
+      "description": "Type of event"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the event"
+    },
+    "event_time": {
+      "type": "string",
+      "description": "Time of the event"
+    },
+    "duration_hours": {
+      "type": "number",
+      "description": "Expected duration in hours"
+    },
+    "location": {
+      "type": "string",
+      "description": "Event location/venue"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NSW",
+        "VIC",
+        "QLD",
+        "SA",
+        "WA",
+        "TAS",
+        "NT",
+        "ACT"
+      ],
+      "description": "Australian state"
+    },
+    "expected_attendees": {
+      "type": "number",
+      "description": "Expected number of attendees"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Budget for coffee service"
+    },
+    "specific_requirements": {
+      "type": "string",
+      "description": "Specific requirements or requests"
+    },
+    "services_needed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Services needed (e.g., Espresso, Cold Brew, etc.)"
+    },
+    "organizer_name": {
+      "type": "string",
+      "description": "Event organizer name"
+    },
+    "organizer_email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "organizer_phone": {
+      "type": "string",
+      "description": "Contact phone"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_review",
+        "booked",
+        "completed",
+        "cancelled"
+      ],
+      "default": "open",
+      "description": "Event status"
+    },
+    "selected_operator_id": {
+      "type": "string",
+      "description": "ID of selected operator"
+    },
+    "applications_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of applications received"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "event_date",
+    "location",
+    "state",
+    "organizer_name",
+    "organizer_email"
+  ]
+}

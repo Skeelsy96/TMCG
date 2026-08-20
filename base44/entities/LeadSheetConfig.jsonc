@@ -1,0 +1,18 @@
+{
+  "name": "LeadSheetConfig",
+  "type": "object",
+  "properties": {
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Google Sheets spreadsheet ID for leads"
+    },
+    "sheet_title": {
+      "type": "string",
+      "description": "Sheet/tab title"
+    }
+  },
+  "required": [
+    "spreadsheet_id",
+    "sheet_title"
+  ]
+}

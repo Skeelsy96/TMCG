@@ -1,0 +1,115 @@
+{
+  "name": "VanModel",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name of the van model (e.g., VW Caddy)"
+    },
+    "package_type": {
+      "type": "string",
+      "enum": [
+        "compact",
+        "large",
+        "walk_in"
+      ],
+      "description": "Which package this model belongs to"
+    },
+    "fit_out_style": {
+      "type": "string",
+      "enum": [
+        "serve_from_rear",
+        "walk_in",
+        "suv_ute",
+        "other"
+      ],
+      "description": "Fit-out style used for comparisons and filtering (e.g., Serve-from-Rear, Walk-In, SUV/Ute)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "If false, hide from lists"
+    },
+    "order": {
+      "type": "number",
+      "default": 0,
+      "description": "Order for display sorting (ascending)"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Optional image to display for this model"
+    },
+    "comparison": {
+      "type": "object",
+      "description": "Data used by the Compare Vans tool and Configurator",
+      "properties": {
+        "size": {
+          "type": "string",
+          "description": "Van size label shown in comparisons (e.g., Compact, Large, Walk-In)"
+        },
+        "specifications": {
+          "type": "array",
+          "description": "Key technical specifications to compare and drive configurator constraints",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "Machine-readable key (e.g., interior_width_mm, bench_width_mm)"
+              },
+              "label": {
+                "type": "string",
+                "description": "Human-friendly label"
+              },
+              "unit": {
+                "type": "string",
+                "description": "Unit symbol/name (e.g., mm, kg)"
+              },
+              "numeric_value": {
+                "type": "number",
+                "description": "Numeric value for calculations (use mm for dimensions)"
+              },
+              "value": {
+                "type": "string",
+                "description": "Optional formatted display value"
+              }
+            },
+            "required": [
+              "key",
+              "label"
+            ]
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "Feature highlights for comparison",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "description": "Pricing details for comparison/configurator display",
+          "properties": {
+            "base_from_aud": {
+              "type": "number",
+              "description": "Base price (from) in AUD"
+            },
+            "notes": {
+              "type": "string",
+              "description": "Any pricing notes or qualifiers"
+            }
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes"
+    }
+  },
+  "required": [
+    "name",
+    "package_type"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "PreLovedVanImages",
+  "type": "object",
+  "properties": {
+    "coffee_van_id": {
+      "type": "string",
+      "description": "ID of the CoffeeVan listing"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "Public URL of the uploaded image"
+    },
+    "caption": {
+      "type": "string",
+      "description": "Optional image caption/alt"
+    },
+    "is_main": {
+      "type": "boolean",
+      "default": false,
+      "description": "Marks this image as the main listing image"
+    },
+    "order": {
+      "type": "number",
+      "default": 0,
+      "description": "Order for gallery display"
+    }
+  },
+  "required": [
+    "coffee_van_id",
+    "file_url"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}
